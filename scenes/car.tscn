@@ -1,0 +1,143 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/car.gd" id="1"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/player_driver.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/car_feedback.gd" id="4"]
+
+[sub_resource type="CylinderShape3D" id="Collision"]
+resource_local_to_scene = true
+height = 1.2
+radius = 0.76
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.055, 0.07, 0.10, 1)
+roughness = 0.8
+[sub_resource type="StandardMaterial3D" id="Light"]
+albedo_color = Color(1, 0.91, 0.65, 1)
+emission_enabled = true
+emission = Color(0.7, 0.45, 0.12, 1)
+[sub_resource type="StandardMaterial3D" id="Mint"]
+albedo_color = Color(0.35, 1, 0.78, 1)
+emission_enabled = true
+emission = Color(0.1, 0.5, 0.3, 1)
+[sub_resource type="BoxMesh" id="BodyMesh"]
+size = Vector3(1.25, 0.5, 1.65)
+[sub_resource type="BoxMesh" id="HoodMesh"]
+size = Vector3(0.9, 0.38, 0.75)
+[sub_resource type="CylinderMesh" id="WheelMesh"]
+material = SubResource("Dark")
+top_radius = 0.29
+bottom_radius = 0.29
+height = 0.24
+radial_segments = 12
+[sub_resource type="BoxMesh" id="EyeMesh"]
+material = SubResource("Light")
+size = Vector3(0.23, 0.12, 0.04)
+[sub_resource type="TorusMesh" id="RingMesh"]
+material = SubResource("Mint")
+inner_radius = 0.9
+outer_radius = 0.98
+rings = 24
+ring_segments = 6
+[sub_resource type="BoxMesh" id="PaperMesh"]
+size = Vector3(0.12, 0.025, 0.08)
+[sub_resource type="SphereMesh" id="TrailMesh"]
+material = SubResource("Mint")
+radius = 0.07
+height = 0.14
+radial_segments = 6
+rings = 3
+[sub_resource type="AnimationLibrary" id="Animations"]
+
+[node name="Car" type="CharacterBody3D" groups=["vehicles"]]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1")
+tuning = ExtResource("2")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.6, 0)
+shape = SubResource("Collision")
+
+[node name="GrowthRoot" type="Node3D" parent="."]
+[node name="HitPivot" type="Node3D" parent="GrowthRoot"]
+[node name="Model" type="Node3D" parent="GrowthRoot/HitPivot"]
+[node name="Body" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(0, 0.55, 0)
+mesh = SubResource("BodyMesh")
+[node name="Hood" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(0, 0.95, 0.13)
+mesh = SubResource("HoodMesh")
+[node name="WheelFL" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(-0.68, 0.3, -0.5)
+rotation = Vector3(0, 0, 1.570796)
+mesh = SubResource("WheelMesh")
+[node name="WheelFR" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(0.68, 0.3, -0.5)
+rotation = Vector3(0, 0, 1.570796)
+mesh = SubResource("WheelMesh")
+[node name="WheelBL" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(-0.68, 0.3, 0.5)
+rotation = Vector3(0, 0, 1.570796)
+mesh = SubResource("WheelMesh")
+[node name="WheelBR" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(0.68, 0.3, 0.5)
+rotation = Vector3(0, 0, 1.570796)
+mesh = SubResource("WheelMesh")
+[node name="EyeL" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(-0.32, 0.62, -0.845)
+rotation = Vector3(0, 0, -0.18)
+mesh = SubResource("EyeMesh")
+[node name="EyeR" type="MeshInstance3D" parent="GrowthRoot/HitPivot/Model"]
+position = Vector3(0.32, 0.62, -0.845)
+rotation = Vector3(0, 0, 0.18)
+mesh = SubResource("EyeMesh")
+
+[node name="PlayerRing" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.03, 0)
+mesh = SubResource("RingMesh")
+[node name="NameLabel" type="Label3D" parent="."]
+position = Vector3(0, 1.8, 0)
+billboard = 1
+no_depth_test = true
+font_size = 48
+outline_size = 10
+pixel_size = 0.014
+text = "CAR · 20"
+
+[node name="Driver" type="Node3D" parent="."]
+script = ExtResource("3")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {&"": SubResource("Animations")}
+[node name="Feedback" type="Node3D" parent="."]
+script = ExtResource("4")
+[node name="PaperParticles" type="CPUParticles3D" parent="Feedback"]
+position = Vector3(0, 0.6, 0)
+emitting = false
+amount = 26
+lifetime = 0.65
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("PaperMesh")
+direction = Vector3(0, 1, 0)
+spread = 90.0
+gravity = Vector3(0, -12, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+[node name="SpeedTrail" type="CPUParticles3D" parent="Feedback"]
+position = Vector3(0, 0.25, 0)
+emitting = false
+amount = 20
+lifetime = 0.3
+mesh = SubResource("TrailMesh")
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.7
+scale_amount_min = 0.2
+scale_amount_max = 1.0
+[node name="Sound" type="AudioStreamPlayer" parent="Feedback"]

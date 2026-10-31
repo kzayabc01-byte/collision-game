@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3]
+[ext_resource type="PackedScene" path="res://scenes/solid_wall.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/candy_obstacle.tscn" id="2"]
+[ext_resource type="Shader" path="res://assets/arena_grid.gdshader" id="3"]
+[sub_resource type="ShaderMaterial" id="FloorMaterial"]
+shader = ExtResource("3")
+[sub_resource type="BoxMesh" id="FloorMesh"]
+material = SubResource("FloorMaterial")
+size = Vector3(41, 0.4, 29)
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(41, 0.4, 29)
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.035, 0.047, 0.07, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.73, 0.82, 1, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 2
+[sub_resource type="StandardMaterial3D" id="CenterMaterial"]
+albedo_color = Color(0.25, 0.67, 0.58, 1)
+emission_enabled = true
+emission = Color(0.025, 0.08, 0.06, 1)
+[sub_resource type="TorusMesh" id="CenterRing"]
+material = SubResource("CenterMaterial")
+inner_radius = 4.45
+outer_radius = 4.52
+rings = 64
+ring_segments = 6
+
+[node name="Arena" type="Node3D"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-1.05, -0.45, 0)
+light_color = Color(1, 0.87, 0.72, 1)
+light_energy = 1.3
+shadow_enabled = true
+directional_shadow_max_distance = 80.0
+[node name="Ground" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.2, 0)
+collision_layer = 4
+collision_mask = 0
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("FloorShape")
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("FloorMesh")
+[node name="CenterRing" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.025, 0)
+mesh = SubResource("CenterRing")
+[node name="SolidWalls" type="Node3D" parent="."]
+[node name="North" parent="SolidWalls" instance=ExtResource("1")]
+position = Vector3(0, 0, -14)
+scale = Vector3(41, 1, 1)
+[node name="South" parent="SolidWalls" instance=ExtResource("1")]
+position = Vector3(0, 0, 14)
+scale = Vector3(41, 1, 1)
+[node name="West" parent="SolidWalls" instance=ExtResource("1")]
+position = Vector3(-20, 0, 0)
+scale = Vector3(1, 1, 27)
+[node name="East" parent="SolidWalls" instance=ExtResource("1")]
+position = Vector3(20, 0, 0)
+scale = Vector3(1, 1, 27)
+[node name="PillarNW" parent="SolidWalls" instance=ExtResource("1")]
+position = Vector3(-5.5, 0, -2)
+scale = Vector3(1.6, 1, 2.4)
+[node name="PillarSE" parent="SolidWalls" instance=ExtResource("1")]
+position = Vector3(5.5, 0, 2)
+scale = Vector3(1.6, 1, 2.4)
+
+[node name="CandyObstacles" type="Node3D" parent="."]
+[node name="Crate01" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-12, 0, -6.5)
+[node name="Crate02" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-8, 0, -6.5)
+[node name="Crate03" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-3, 0, -7)
+[node name="Crate04" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(3, 0, -7)
+[node name="Crate05" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(8, 0, -6.5)
+[node name="Crate06" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(12, 0, -6.5)
+[node name="Crate07" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-12, 0, 6.5)
+[node name="Crate08" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-8, 0, 6.5)
+[node name="Crate09" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-3, 0, 7)
+[node name="Crate10" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(3, 0, 7)
+[node name="Crate11" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(8, 0, 6.5)
+[node name="Crate12" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(12, 0, 6.5)
+[node name="Crate13" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-12, 0, 0)
+[node name="Crate14" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(12, 0, 0)
+[node name="Crate15" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(-2, 0, 0)
+[node name="Crate16" parent="CandyObstacles" instance=ExtResource("2")]
+position = Vector3(2, 0, 0)
+
+[node name="VehicleSpawnPoints" type="Node3D" parent="."]
+[node name="PlayerSpawn" type="Marker3D" parent="VehicleSpawnPoints"]
+position = Vector3(-15, 0, 9)
+[node name="BotSpawnA" type="Marker3D" parent="VehicleSpawnPoints"]
+position = Vector3(15, 0, 9)
+[node name="BotSpawnB" type="Marker3D" parent="VehicleSpawnPoints"]
+position = Vector3(-15, 0, -9)
+[node name="BotSpawnC" type="Marker3D" parent="VehicleSpawnPoints"]
+position = Vector3(15, 0, -9)
+[node name="ReserveWest" type="Marker3D" parent="VehicleSpawnPoints"]
+position = Vector3(-17, 0, 0)
+[node name="ReserveEast" type="Marker3D" parent="VehicleSpawnPoints"]
+position = Vector3(17, 0, 0)
+[node name="CandySpawnPoints" type="Node3D" parent="."]
+[node name="CenterNorth" type="Marker3D" parent="CandySpawnPoints"]
+position = Vector3(0, 0, -2.5)
+[node name="CenterSouth" type="Marker3D" parent="CandySpawnPoints"]
+position = Vector3(0, 0, 2.5)
+[node name="Center" type="Marker3D" parent="CandySpawnPoints"]
+position = Vector3(0, 0, 0)

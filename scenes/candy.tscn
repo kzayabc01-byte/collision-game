@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3]
+[ext_resource type="Script" path="res://scripts/candy.gd" id="1"]
+[sub_resource type="StandardMaterial3D" id="CandyMaterial"]
+albedo_color = Color(1, 0.47, 0.7, 1)
+metallic = 0.25
+roughness = 0.3
+emission_enabled = true
+emission = Color(0.25, 0.06, 0.13, 1)
+[sub_resource type="SphereMesh" id="CandyMesh"]
+material = SubResource("CandyMaterial")
+radius = 0.18
+height = 0.36
+radial_segments = 8
+rings = 4
+[sub_resource type="StandardMaterial3D" id="WrapperMaterial"]
+albedo_color = Color(1, 0.82, 0.4, 1)
+[sub_resource type="PrismMesh" id="WrapperMesh"]
+material = SubResource("WrapperMaterial")
+size = Vector3(0.18, 0.22, 0.18)
+[sub_resource type="CylinderShape3D" id="PickupShape"]
+height = 2.0
+radius = 0.35
+
+[node name="Candy" type="Node3D"]
+script = ExtResource("1")
+[node name="VisualRoot" type="Node3D" parent="."]
+position = Vector3(0, 0.25, 0)
+[node name="Sweet" type="MeshInstance3D" parent="VisualRoot"]
+mesh = SubResource("CandyMesh")
+[node name="WrapperLeft" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(-0.22, 0, 0)
+rotation = Vector3(0, 0, 1.570796)
+mesh = SubResource("WrapperMesh")
+[node name="WrapperRight" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0.22, 0, 0)
+rotation = Vector3(0, 0, -1.570796)
+mesh = SubResource("WrapperMesh")
+[node name="PickupArea" type="Area3D" parent="."]
+position = Vector3(0, 0.65, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
+shape = SubResource("PickupShape")
+[node name="AmountLabel" type="Label3D" parent="."]
+position = Vector3(0, 0.7, 0)
+billboard = 1
+font_size = 28
+pixel_size = 0.006

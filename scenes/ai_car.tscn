@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://scenes/car.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/ai_driver.gd" id="2"]
+[node name="AICar" instance=ExtResource("1")]
+driver_name = "BOT"
+[node name="Driver" parent="." index="4"]
+script = ExtResource("2")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3]
+[ext_resource type="Script" path="res://scripts/match.gd" id="1"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/arena.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/car.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/ai_car.tscn" id="5"]
+[ext_resource type="Script" path="res://scripts/collision_resolver.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/candy_system.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/camera_rig.gd" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="9"]
+
+[node name="Match" type="Node3D"]
+script = ExtResource("1")
+tuning = ExtResource("2")
+[node name="Arena" parent="." instance=ExtResource("3")]
+[node name="Vehicles" type="Node3D" parent="."]
+[node name="PlayerCar" parent="Vehicles" instance=ExtResource("4")]
+position = Vector3(-15, 0, 9)
+driver_name = "YOU"
+is_player = true
+paint = Color(0.4, 0.91, 0.76, 1)
+[node name="AICar01" parent="Vehicles" instance=ExtResource("5")]
+position = Vector3(15, 0, 9)
+driver_name = "EMBER"
+paint = Color(1, 0.47, 0.31, 1)
+[node name="AICar02" parent="Vehicles" instance=ExtResource("5")]
+position = Vector3(-15, 0, -9)
+driver_name = "PLUM"
+paint = Color(0.74, 0.49, 1, 1)
+[node name="AICar03" parent="Vehicles" instance=ExtResource("5")]
+position = Vector3(15, 0, -9)
+driver_name = "SKY"
+paint = Color(0.34, 0.69, 1, 1)
+[node name="CollisionResolver" type="Node" parent="."]
+script = ExtResource("6")
+tuning = ExtResource("2")
+[node name="CandySystem" type="Node3D" parent="."]
+script = ExtResource("7")
+tuning = ExtResource("2")
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("8")
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+position = Vector3(0, 33, 23)
+rotation = Vector3(-0.962, 0, 0)
+projection = 1
+size = 38.5
+current = true
+far = 150.0
+[node name="HUD" parent="." instance=ExtResource("9")]
