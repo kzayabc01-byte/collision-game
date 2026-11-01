@@ -25,13 +25,23 @@ func total_value() -> int:
 
 func claim_for(car_id: int, now: float) -> int:
 	var result: int = 0
-	for index: int in range(lots.size() - 1, -1, -1):
+	for lot: Dictionary in claim_lots(car_id, now):
+		result += int(lot["value"])
+	return result
+
+func claim_lots(car_id: int, now: float) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	var index: int = 0
+	# FIFO keeps mixed-origin batches deterministic across the pony threshold.
+	while index < lots.size():
 		var lot: Dictionary = lots[index]
 		if now >= float(lot["expires"]):
 			lots.remove_at(index)
 		elif int(lot["owner"]) != car_id or now >= float(lot["unlock"]):
-			result += int(lot["value"])
+			result.append(lot)
 			lots.remove_at(index)
+		else:
+			index += 1
 	_update_label()
 	return result
 
@@ -77,9 +87,9 @@ func tick(delta: float, now: float) -> void:
 		var car: CrashCar = body as CrashCar
 		if car == null or not car.alive:
 			continue
-		var value: int = claim_for(car.get_instance_id(), now)
-		if value > 0:
-			car.collect(value)
+		var claimed: Array[Dictionary] = claim_lots(car.get_instance_id(), now)
+		if not claimed.is_empty():
+			car.collect_batches(claimed)
 		if lots.is_empty():
 			collected = true
 			area.set_deferred("monitoring", false)

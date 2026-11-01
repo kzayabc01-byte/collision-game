@@ -1,0 +1,380 @@
+[gd_scene load_steps=20 format=3]
+[ext_resource type="Script" path="res://scripts/vehicle_visual.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Cream"]
+albedo_color = Color(0.98, 0.86, 0.72, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Pink"]
+albedo_color = Color(0.96, 0.34, 0.60, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.06, 0.055, 0.10, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="White"]
+albedo_color = Color(1, 0.96, 0.86, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Gold"]
+albedo_color = Color(1, 0.76, 0.25, 1)
+roughness = 0.42
+emission_enabled = true
+emission = Color(0.4, 0.18, 0.01, 1)
+
+[sub_resource type="StandardMaterial3D" id="Orange"]
+albedo_color = Color(1, 0.33, 0.06, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Warm"]
+albedo_color = Color(1, 0.51, 0.10, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Green"]
+albedo_color = Color(0.24, 0.51, 0.16, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Mint"]
+albedo_color = Color(0.16, 0.80, 0.62, 1)
+roughness = 0.42
+metallic = 0.18
+
+[sub_resource type="StandardMaterial3D" id="Light"]
+albedo_color = Color(0.59, 1, 0.83, 1)
+roughness = 0.42
+emission_enabled = true
+emission = Color(0.04, 0.18, 0.12, 1)
+
+[sub_resource type="SphereMesh" id="Sphere"]
+radius = 0.5
+height = 1.0
+radial_segments = 24
+rings = 12
+
+[sub_resource type="BoxMesh" id="Box"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="Cone"]
+top_radius = 0.0
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="Wheel"]
+top_radius = 0.18
+bottom_radius = 0.18
+height = 0.16
+radial_segments = 16
+
+[sub_resource type="TorusMesh" id="Ring"]
+inner_radius = 0.76
+outer_radius = 0.80
+rings = 24
+ring_segments = 8
+
+[sub_resource type="Animation" id="Reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Motion/Jaw:rotation")
+tracks/0/interp = 1
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Motion/Body:scale")
+tracks/1/interp = 1
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+
+[sub_resource type="Animation" id="Swallow"]
+length = 0.36
+tracks/0/type = "value"
+tracks/0/path = NodePath("Motion/Jaw:rotation")
+tracks/0/interp = 1
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.24, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.9, 0, 0), Vector3(-0.9, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Motion/Body:scale")
+tracks/1/interp = 1
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.22, 0.29, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1.1, 1.05, 1.1), Vector3(1, 1, 1)]
+}
+
+
+[sub_resource type="AnimationLibrary" id="Library"]
+_data = {
+"RESET": SubResource("Reset"),
+"swallow": SubResource("Swallow")
+}
+
+[node name="CharacterVisual" type="Node3D"]
+script = ExtResource("1")
+kind = 1
+wheel_paths = Array[NodePath]([NodePath("Motion/WheelFL"), NodePath("Motion/WheelFR"), NodePath("Motion/WheelBL"), NodePath("Motion/WheelBR")])
+
+[node name="Motion" type="Node3D" parent="."]
+
+[node name="Chassis" type="MeshInstance3D" parent="Motion"]
+position = Vector3(0, 0.27, 0.02)
+scale = Vector3(1.23, 0.13, 1.34)
+mesh = SubResource("Box")
+material_override = SubResource("Dark")
+
+
+[node name="WheelFL" type="Node3D" parent="Motion"]
+position = Vector3(-0.61, 0.19, -0.48)
+
+[node name="Tire" type="MeshInstance3D" parent="Motion/WheelFL"]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 1.570796)
+scale = Vector3(1, 1, 1)
+mesh = SubResource("Wheel")
+material_override = SubResource("Dark")
+
+[node name="Hub" type="MeshInstance3D" parent="Motion/WheelFL"]
+position = Vector3(-0.09, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.05, 0.19, 0.19)
+mesh = SubResource("Sphere")
+material_override = SubResource("Green")
+
+[node name="WheelFR" type="Node3D" parent="Motion"]
+position = Vector3(0.61, 0.19, -0.48)
+
+[node name="Tire" type="MeshInstance3D" parent="Motion/WheelFR"]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 1.570796)
+scale = Vector3(1, 1, 1)
+mesh = SubResource("Wheel")
+material_override = SubResource("Dark")
+
+[node name="Hub" type="MeshInstance3D" parent="Motion/WheelFR"]
+position = Vector3(0.09, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.05, 0.19, 0.19)
+mesh = SubResource("Sphere")
+material_override = SubResource("Green")
+
+[node name="WheelBL" type="Node3D" parent="Motion"]
+position = Vector3(-0.61, 0.19, 0.49)
+
+[node name="Tire" type="MeshInstance3D" parent="Motion/WheelBL"]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 1.570796)
+scale = Vector3(1, 1, 1)
+mesh = SubResource("Wheel")
+material_override = SubResource("Dark")
+
+[node name="Hub" type="MeshInstance3D" parent="Motion/WheelBL"]
+position = Vector3(-0.09, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.05, 0.19, 0.19)
+mesh = SubResource("Sphere")
+material_override = SubResource("Green")
+
+[node name="WheelBR" type="Node3D" parent="Motion"]
+position = Vector3(0.61, 0.19, 0.49)
+
+[node name="Tire" type="MeshInstance3D" parent="Motion/WheelBR"]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 1.570796)
+scale = Vector3(1, 1, 1)
+mesh = SubResource("Wheel")
+material_override = SubResource("Dark")
+
+[node name="Hub" type="MeshInstance3D" parent="Motion/WheelBR"]
+position = Vector3(0.09, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.05, 0.19, 0.19)
+mesh = SubResource("Sphere")
+material_override = SubResource("Green")
+
+[node name="Body" type="Node3D" parent="Motion"]
+
+
+[node name="Core" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0, 0.81, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1.32, 1.31, 1.35)
+mesh = SubResource("Sphere")
+material_override = SubResource("Orange")
+
+[node name="Lobe0" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0.4300, 0.80, 0.0000)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Warm")
+
+[node name="Lobe1" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0.3041, 0.80, 0.3041)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Orange")
+
+[node name="Lobe2" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0.0000, 0.80, 0.4300)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Warm")
+
+[node name="Lobe3" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(-0.3041, 0.80, 0.3041)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Orange")
+
+[node name="Lobe4" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(-0.4300, 0.80, 0.0000)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Warm")
+
+[node name="Lobe5" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(-0.3041, 0.80, -0.3041)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Orange")
+
+[node name="Lobe6" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(-0.0000, 0.80, -0.4300)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Warm")
+
+[node name="Lobe7" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0.3041, 0.80, -0.3041)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.64, 1.26, 0.62)
+mesh = SubResource("Sphere")
+material_override = SubResource("Orange")
+
+[node name="Stem" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0.02, 1.55, 0.05)
+rotation = Vector3(0.1, 0, -0.24)
+scale = Vector3(0.23, 0.40, 0.23)
+mesh = SubResource("Box")
+material_override = SubResource("Green")
+
+[node name="Leaf" type="MeshInstance3D" parent="Motion/Body"]
+position = Vector3(0.24, 1.56, 0.08)
+rotation = Vector3(0, 0, 0.22)
+scale = Vector3(0.42, 0.09, 0.25)
+mesh = SubResource("Sphere")
+material_override = SubResource("Green")
+
+[node name="Mouth" type="MeshInstance3D" parent="Motion"]
+position = Vector3(0, 0.62, -0.744)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1.02, 0.62, 0.18)
+mesh = SubResource("Sphere")
+material_override = SubResource("Dark")
+
+[node name="EyeL" type="MeshInstance3D" parent="Motion"]
+position = Vector3(-0.3, 1.07, -0.63)
+rotation = Vector3(-0.25, 0, -0.2)
+scale = Vector3(0.34, 0.22, 0.11)
+mesh = SubResource("Box")
+material_override = SubResource("Dark")
+
+[node name="EyeLightL" type="MeshInstance3D" parent="Motion"]
+position = Vector3(-0.3, 1.07, -0.695)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.19, 0.11, 0.05)
+mesh = SubResource("Box")
+material_override = SubResource("Gold")
+
+[node name="UpperToothL" type="MeshInstance3D" parent="Motion"]
+position = Vector3(-0.22499999999999998, 0.83, -0.82)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.14, 0.18, 0.12)
+mesh = SubResource("Box")
+material_override = SubResource("White")
+
+[node name="EyeR" type="MeshInstance3D" parent="Motion"]
+position = Vector3(0.3, 1.07, -0.63)
+rotation = Vector3(-0.25, 0, 0.2)
+scale = Vector3(0.34, 0.22, 0.11)
+mesh = SubResource("Box")
+material_override = SubResource("Dark")
+
+[node name="EyeLightR" type="MeshInstance3D" parent="Motion"]
+position = Vector3(0.3, 1.07, -0.695)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.19, 0.11, 0.05)
+mesh = SubResource("Box")
+material_override = SubResource("Gold")
+
+[node name="UpperToothR" type="MeshInstance3D" parent="Motion"]
+position = Vector3(0.22499999999999998, 0.83, -0.82)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.14, 0.18, 0.12)
+mesh = SubResource("Box")
+material_override = SubResource("White")
+
+[node name="Jaw" type="Node3D" parent="Motion"]
+position = Vector3(0, 0.43, -0.52)
+
+[node name="Chin" type="MeshInstance3D" parent="Motion/Jaw"]
+position = Vector3(0, -0.02, -0.22)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1.0, 0.27, 0.52)
+mesh = SubResource("Sphere")
+material_override = SubResource("Orange")
+
+[node name="Tooth" type="MeshInstance3D" parent="Motion/Jaw"]
+position = Vector3(0, 0.13, -0.30)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.17, 0.20, 0.12)
+mesh = SubResource("Box")
+material_override = SubResource("White")
+
+[node name="Sockets" type="Node3D" parent="."]
+
+
+[node name="MouthSocket" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0.68, -0.85)
+
+[node name="PickupSocket" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0.75, 0)
+
+[node name="TrailSocket" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0.25, 0.72)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("Library")
+}

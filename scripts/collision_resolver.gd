@@ -74,6 +74,19 @@ func _consume_contact(car: CrashCar, other: Node3D, key: String) -> bool:
 func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> void:
 	if not b.alive:
 		return
+	# Swallowing uses pre-impact scale and facing, before either car changes size.
+	var eater: CrashCar = a if a.can_swallow(b, normal) else (b if b.can_swallow(a, -normal) else null)
+	if eater != null and _consume_contact(a, b, key):
+		var prey: CrashCar = b if eater == a else a
+		var reward: int = prey.candy
+		prey.apply_loss(reward)
+		eater.collect(reward)
+		if eater.character_visual != null:
+			eater.character_visual.swallow()
+			prey.animate_swallowed(eater.character_visual.mouth_socket)
+		eater.feedback.play_swallow()
+		impact_resolved.emit(eater.global_position, 1, "南瓜吞噬！ +%d 糖果" % reward)
+		return
 	var result: Dictionary = CollisionMath.pair_result(a.pre_mass, b.pre_mass, a.pre_velocity, b.pre_velocity, normal, tuning)
 	var impulse: float = result["impulse"]
 	if impulse > 0.0:
@@ -81,8 +94,8 @@ func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> voi
 		b.respond(b.velocity + normal * impulse / b.pre_mass)
 	if not _consume_contact(a, b, key):
 		return
-	var loss_a: int = mini(a.candy, int(result["loss_a"]))
-	var loss_b: int = mini(b.candy, int(result["loss_b"]))
+	var loss_a: int = mini(a.candy, a.received_damage(float(result["raw_loss_a"])))
+	var loss_b: int = mini(b.candy, b.received_damage(float(result["raw_loss_b"])))
 	var tier_a: int = CollisionMath.drop_tier(loss_a, a.pre_candy)
 	var tier_b: int = CollisionMath.drop_tier(loss_b, b.pre_candy)
 	# Both amounts use the same pre-impact snapshot, including simultaneous defeat.

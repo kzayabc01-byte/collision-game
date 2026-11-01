@@ -1,0 +1,244 @@
+[gd_scene load_steps=20 format=3]
+[ext_resource type="Script" path="res://scripts/vehicle_visual.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Cream"]
+albedo_color = Color(0.98, 0.86, 0.72, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Pink"]
+albedo_color = Color(0.96, 0.34, 0.60, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.06, 0.055, 0.10, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="White"]
+albedo_color = Color(1, 0.96, 0.86, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Gold"]
+albedo_color = Color(1, 0.76, 0.25, 1)
+roughness = 0.42
+emission_enabled = true
+emission = Color(0.4, 0.18, 0.01, 1)
+
+[sub_resource type="StandardMaterial3D" id="Orange"]
+albedo_color = Color(1, 0.33, 0.06, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Warm"]
+albedo_color = Color(1, 0.51, 0.10, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Green"]
+albedo_color = Color(0.24, 0.51, 0.16, 1)
+roughness = 0.42
+
+
+[sub_resource type="StandardMaterial3D" id="Mint"]
+albedo_color = Color(0.16, 0.80, 0.62, 1)
+roughness = 0.42
+metallic = 0.18
+
+[sub_resource type="StandardMaterial3D" id="Light"]
+albedo_color = Color(0.59, 1, 0.83, 1)
+roughness = 0.42
+emission_enabled = true
+emission = Color(0.04, 0.18, 0.12, 1)
+
+[sub_resource type="SphereMesh" id="Sphere"]
+radius = 0.5
+height = 1.0
+radial_segments = 24
+rings = 12
+
+[sub_resource type="BoxMesh" id="Box"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="Cone"]
+top_radius = 0.0
+bottom_radius = 0.5
+height = 1.0
+radial_segments = 12
+
+[sub_resource type="CylinderMesh" id="Wheel"]
+top_radius = 0.18
+bottom_radius = 0.18
+height = 0.16
+radial_segments = 16
+
+[sub_resource type="TorusMesh" id="Ring"]
+inner_radius = 0.76
+outer_radius = 0.80
+rings = 24
+ring_segments = 8
+
+[sub_resource type="Animation" id="Reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Motion/Face:scale")
+tracks/0/interp = 1
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+
+[sub_resource type="Animation" id="Pickup"]
+length = 0.22
+tracks/0/type = "value"
+tracks/0/path = NodePath("Motion/Face:scale")
+tracks/0/interp = 1
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.12, 1.12, 1.12), Vector3(1, 1, 1)]
+}
+
+
+[sub_resource type="AnimationLibrary" id="Library"]
+_data = {
+"RESET": SubResource("Reset"),
+"pickup": SubResource("Pickup")
+}
+
+[node name="CharacterVisual" type="Node3D"]
+script = ExtResource("1")
+kind = 2
+foot_paths = Array[NodePath]([NodePath("Motion/FootL"), NodePath("Motion/FootR")])
+
+[node name="Motion" type="Node3D" parent="."]
+
+
+[node name="RollRoot" type="Node3D" parent="Motion"]
+position = Vector3(0, 0.79, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Motion/RollRoot"]
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1.50, 1.40, 1.48)
+mesh = SubResource("Sphere")
+material_override = SubResource("Mint")
+
+[node name="SpotTop" type="MeshInstance3D" parent="Motion/RollRoot"]
+position = Vector3(0.25, 0.62, -0.18)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.25, 0.10, 0.30)
+mesh = SubResource("Sphere")
+material_override = SubResource("Light")
+
+[node name="SpotBack" type="MeshInstance3D" parent="Motion/RollRoot"]
+position = Vector3(-0.22, 0.10, 0.68)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.23, 0.25, 0.09)
+mesh = SubResource("Sphere")
+material_override = SubResource("Light")
+
+[node name="SpotBottom" type="MeshInstance3D" parent="Motion/RollRoot"]
+position = Vector3(0.24, -0.61, 0.18)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.18, 0.09, 0.23)
+mesh = SubResource("Sphere")
+material_override = SubResource("Light")
+
+[node name="Face" type="Node3D" parent="Motion"]
+position = Vector3(0, 0.89, -0.67)
+
+[node name="EyeL" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(-0.25, 0.08, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.24, 0.29, 0.10)
+mesh = SubResource("Sphere")
+material_override = SubResource("Dark")
+
+[node name="SparkL" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(-0.28500000000000003, 0.13, -0.05)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.075, 0.09, 0.035)
+mesh = SubResource("Sphere")
+material_override = SubResource("White")
+
+[node name="BlushL" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(-0.3875, -0.09, 0.04)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.17, 0.085, 0.06)
+mesh = SubResource("Sphere")
+material_override = SubResource("Pink")
+
+[node name="EyeR" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(0.25, 0.08, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.24, 0.29, 0.10)
+mesh = SubResource("Sphere")
+material_override = SubResource("Dark")
+
+[node name="SparkR" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(0.215, 0.13, -0.05)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.075, 0.09, 0.035)
+mesh = SubResource("Sphere")
+material_override = SubResource("White")
+
+[node name="BlushR" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(0.3875, -0.09, 0.04)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.17, 0.085, 0.06)
+mesh = SubResource("Sphere")
+material_override = SubResource("Pink")
+
+[node name="Smile" type="MeshInstance3D" parent="Motion/Face"]
+position = Vector3(0, -0.13, -0.035)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.18, 0.065, 0.065)
+mesh = SubResource("Sphere")
+material_override = SubResource("Dark")
+
+[node name="FootL" type="MeshInstance3D" parent="Motion"]
+position = Vector3(-0.38, 0.13, -0.22)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.39, 0.26, 0.56)
+mesh = SubResource("Sphere")
+material_override = SubResource("Light")
+
+[node name="FootR" type="MeshInstance3D" parent="Motion"]
+position = Vector3(0.38, 0.13, -0.22)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(0.39, 0.26, 0.56)
+mesh = SubResource("Sphere")
+material_override = SubResource("Light")
+
+[node name="DefenseRing" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.46, 0)
+rotation = Vector3(0, 0, 0)
+scale = Vector3(1, 0.5, 1)
+mesh = SubResource("Ring")
+material_override = SubResource("Light")
+
+[node name="Sockets" type="Node3D" parent="."]
+
+
+[node name="MouthSocket" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0.68, -0.85)
+
+[node name="PickupSocket" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0.75, 0)
+
+[node name="TrailSocket" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0.25, 0.72)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("Library")
+}

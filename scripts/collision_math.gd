@@ -28,6 +28,8 @@ static func pair_result(mass_a: float, mass_b: float, velocity_a: Vector3, veloc
 	return {
 		"energy": energy,
 		"closing": closing,
+		"raw_loss_a": damage * (0.2 + 0.8 * power_b / total_power) if closing >= tuning.minimum_closing_speed else 0.0,
+		"raw_loss_b": damage * (0.2 + 0.8 * power_a / total_power) if closing >= tuning.minimum_closing_speed else 0.0,
 		"loss_a": roundi(damage * (0.2 + 0.8 * power_b / total_power)) if closing >= tuning.minimum_closing_speed else 0,
 		"loss_b": roundi(damage * (0.2 + 0.8 * power_a / total_power)) if closing >= tuning.minimum_closing_speed else 0,
 		"impulse": (1.0 + tuning.restitution) * closing * reduced_mass,

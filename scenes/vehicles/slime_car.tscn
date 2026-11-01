@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="PackedScene" path="res://scenes/car.tscn" id="1"]
+[ext_resource type="Resource" path="res://config/vehicles/slime.tres" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/slime_visual.tscn" id="3"]
+
+[node name="SlimeCar" instance=ExtResource("1")]
+profile = ExtResource("2")
+paint_mesh_paths = Array[NodePath]([])
+
+[node name="Model" parent="GrowthRoot/HitPivot" index="0"]
+visible = false
+
+[node name="CharacterVisual" parent="GrowthRoot/HitPivot" instance=ExtResource("3")]

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="VehicleProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/vehicle_profile.gd" id="1"]
+[resource]
+script = ExtResource("1")
+kind = 1
+display_name = "南瓜车"
+description = "车头接触吞下体型≤自身一半的车\n直接获得目标全部糖果"
+accent = Color(1, 0.59, 0.22, 1)

@@ -141,3 +141,14 @@ initial_velocity_max = 0.7
 scale_amount_min = 0.2
 scale_amount_max = 1.0
 [node name="Sound" type="AudioStreamPlayer" parent="Feedback"]
+
+[node name="MovementSound" type="AudioStreamPlayer" parent="Feedback"]
+
+[node name="Gain" type="Label3D" parent="Feedback"]
+visible = false
+position = Vector3(0, 2, 0)
+billboard = 1
+no_depth_test = true
+font_size = 48
+pixel_size = 0.014
+outline_size = 10

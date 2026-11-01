@@ -65,6 +65,14 @@ func sample_direction(car_position: Vector3, context: Dictionary, delta: float) 
 
 func _choose_target(car_position: Vector3, context: Dictionary) -> void:
 	var nearest_distance: float = INF
+	var opponents: Array = context.get("opponents", [])
+	var profile: VehicleProfile = context.get("profile") as VehicleProfile
+	if profile != null and profile.kind == VehicleProfile.Kind.PUMPKIN:
+		for opponent: Dictionary in opponents:
+			var offset: Vector3 = (opponent["position"] as Vector3) - car_position
+			if float(opponent.get("scale", 1.0)) <= float(context["scale"]) * profile.swallow_size_ratio and offset.length_squared() < 100.0:
+				_target = opponent["position"]
+				return
 	var candy_positions: Array = context.get("candies", [])
 	for point: Vector3 in candy_positions:
 		var distance: float = car_position.distance_squared_to(point)
@@ -74,7 +82,6 @@ func _choose_target(car_position: Vector3, context: Dictionary) -> void:
 	var pickup_range: float = 100.0 if float(context["mass"]) < 1.25 else 16.0
 	if nearest_distance < pickup_range:
 		return
-	var opponents: Array = context.get("opponents", [])
 	for opponent: Dictionary in opponents:
 		var point: Vector3 = opponent["position"]
 		if car_position.distance_squared_to(point) < 12.0 and float(opponent["mass"]) > float(context["mass"]) * 1.3:
@@ -110,6 +117,9 @@ func _try_charge(car_position: Vector3, context: Dictionary) -> void:
 		if angle > deg_to_rad(65.0) or angle >= best_angle:
 			continue
 		var speed_after_turn: float = velocity.length() * CollisionMath.turn_retention(angle, tuning)
+		var profile: VehicleProfile = context.get("profile") as VehicleProfile
+		if bool(context.get("rolling", false)) and profile != null:
+			speed_after_turn = velocity.length() * pow(profile.rolling_turn_retention, angle / (PI * 0.5))
 		var energy: float = 0.5 * float(context["mass"]) * speed_after_turn * speed_after_turn
 		if energy < tuning.obstacle_break_energy * 1.04:
 			continue

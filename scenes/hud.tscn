@@ -53,6 +53,8 @@ Label/colors/font_color = Color(0.9, 0.94, 0.96, 1)
 Button/styles/normal = SubResource("ButtonStyle")
 Button/styles/hover = SubResource("ButtonHover")
 Button/styles/pressed = SubResource("ButtonHover")
+Button/styles/disabled = SubResource("ButtonHover")
+Button/colors/font_disabled_color = Color(0.55, 1, 0.85, 1)
 PanelContainer/styles/panel = SubResource("PanelStyle")
 ProgressBar/styles/background = SubResource("BarBackground")
 ProgressBar/styles/fill = SubResource("BarFill")
@@ -80,7 +82,7 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4, 0.91, 0.76, 1)
 theme_override_font_sizes/font_size = 14
-text = "PHYSICS PLAYGROUND  /  01"
+text = "CHARACTER PROTOTYPES  /  02"
 [node name="Name" type="Label" parent="Root/Title"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
@@ -89,7 +91,7 @@ text = "不给糖就撞"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.67, 0.74, 1)
 theme_override_font_sizes/font_size = 15
-text = "蓄速  /  碰撞  /  爆糖  /  成长"
+text = "小马 ×2  /  南瓜吞噬  /  史莱姆滚动"
 
 [node name="ClockValue" type="Label" parent="Root"]
 unique_name_in_owner = true
@@ -125,7 +127,7 @@ text = "重开 R"
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 28.0
-offset_top = -184.0
+offset_top = -221.0
 offset_right = 312.0
 offset_bottom = -24.0
 grow_vertical = 0
@@ -133,6 +135,12 @@ mouse_filter = 2
 [node name="Stack" type="VBoxContainer" parent="Root/Stats"]
 layout_mode = 2
 theme_override_constants/separation = 7
+[node name="RoleName" type="Label" parent="Root/Stats/Stack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "小马车"
+
 [node name="CandyHeader" type="HBoxContainer" parent="Root/Stats/Stack"]
 layout_mode = 2
 [node name="Caption" type="Label" parent="Root/Stats/Stack/CandyHeader"]
@@ -195,8 +203,8 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -220.0
-offset_top = -96.0
+offset_left = -360.0
+offset_top = -116.0
 offset_right = -32.0
 offset_bottom = -25.0
 grow_horizontal = 2
@@ -216,7 +224,50 @@ text = "金色糖箱可撞碎：+12颗    灰墙不可破坏：速度 / 糖果�
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.67, 0.74, 1)
 theme_override_font_sizes/font_size = 14
-text = "30颗 + 正面速度6 即可撞碎糖箱；转90°损失15%速度。"
+text = "切换车辆会重新开局；F2试验中对手静止，R重置。"
+
+[node name="AbilityState" type="Label" parent="Root/Help"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.70, 1, 0.86, 1)
+theme_override_font_sizes/font_size = 16
+text = "拾糖 ×2 生效"
+
+[node name="VehicleButtons" type="HBoxContainer" parent="Root"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -176.0
+offset_right = -28.0
+offset_bottom = -126.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="PonyButton" type="Button" parent="Root/VehicleButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "1 小马车"
+
+[node name="PumpkinButton" type="Button" parent="Root/VehicleButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "2 南瓜车"
+
+[node name="SlimeButton" type="Button" parent="Root/VehicleButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "3 史莱姆"
+
+[node name="LabButton" type="Button" parent="Root/VehicleButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "能力试验 F2"
 
 [node name="Notice" type="Label" parent="Root"]
 unique_name_in_owner = true
