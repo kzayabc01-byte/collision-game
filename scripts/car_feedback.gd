@@ -44,11 +44,14 @@ func show_gain(amount: int, doubled: bool, height: float = 2.0) -> void:
 		_gain_tween.kill()
 	gain_label.text = "+%d%s" % [amount, "  双倍" if doubled else ""]
 	gain_label.modulate = Color("ffc8e5") if doubled else Color("ffe6a6")
+	gain_label.outline_modulate.a = 1.0
 	gain_label.position.y = height
 	gain_label.show()
 	_gain_tween = create_tween().set_parallel(true)
 	_gain_tween.tween_property(gain_label, "position:y", height + 0.8, 0.65)
 	_gain_tween.tween_property(gain_label, "modulate:a", 0.0, 0.65)
+	_gain_tween.tween_property(gain_label, "outline_modulate:a", 0.0, 0.65)
+	_gain_tween.chain().tween_callback(gain_label.hide)
 
 func play_swallow() -> void:
 	if _swallow_sound != null:

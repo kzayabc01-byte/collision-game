@@ -31,11 +31,12 @@ var _target_scale: float = 1.0
 var _heading: Vector3 = Vector3.FORWARD
 var _active_input: bool = false
 var _swallow_tween: Tween
+var play_bounds: Rect2 = Rect2()
 
 @onready var body_shape: CollisionShape3D = $BodyCollision
 @onready var growth_root: Node3D = $GrowthRoot
 @onready var hit_pivot: Node3D = $GrowthRoot/HitPivot
-@onready var driver: DriveInput = $Driver
+@onready var driver: DriveInput = ($Driver if is_player else $AIDriver) as DriveInput
 @onready var feedback: CarFeedback = $Feedback
 @onready var name_label: Label3D = $NameLabel
 @onready var player_ring: MeshInstance3D = $PlayerRing
@@ -116,11 +117,33 @@ func move_vehicle(delta: float) -> KinematicCollision3D:
 	if not alive:
 		return null
 	var old_position: Vector3 = global_position
-	var collision: KinematicCollision3D = move_and_collide(velocity * delta)
+	var collision: KinematicCollision3D = move_planar(velocity * delta)
 	if _active_input and absf(steering_angle) < 0.0001 and collision == null:
 		var gain: float = profile.rolling_distance_multiplier if rolling and profile != null else 1.0
 		driven_distance += global_position.distance_to(old_position) * gain
 	return collision
+
+func move_planar(motion: Vector3, ignore_vehicles: bool = false) -> KinematicCollision3D:
+	constrain_to_arena()
+	motion.y = 0.0
+	var previous_mask: int = collision_mask
+	if ignore_vehicles:
+		# Overlap correction already knows the separating direction; don't let 3D
+		# penetration recovery choose to eject one cylinder above/below another.
+		collision_mask = previous_mask & ~2
+	var collision: KinematicCollision3D = move_and_collide(motion)
+	collision_mask = previous_mask
+	constrain_to_arena()
+	return collision
+
+func constrain_to_arena() -> void:
+	global_position.y = 0.0
+	velocity.y = 0.0
+	if not play_bounds.has_area():
+		return
+	var inset: float = radius + 0.002
+	global_position.x = clampf(global_position.x, play_bounds.position.x + inset, play_bounds.end.x - inset)
+	global_position.z = clampf(global_position.z, play_bounds.position.y + inset, play_bounds.end.y - inset)
 
 func set_candy(value: int) -> void:
 	candy = maxi(0, value)
@@ -132,6 +155,7 @@ func set_candy(value: int) -> void:
 	cylinder.height = 1.2 * _target_scale
 	body_shape.position.y = 0.6 * _target_scale
 	player_ring.scale = Vector3(_target_scale, 1.0, _target_scale)
+	constrain_to_arena()
 	name_label.text = "%s  ·  %d" % [driver_name, candy]
 	name_label.modulate = paint
 	candy_changed.emit(self)

@@ -176,6 +176,8 @@ func _collisions() -> bool:
 func _slime_driving() -> bool:
 	var slime: CrashCar = Slime.instantiate() as CrashCar
 	var standard: CrashCar = BaseCar.instantiate() as CrashCar
+	slime.is_player = true
+	standard.is_player = true
 	root.add_child(slime)
 	root.add_child(standard)
 	standard.position.z = 20.0

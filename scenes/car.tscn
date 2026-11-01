@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/car.gd" id="1"]
 [ext_resource type="Resource" path="res://config/prototype.tres" id="2"]
 [ext_resource type="Script" path="res://scripts/player_driver.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/car_feedback.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/ai_driver.gd" id="5"]
 
 [sub_resource type="CylinderShape3D" id="Collision"]
 resource_local_to_scene = true
@@ -53,6 +54,7 @@ rings = 3
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
+axis_lock_linear_y = true
 script = ExtResource("1")
 tuning = ExtResource("2")
 
@@ -108,6 +110,8 @@ text = "CAR · 20"
 
 [node name="Driver" type="Node3D" parent="."]
 script = ExtResource("3")
+[node name="AIDriver" type="Node3D" parent="."]
+script = ExtResource("5")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {&"": SubResource("Animations")}
 [node name="Feedback" type="Node3D" parent="."]

@@ -5,6 +5,7 @@ func _initialize() -> void:
 
 func _run() -> void:
 	var car: CrashCar = (load("res://scenes/car.tscn") as PackedScene).instantiate() as CrashCar
+	car.is_player = true
 	root.add_child(car)
 	await physics_frame
 	Input.action_press("move_right")

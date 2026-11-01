@@ -39,7 +39,7 @@ scenes/
   match.tscn             主场景：比赛流程、4 辆实例化车辆、相机、HUD
   arena.tscn             编辑器里摆好的场地、固定墙、16 个糖箱和出生点
   car.tscn               玩家与 AI 共用的车辆节点结构
-  ai_car.tscn            保留的通用 AI 车辆场景；三车对局直接覆盖各实例的 Driver
+  ai_car.tscn            保留的通用 AI 车辆场景；控制器由 is_player 标记选择
   solid_wall.tscn        不可破坏墙体
   candy_obstacle.tscn    可撞碎糖箱，独立模型/碰撞体/爆糖位置/粒子
   candy.tscn             糖果外观、拾取区域和合并数量标签
@@ -82,7 +82,8 @@ Car (CharacterBody3D)
 │           └── AnimationPlayer  实际拾取或吞噬动画轨道
 ├── PlayerRing
 ├── NameLabel
-├── Driver                       玩家 / AI 控制器
+├── Driver                       玩家输入；只供 is_player=true 的车辆使用
+├── AIDriver                     独立 AI 输入；其余车辆使用
 ├── AnimationPlayer              基础场景预留；角色关键帧在 CharacterVisual 内
 └── Feedback
     ├── PaperParticles
@@ -95,6 +96,10 @@ Car (CharacterBody3D)
 固定地图、车辆、界面、碰撞形状和表现节点均保存在 `.tscn`。运行时会实例化动态糖果，并在开局时按选择装载完整的车辆场景；不会用代码逐个拼装角色的模型节点。没有全局单例，重新开始重载本局状态；当前进程中的车辆选择和能力试验开关会保留，退出游戏后恢复默认。
 
 车辆采用 `CharacterBody3D` 的扫掠碰撞检测；统一结算器按质量计算街机式反弹和伤害，以精确实现撞墙减速 5% 与撞碎后继续前进。它不是真实轮胎/悬挂模拟。物理根节点不做成长缩放，独立调整每辆车自己的碰撞形状，模型在 `GrowthRoot` 上平滑缩放。
+
+车辆固定在地面平面移动。成长时按四面围墙的实际碰撞内沿约束车身范围；两车重叠通过水平推开解决，防止 3D 脱离重叠把车顶到墙上或地下。移动围墙时，这一边界约束会在开局重新计算。
+
+玩家与 AI 控制节点均保存在基础车辆场景中，按 `is_player` 选择，不依赖主场景的继承脚本覆盖。只给玩家实例开启 `is_player`；AI 不读取键盘或手柄输入。
 
 ## 已采用的规则
 
@@ -142,6 +147,7 @@ $godotExe = 'E:/jam game/godot/Godot_v4.4.1-stable_win64_console.exe'
 & $godotExe --headless --path . --import
 & $godotExe --headless --path . --script res://tests/test_runner.gd
 & $godotExe --headless --path . --fixed-fps 60 --script res://tests/vehicles.gd
+& $godotExe --headless --path . --fixed-fps 60 --script res://tests/regressions.gd
 & $godotExe --headless --path . --fixed-fps 60 --script res://tests/driving.gd
 & $godotExe --headless --path . --fixed-fps 60 --script res://tests/soak.gd
 ```
@@ -149,6 +155,8 @@ $godotExe = 'E:/jam game/godot/Godot_v4.4.1-stable_win64_console.exe'
 测试失败返回非零退出码。整局测试将 180 秒模拟时间加速运行；实际游戏仍使用正常时间。正式素材、联网、复杂导航和完整无文字教学不在这版原型内。
 
 2026-11-01 三车实现交付时的验证记录：基础测试 55 项、角色测试 56 项，共 111 项通过；实际驾驶/转向测试通过；180 秒完整对局模拟正常结束；三车展示与实际对局已做 Godot 图形预览检查。此次文档更新未修改运行代码。
+
+后续修复增加 44 项回归检查：三种选择下玩家与 AI 输入隔离、四角与四边成长、贴墙互相挤压、深度重叠的水平分离，以及拾糖文字和描边完整消失。整局模拟逐帧检查车辆没有离开地面或越界。
 
 ## 提交与推送
 

@@ -47,6 +47,10 @@ func _ready() -> void:
 				player = car
 	if player.profile == null or int(player.profile.kind) != selected_vehicle:
 		_replace_player(selected_vehicle)
+	var bounds: Rect2 = _get_play_bounds()
+	for car: CrashCar in cars:
+		car.play_bounds = bounds
+		car.constrain_to_arena()
 	hud.configure_vehicle(selected_vehicle, ability_lab)
 	if ability_lab:
 		_setup_ability_lab()
@@ -59,6 +63,7 @@ func _physics_process(delta: float) -> void:
 	if phase != Phase.PLAYING:
 		return
 	resolver.begin_tick(delta)
+	_separate_grown_cars()
 	var candy_positions: Array[Vector3] = candy_system.positions()
 	var obstacle_positions: Array[Vector3] = []
 	for node: Node in get_tree().get_nodes_in_group("candy_obstacles"):
@@ -214,6 +219,19 @@ func _spawn_neutral() -> void:
 	var marker: Marker3D = markers.pick_random() as Marker3D
 	candy_system.spawn_drop(marker.global_position, Vector3.FORWARD, tuning.neutral_spawn_amount, 0, 0)
 
+func _get_play_bounds() -> Rect2:
+	var faces: Dictionary = {}
+	for wall_name: String in ["West", "East", "North", "South"]:
+		var shape_node: CollisionShape3D = get_node("Arena/SolidWalls/" + wall_name + "/BodyCollision") as CollisionShape3D
+		var box: BoxShape3D = shape_node.shape as BoxShape3D
+		faces[wall_name] = shape_node.global_transform * AABB(-box.size * 0.5, box.size)
+	var west: AABB = faces["West"]
+	var east: AABB = faces["East"]
+	var north: AABB = faces["North"]
+	var south: AABB = faces["South"]
+	var minimum: Vector2 = Vector2(west.end.x, north.end.z)
+	return Rect2(minimum, Vector2(east.position.x, south.position.z) - minimum)
+
 func _separate_grown_cars() -> void:
 	for first: int in range(cars.size()):
 		for second: int in range(first + 1, cars.size()):
@@ -222,11 +240,18 @@ func _separate_grown_cars() -> void:
 			if not a.alive or not b.alive:
 				continue
 			var offset: Vector3 = b.global_position - a.global_position
+			offset.y = 0.0
 			var overlap: float = a.radius + b.radius - offset.length()
 			if overlap > 0.02:
 				var normal: Vector3 = offset.normalized() if offset.length_squared() > 0.001 else Vector3.RIGHT
-				a.move_and_collide(-normal * minf(overlap * 0.5, 0.2))
-				b.move_and_collide(normal * minf(overlap * 0.5, 0.2))
+				a.move_planar(-normal * (overlap * 0.5 + 0.002), true)
+				b.move_planar(normal * (overlap * 0.5 + 0.002), true)
+				var remaining: float = a.radius + b.radius - a.global_position.distance_to(b.global_position)
+				if remaining > 0.02:
+					a.move_planar(-normal * remaining, true)
+					remaining = a.radius + b.radius - a.global_position.distance_to(b.global_position)
+					if remaining > 0.02:
+						b.move_planar(normal * remaining, true)
 
 func _on_impact(_point: Vector3, tier: int, message: String) -> void:
 	$CameraRig.shake(tier)
