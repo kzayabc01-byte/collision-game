@@ -55,7 +55,7 @@ scripts/
   candy_system.gd        糖果生成、容量控制、批次生命周期
   candy.gd               抛出、弹跳、拾取保护、消失和拾取动画
   car_feedback.gd        车辆形变、纸屑、尾迹和音效
-  camera_rig.gd          可关闭的撞击震动
+  camera_rig.gd          跟随玩家的镜头与可关闭的撞击震动
   hud.gd                 界面显示与按钮事件
   game_tuning.gd         Inspector 参数定义
 config/prototype.tres    当前测试参数
@@ -131,7 +131,7 @@ Car (CharacterBody3D)
 
 - 改布局：打开 `scenes/arena.tscn`，移动或复制 `SolidWalls` / `CandyObstacles` 下的场景实例。
 - 改初始位置：调整 `scenes/match.tscn` 中 `Vehicles` 下实例的位置。重生位置独立存放在 `arena.tscn` 的 `VehicleSpawnPoints`。
-- 改出生点和中立糖位置：移动对应 Marker3D。移动地图边界时还需同步 `ai_driver.gd` 的外圈路径与 `candy.gd` 的场内限制；本原型按固定 40×28 场地制作。
+- 改出生点和中立糖位置：移动对应 Marker3D。当前地板为 82×58，面积是原先 41×29 的四倍；移动地图边界时还需同步 `ai_driver.gd` 的外圈路径，以及 `candy.gd`、`candy_system.gd` 的场内限制。
 - 替换三车素材：分别打开 `scenes/vehicles/pony_visual.tscn`、`pumpkin_visual.tscn`、`slime_visual.tscn`，替换其中网格，保留动画引用的节点和枢轴，或同步调整路径。模型前方朝 -Z、底部贴 y=0。成长、撞击、碰撞体和 Driver 继续由共用车辆管理。
 - 三车的 `paint_mesh_paths` 当前为空，保留角色材质；若需要自动染色，再指向实际网格路径。隐藏的 `Model` 是通用测试车辆外观，不是三个角色的素材替换入口。
 - 替换障碍素材：修改各障碍场景的 `VisualRoot`，并调整 `BodyCollision`。墙体是灰色固定物，糖箱是金色礼盒占位素材。

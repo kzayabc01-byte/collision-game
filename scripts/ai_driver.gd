@@ -7,7 +7,7 @@ enum Intent {
 }
 
 @export var decision_seconds: float = 0.35
-@export var patrol_half_size: Vector2 = Vector2(16.8, 10.5)
+@export var patrol_half_size: Vector2 = Vector2(34.0, 23.0)
 
 var _decision_remaining: float = 0.0
 var _target: Vector3 = Vector3.ZERO

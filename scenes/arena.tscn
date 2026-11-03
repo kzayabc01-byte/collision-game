@@ -6,9 +6,9 @@
 shader = ExtResource("3")
 [sub_resource type="BoxMesh" id="FloorMesh"]
 material = SubResource("FloorMaterial")
-size = Vector3(41, 0.4, 29)
+size = Vector3(82, 0.4, 58)
 [sub_resource type="BoxShape3D" id="FloorShape"]
-size = Vector3(41, 0.4, 29)
+size = Vector3(82, 0.4, 58)
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
 background_color = Color(0.035, 0.047, 0.07, 1)
@@ -49,75 +49,75 @@ position = Vector3(0, 0.025, 0)
 mesh = SubResource("CenterRing")
 [node name="SolidWalls" type="Node3D" parent="."]
 [node name="North" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(0, 0, -14)
-scale = Vector3(41, 1, 1)
+position = Vector3(0, 0, -28.5)
+scale = Vector3(82, 1, 1)
 [node name="South" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(0, 0, 14)
-scale = Vector3(41, 1, 1)
+position = Vector3(0, 0, 28.5)
+scale = Vector3(82, 1, 1)
 [node name="West" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(-20, 0, 0)
-scale = Vector3(1, 1, 27)
+position = Vector3(-40.5, 0, 0)
+scale = Vector3(1, 1, 57)
 [node name="East" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(20, 0, 0)
-scale = Vector3(1, 1, 27)
+position = Vector3(40.5, 0, 0)
+scale = Vector3(1, 1, 57)
 [node name="PillarNW" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(-5.5, 0, -2)
+position = Vector3(-11, 0, -4)
 scale = Vector3(1.6, 1, 2.4)
 [node name="PillarSE" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(5.5, 0, 2)
+position = Vector3(11, 0, 4)
 scale = Vector3(1.6, 1, 2.4)
 
 [node name="CandyObstacles" type="Node3D" parent="."]
 [node name="Crate01" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-12, 0, -6.5)
+position = Vector3(-24, 0, -13)
 [node name="Crate02" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-8, 0, -6.5)
+position = Vector3(-16, 0, -13)
 [node name="Crate03" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-3, 0, -7)
+position = Vector3(-6, 0, -14)
 [node name="Crate04" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(3, 0, -7)
+position = Vector3(6, 0, -14)
 [node name="Crate05" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(8, 0, -6.5)
+position = Vector3(16, 0, -13)
 [node name="Crate06" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(12, 0, -6.5)
+position = Vector3(24, 0, -13)
 [node name="Crate07" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-12, 0, 6.5)
+position = Vector3(-24, 0, 13)
 [node name="Crate08" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-8, 0, 6.5)
+position = Vector3(-16, 0, 13)
 [node name="Crate09" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-3, 0, 7)
+position = Vector3(-6, 0, 14)
 [node name="Crate10" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(3, 0, 7)
+position = Vector3(6, 0, 14)
 [node name="Crate11" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(8, 0, 6.5)
+position = Vector3(16, 0, 13)
 [node name="Crate12" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(12, 0, 6.5)
+position = Vector3(24, 0, 13)
 [node name="Crate13" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-12, 0, 0)
+position = Vector3(-24, 0, 0)
 [node name="Crate14" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(12, 0, 0)
+position = Vector3(24, 0, 0)
 [node name="Crate15" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-2, 0, 0)
+position = Vector3(-4, 0, 0)
 [node name="Crate16" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(2, 0, 0)
+position = Vector3(4, 0, 0)
 
 [node name="VehicleSpawnPoints" type="Node3D" parent="."]
 [node name="PlayerSpawn" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(-15, 0, 9)
+position = Vector3(-30, 0, 18)
 [node name="BotSpawnA" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(15, 0, 9)
+position = Vector3(30, 0, 18)
 [node name="BotSpawnB" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(-15, 0, -9)
+position = Vector3(-30, 0, -18)
 [node name="BotSpawnC" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(15, 0, -9)
+position = Vector3(30, 0, -18)
 [node name="ReserveWest" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(-17, 0, 0)
+position = Vector3(-34, 0, 0)
 [node name="ReserveEast" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(17, 0, 0)
+position = Vector3(34, 0, 0)
 [node name="CandySpawnPoints" type="Node3D" parent="."]
 [node name="CenterNorth" type="Marker3D" parent="CandySpawnPoints"]
-position = Vector3(0, 0, -2.5)
+position = Vector3(0, 0, -5)
 [node name="CenterSouth" type="Marker3D" parent="CandySpawnPoints"]
-position = Vector3(0, 0, 2.5)
+position = Vector3(0, 0, 5)
 [node name="Center" type="Marker3D" parent="CandySpawnPoints"]
 position = Vector3(0, 0, 0)

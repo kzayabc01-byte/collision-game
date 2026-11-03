@@ -70,7 +70,7 @@ func spawn_drop(origin: Vector3, direction: Vector3, value: int, owner_id: int, 
 	for index: int in range(count):
 		var candy: CandyPickup = CandyScene.instantiate() as CandyPickup
 		add_child(candy)
-		candy.global_position = Vector3(clampf(origin.x, -18.9, 18.9), 0.0, clampf(origin.z, -12.4, 12.4))
+		candy.global_position = Vector3(clampf(origin.x, -39.4, 39.4), 0.0, clampf(origin.z, -27.4, 27.4))
 		var lot_value: int = value / count + (1 if index < value % count else 0)
 		candy.add_lot(lot_value, owner_id, clock_seconds, tuning.owner_protection_seconds, tuning.candy_lifetime)
 		var angle: float = _rng.randf_range(-PI * 0.35, PI * 0.35) if _rng.randf() < 0.7 else _rng.randf_range(-PI, PI)

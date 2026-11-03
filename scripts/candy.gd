@@ -64,8 +64,8 @@ func tick(delta: float, now: float) -> void:
 		if not hit.is_empty():
 			horizontal = horizontal.bounce(hit["normal"]) * 0.5
 		global_position += horizontal * delta
-		global_position.x = clampf(global_position.x, -19.0, 19.0)
-		global_position.z = clampf(global_position.z, -12.5, 12.5)
+		global_position.x = clampf(global_position.x, -39.5, 39.5)
+		global_position.z = clampf(global_position.z, -27.5, 27.5)
 		launch_velocity.x = horizontal.x
 		launch_velocity.z = horizontal.z
 	if flight_height > 0.15 or launch_velocity.y > 0.0:
