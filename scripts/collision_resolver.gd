@@ -2,6 +2,7 @@ class_name CollisionResolver
 extends Node
 
 signal impact_resolved(position: Vector3, tier: int, message: String)
+signal vehicle_contact(a: CrashCar, b: CrashCar)
 
 @export var tuning: GameTuning
 
@@ -77,6 +78,9 @@ func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> voi
 	# Swallowing uses pre-impact scale and facing, before either car changes size.
 	var eater: CrashCar = a if a.can_swallow(b, normal) else (b if b.can_swallow(a, -normal) else null)
 	if eater != null and _consume_contact(a, b, key):
+		vehicle_contact.emit(a, b)
+		a.driver.notify_encounter(b.get_instance_id())
+		b.driver.notify_encounter(a.get_instance_id())
 		var prey: CrashCar = b if eater == a else a
 		var reward: int = prey.candy
 		prey.apply_loss(reward)
@@ -94,6 +98,9 @@ func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> voi
 		b.respond(b.velocity + normal * impulse / b.pre_mass)
 	if not _consume_contact(a, b, key):
 		return
+	vehicle_contact.emit(a, b)
+	a.driver.notify_encounter(b.get_instance_id())
+	b.driver.notify_encounter(a.get_instance_id())
 	var loss_a: int = mini(a.candy, a.received_damage(float(result["raw_loss_a"])))
 	var loss_b: int = mini(b.candy, b.received_damage(float(result["raw_loss_b"])))
 	var tier_a: int = CollisionMath.drop_tier(loss_a, a.pre_candy)
@@ -101,6 +108,9 @@ func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> voi
 	# Both amounts use the same pre-impact snapshot, including simultaneous defeat.
 	a.apply_loss(loss_a)
 	b.apply_loss(loss_b)
+	if loss_a + loss_b > 0:
+		a.driver.notify_progress()
+		b.driver.notify_progress()
 	candy_system.spawn_drop(a.global_position, -normal, loss_a, a.get_instance_id(), tier_a)
 	candy_system.spawn_drop(b.global_position, normal, loss_b, b.get_instance_id(), tier_b)
 	a.feedback.hit(tier_a, a.paint)
@@ -133,12 +143,13 @@ func _resolve_wall(car: CrashCar, obstacle: CrashObstacle, normal: Vector3, key:
 	var message: String = "撞墙 -5% 速度"
 	if destroyed:
 		var reward: int = obstacle.break_once()
+		car.driver.notify_progress()
 		tier = 2 if energy >= tuning.obstacle_break_energy * 2.0 else 1
 		var spawn_point: Marker3D = obstacle.get_node("CandySpawn") as Marker3D
 		candy_system.spawn_drop(spawn_point.global_position, car.pre_velocity.normalized(), reward, 0, tier)
 		message = "撞碎糖箱 · +%d 颗可拾取" % reward
 	elif obstacle.destructible:
-		message = "力度不足 · 蓄速后正面撞击"
+		message = "力度不足 · 加速后正面撞击"
 	car.feedback.hit(tier, car.paint)
 	impact_resolved.emit(car.global_position, tier, message)
 

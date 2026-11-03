@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 		var opponents: Array[Dictionary] = []
 		for other: CrashCar in cars:
 			if other != car and other.alive:
-				opponents.append({"position": other.global_position, "mass": other.vehicle_mass, "scale": CollisionMath.scale_for(other.candy, tuning)})
+				opponents.append({"id": other.get_instance_id(), "position": other.global_position, "velocity": other.velocity, "mass": other.vehicle_mass, "scale": CollisionMath.scale_for(other.candy, tuning)})
 		car.prepare_drive(delta, {"candies": candy_positions, "obstacles": obstacle_positions, "opponents": opponents, "mass": car.vehicle_mass, "radius": car.radius, "velocity": car.velocity, "tuning": tuning, "profile": car.profile, "rolling": car.rolling, "scale": CollisionMath.scale_for(car.candy, tuning)})
 	for car: CrashCar in cars:
 		car.snapshot()
@@ -144,13 +144,14 @@ func _replace_player(kind: int) -> void:
 
 func _setup_ability_lab() -> void:
 	player.reset_at(Vector3(-15, 0, 3))
+	player._heading = Vector3.RIGHT
 	cars[1].reset_at(Vector3(0, 0, 4))
 	cars[2].reset_at(Vector3(11, 0, -3))
 	cars[3].reset_at(Vector3(13, 0, 10))
 	if selected_vehicle == VehicleProfile.Kind.PUMPKIN:
 		player.global_position = Vector3(-6, 0, 4)
 		player.set_candy(80)
-		hud.announce("吞噬试验：你80颗，对面20颗；按 D 用车头接触")
+		hud.announce("吞噬试验：你80颗，对面20颗；按 W 用车头接触")
 	elif selected_vehicle == VehicleProfile.Kind.PONY:
 		player.set_candy(38)
 		for index: int in range(6):
@@ -158,9 +159,9 @@ func _setup_ability_lab() -> void:
 			candy_system.add_child(pickup)
 			pickup.position = Vector3(-12 + index * 1.4, 0, 3)
 			pickup.add_lot(1, 0, candy_system.clock_seconds, 0.0, 3600.0)
-		hud.announce("翻倍试验：从38颗开始，向右吃糖；达到40后恢复普通收益")
+		hud.announce("翻倍试验：从38颗开始，按 W 吃糖；达到40后恢复普通收益")
 	else:
-		hud.announce("滚动试验：按 D 直行，速度超过4自动收脚滚动；转向观察减速")
+		hud.announce("滚动试验：按 W 直行，速度超过4自动收脚滚动；转向观察减速")
 
 func _update_appetites() -> void:
 	for car: CrashCar in cars:
@@ -176,6 +177,7 @@ func _update_appetites() -> void:
 func toggle_pause() -> void:
 	if phase == Phase.FINISHED:
 		return
+	player.cancel_maneuver()
 	phase = Phase.PAUSED if phase == Phase.PLAYING else Phase.PLAYING
 	$Vehicles.process_mode = Node.PROCESS_MODE_DISABLED if phase == Phase.PAUSED else Node.PROCESS_MODE_INHERIT
 	candy_system.process_mode = Node.PROCESS_MODE_DISABLED if phase == Phase.PAUSED else Node.PROCESS_MODE_INHERIT

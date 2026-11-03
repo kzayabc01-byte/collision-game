@@ -122,6 +122,7 @@ func reset_feedback() -> void:
 		_tween.kill()
 	if pivot != null:
 		pivot.scale = Vector3.ONE
+		pivot.rotation = Vector3.ZERO
 	particles.emitting = false
 
 func _tone(frequency: float, seconds: float, noise: bool) -> AudioStreamWAV:
@@ -140,3 +141,18 @@ func _tone(frequency: float, seconds: float, noise: bool) -> AudioStreamWAV:
 		bytes.encode_s16(index * 2, int(wave * envelope * 18000.0))
 	stream.data = bytes
 	return stream
+
+func drive_cue(released: bool) -> void:
+	if _pickup_sound == null:
+		return
+	sound.stream = _swallow_sound if released else _pickup_sound
+	sound.pitch_scale = 1.6 if released else 1.3
+	sound.volume_db = -17.0
+	sound.play()
+
+func set_maneuver(braking: bool, drifting: bool, ready: bool, bursting: bool, delta: float) -> void:
+	if is_instance_valid(pivot):
+		pivot.rotation.x = lerp(pivot.rotation.x, -0.10 if braking and not drifting else 0.0, minf(1.0, delta * 15.0))
+	trail.color = Color("fff09a") if ready else (Color("ffb86b") if bursting else (Color("eeeeee") if drifting else Color.WHITE))
+	if drifting or ready or bursting:
+		trail.emitting = true

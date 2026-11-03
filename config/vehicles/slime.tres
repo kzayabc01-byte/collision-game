@@ -4,5 +4,5 @@
 script = ExtResource("1")
 kind = 2
 display_name = "史莱姆车"
-description = "速度>4滚动：受伤-30% / 蓄速+50%\n转90°减速7.5%；低速用小脚走路"
+description = "速度>4滚动：受伤-30% / 加速+20%\n转90°减速7.5%；低速用小脚走路"
 accent = Color(0.36, 0.92, 0.80, 1)

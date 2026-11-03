@@ -23,6 +23,8 @@ var _lab: bool = false
 @onready var ability_label: Label = %AbilityState
 
 func _ready() -> void:
+	for button: Node in find_children("*", "BaseButton", true, false):
+		(button as BaseButton).focus_mode = Control.FOCUS_NONE
 	(%RestartButton as Button).pressed.connect(func() -> void: restart_requested.emit())
 	(%PauseButton as Button).pressed.connect(func() -> void: pause_requested.emit())
 	(%PlayAgainButton as Button).pressed.connect(func() -> void: restart_requested.emit())
@@ -67,9 +69,20 @@ func refresh(player: CrashCar, cars: Array[CrashCar], remaining: float) -> void:
 				var target_scale: float = CollisionMath.scale_for(player.candy, player.tuning) * player.profile.swallow_size_ratio
 				ability_label.text = "车头吞噬：目标尺寸 ≤ %.2f× · 获得目标全部糖果" % target_scale
 			VehicleProfile.Kind.SLIME:
-				ability_label.text = "滚动：受伤 -30% / 蓄速 +50% / 转90°减速7.5%" if player.rolling else "小脚走路 · 速度超过4后收脚滚动"
+				ability_label.text = "滚动：受伤 -30% / 加速 +20% / 转90°减速7.5%" if player.rolling else "小脚走路 · 速度超过4后收脚滚动"
 		if not player.alive:
 			ability_label.text = "等待重生 · 能力暂未生效"
+	if player.alive:
+		var driving_hint: String = "Shift：刹车 / 转向漂移"
+		if player.burst_remaining > 0.0:
+			driving_hint = "弹射中 · Shift可中断"
+		elif player.burst_ready:
+			driving_hint = "弹射就绪 · 保持W，松Shift"
+		elif player.burst_cooldown > 0.0:
+			driving_hint = "弹射冷却 %.1f秒 · 刹车可用" % player.burst_cooldown
+		elif player.drifting:
+			driving_hint = "漂移中 · 转向后松Shift弹射"
+		ability_label.text += "\n" + driving_hint
 	if not player.alive:
 		notice_label.text = "车辆被击溃 · %.1f 秒后重生" % player.respawn_remaining
 		_notice_remaining = 1.2

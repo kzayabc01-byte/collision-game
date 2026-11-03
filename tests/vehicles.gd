@@ -99,6 +99,7 @@ func _collisions() -> bool:
 	pumpkin.set_candy(80)
 	prey.reset_at(Vector3.ZERO)
 	await frames()
+	pumpkin._heading = Vector3.RIGHT
 	pumpkin.velocity = Vector3.RIGHT * 9.0
 	prey.velocity = Vector3.RIGHT * 5.0
 	pumpkin.snapshot()
@@ -202,35 +203,28 @@ func _slime_driving() -> bool:
 	slime.update_roll_state()
 	check(is_equal_approx(slime.turn_retention(PI / 2.0), 0.925), "rolling ninety degree turn retains 92.5 percent")
 	check(is_equal_approx(pow(slime.turn_retention(PI / 120.0), 60), 0.925), "rolling turn is frame-rate independent")
+	slime._heading = Vector3.RIGHT
+	standard._heading = Vector3.RIGHT
 	slime.respond(Vector3.RIGHT * 6.0)
 	standard.respond(Vector3.RIGHT * 6.0)
 	slime.control_lock = 0.0
 	standard.control_lock = 0.0
-	Input.action_press("move_right")
-	var before: float = slime.driven_distance
-	slime.prepare_drive(1.0 / 60.0, {})
-	slime.move_vehicle(1.0 / 60.0)
-	check(is_equal_approx(slime.driven_distance - before, slime.global_position.x * 1.5), "actual driven distance contributes 150 percent while rolling")
-	for index: int in range(240):
+	Input.action_press("move_up")
+	for index: int in range(15):
 		slime.prepare_drive(1.0 / 60.0, {})
 		standard.prepare_drive(1.0 / 60.0, {})
-		slime.move_vehicle(1.0 / 60.0)
-		standard.move_vehicle(1.0 / 60.0)
-		await physics_frame
-	Input.action_release("move_right")
-	check(slime.velocity.length() > standard.velocity.length() + 0.2, "slime reaches high speed faster")
-	check(slime.velocity.length() <= tuning.top_speed, "rolling keeps speed cap")
-	var speed_before: float = slime.velocity.length()
-	Input.action_press("move_up")
+	check(slime.velocity.length() > standard.velocity.length() + 0.15, "rolling acceleration recovers faster")
 	for index: int in range(120):
 		slime.prepare_drive(1.0 / 60.0, {})
-		slime.move_vehicle(1.0 / 60.0)
-		await physics_frame
-		if slime.velocity.normalized().dot(Vector3.FORWARD) > 0.999:
-			break
+		standard.prepare_drive(1.0 / 60.0, {})
 	Input.action_release("move_up")
-	var retention: float = slime.velocity.length() / speed_before
-	check(retention > 0.92 and retention < 0.94, "actual rolling turn loses about 7.5 percent")
+	check(slime.velocity.length() <= tuning.top_speed, "rolling keeps speed cap")
+	Input.action_press("move_left")
+	for index: int in range(30):
+		slime.prepare_drive(1.0 / 60.0, {})
+		standard.prepare_drive(1.0 / 60.0, {})
+	Input.action_release("move_left")
+	check(slime.velocity.length() > standard.velocity.length(), "rolling retains speed better through actual steering")
 	slime.character_visual.animate(1.0, 6.0, 1.0, true, false)
 	check(not slime.character_visual._feet[0].visible, "feet disappear during roll")
 	slime.reset_at(Vector3.ZERO)

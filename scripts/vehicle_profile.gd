@@ -15,7 +15,8 @@ enum Kind { PONY, PUMPKIN, SLIME }
 @export_group("Slime")
 @export var roll_threshold: float = 4.0
 @export_range(0.0, 1.0) var rolling_damage_multiplier: float = 0.7
-@export var rolling_distance_multiplier: float = 1.5
+@export var rolling_distance_multiplier: float = 1.5 # Legacy telemetry; no speed gating.
+@export var rolling_acceleration_multiplier: float = 1.2
 @export_range(0.0, 1.0) var rolling_turn_retention: float = 0.925
 
 func pickup_gain(current: int, amount: int, own_drop: bool) -> int:

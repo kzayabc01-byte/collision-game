@@ -43,31 +43,30 @@ func _input_isolation() -> bool:
 			if car.driver.get_script().resource_path.ends_with("player_driver.gd"):
 				player_drivers += 1
 		check(player_drivers == 1, "only one player input driver for selection %d" % selected)
-		for action: String in ["move_left", "move_right", "move_up", "move_down"]:
-			var context: Dictionary = {"mass": 1.0, "obstacles": [], "candies": [], "opponents": [], "velocity": Vector3.ZERO, "radius": 0.76, "tuning": game.tuning}
-			var before: Array[Vector3] = []
+		for action: String in ["move_left", "move_right", "move_up", "move_down", "brake"]:
+			var context: Dictionary = {"mass": 1.0, "obstacles": [], "candies": [Vector3.ZERO], "opponents": [], "velocity": Vector3.ZERO, "heading": Vector3.FORWARD, "radius": 0.76, "tuning": game.tuning, "bounds": game.player.play_bounds}
+			var before: Array[Dictionary] = []
 			for index: int in range(1, game.cars.size()):
-				var driver: DriveInput = game.cars[index].driver
-				if driver.get_script().resource_path.ends_with("ai_driver.gd"):
-					driver.set("_target", game.cars[index].global_position + Vector3.FORWARD * 8.0)
-					driver.set("_intent", 1)
-					driver.set("_decision_remaining", 100.0)
-					driver.set("_commit_remaining", 100.0)
-				before.append(driver.sample_direction(game.cars[index].global_position, context, 0.0))
+				before.append(game.cars[index].driver.sample_controls(game.cars[index].position, context, 0.0))
 			Input.action_press(action)
 			var unchanged: bool = true
 			for index: int in range(1, game.cars.size()):
-				unchanged = unchanged and before[index - 1].is_equal_approx(game.cars[index].driver.sample_direction(game.cars[index].global_position, context, 0.0))
-			check(unchanged, "AI decisions ignore %s for selection %d" % [action, selected])
-			check(not game.player.driver.sample_direction(game.player.global_position, context, 0.0).is_zero_approx(), "player receives %s" % action)
+				unchanged = unchanged and before[index - 1] == game.cars[index].driver.sample_controls(game.cars[index].position, context, 0.0)
+			check(unchanged, "AI ignores player %s" % action)
+			var actual: Dictionary = game.player.driver.sample_controls(game.player.position, context, 0.0)
+			var field: String = "brake" if action == "brake" else ("steer" if action in ["move_left", "move_right"] else "throttle")
+			check(absf(float(actual[field])) > 0.5, "player receives %s" % action)
 			Input.action_release(action)
+		for button: Node in game.hud.find_children("*", "BaseButton", true, false):
+			check(button.focus_mode == Control.FOCUS_NONE, "HUD button cannot consume driving keys")
 		game.queue_free()
 		await frames()
 	CrashMatch.selected_vehicle = 0
 	return true
 
 func _inside(car: CrashCar) -> bool:
-	return absf(car.global_position.x) + car.radius <= 19.51 and absf(car.global_position.z) + car.radius <= 13.51 and absf(car.global_position.y) < 0.001
+	var interior: Rect2 = car.play_bounds.grow(-car.radius + 0.01)
+	return interior.has_point(Vector2(car.global_position.x, car.global_position.z)) and absf(car.global_position.y) < 0.001
 
 func _growth_at_walls() -> bool:
 	CrashMatch.selected_vehicle = 2
@@ -78,11 +77,16 @@ func _growth_at_walls() -> bool:
 		game.cars[index].apply_loss(game.cars[index].candy)
 		game.cars[index].respawn_remaining = 99999.0
 	var car: CrashCar = game.player
+	var bounds: Rect2 = car.play_bounds
+	var right: float = bounds.end.x - 0.7
+	var left: float = bounds.position.x + 0.7
+	var bottom: float = bounds.end.y - 0.7
+	var top: float = bounds.position.y + 0.7
 	var points: Array[Vector3] = [
-		Vector3(18.8, 0, 12.8), Vector3(-18.8, 0, 12.8),
-		Vector3(18.8, 0, -12.8), Vector3(-18.8, 0, -12.8),
-		Vector3(18.8, 0, 4), Vector3(-18.8, 0, 4),
-		Vector3(0, 0, 12.8), Vector3(0, 0, -12.8),
+		Vector3(right, 0, bottom), Vector3(left, 0, bottom),
+		Vector3(right, 0, top), Vector3(left, 0, top),
+		Vector3(right, 0, 4), Vector3(left, 0, 4),
+		Vector3(0, 0, bottom), Vector3(0, 0, top),
 	]
 	for point: Vector3 in points:
 		car.reset_at(point)
@@ -107,8 +111,8 @@ func _growth_at_walls() -> bool:
 		game.resolver.clear_for(car)
 	# Repeated growth while two cars are squeezed next to an outer wall.
 	var other: CrashCar = game.cars[1]
-	car.reset_at(Vector3(17.8, 0, 10))
-	other.reset_at(Vector3(16.5, 0, 10))
+	car.reset_at(Vector3(bounds.end.x - 1.7, 0, 10))
+	other.reset_at(Vector3(bounds.end.x - 3.0, 0, 10))
 	var separation_safe: bool = true
 	for count: int in range(20, 141, 4):
 		car.set_candy(count)

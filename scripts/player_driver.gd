@@ -1,5 +1,8 @@
 extends DriveInput
 
-func sample_direction(_position: Vector3, _context: Dictionary, _delta: float) -> Vector3:
-	var axis: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	return Vector3(axis.x, 0.0, axis.y)
+func sample_controls(_position: Vector3, _context: Dictionary, _delta: float) -> Dictionary:
+	return {
+		"throttle": Input.get_axis("move_down", "move_up"),
+		"steer": Input.get_axis("move_left", "move_right"),
+		"brake": Input.get_action_strength("brake") > 0.5,
+	}

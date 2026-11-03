@@ -138,7 +138,7 @@ text = "03  史莱姆车"
 offset_left = 1000.0
 offset_top = 703.0
 theme = SubResource("Theme")
-text = "无轮子 · 小脚 / 滚动\n滚动减伤、蓄速与转向增益"
+text = "无轮子 · 小脚 / 滚动\n滚动减伤、加速与转向增益"
 [node name="SlimeState" type="Label" parent="Labels"]
 offset_left = 1000.0
 offset_top = 774.0
