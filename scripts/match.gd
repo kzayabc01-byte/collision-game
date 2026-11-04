@@ -39,6 +39,8 @@ func _ready() -> void:
 	hud.pause_requested.connect(toggle_pause)
 	hud.vehicle_requested.connect(select_vehicle)
 	hud.lab_requested.connect(toggle_lab)
+	hud.menu_requested.connect(return_to_menu)
+	hud.selection_requested.connect(return_to_selection)
 	for child: Node in $Vehicles.get_children():
 		var car: CrashCar = child as CrashCar
 		if car != null:
@@ -118,6 +120,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func restart() -> void:
 	get_tree().reload_current_scene()
+
+func return_to_menu() -> void:
+	player.cancel_maneuver()
+	set_physics_process(false)
+	get_tree().change_scene_to_file.call_deferred("res://scenes/ui/start_screen.tscn")
+
+func return_to_selection() -> void:
+	player.cancel_maneuver()
+	set_physics_process(false)
+	get_tree().change_scene_to_file.call_deferred("res://scenes/ui/vehicle_select.tscn")
 
 func select_vehicle(kind: int) -> void:
 	selected_vehicle = clampi(kind, 0, VehiclePaths.size() - 1)

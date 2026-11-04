@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/vehicle_select.gd" id="1"]
+[ext_resource type="Resource" path="res://config/selection/pony.tres" id="2"]
+[ext_resource type="Resource" path="res://config/selection/pumpkin.tres" id="3"]
+[ext_resource type="Resource" path="res://config/selection/slime.tres" id="4"]
+[ext_resource type="Resource" path="res://config/selection/upcoming.tres" id="5"]
+
+[node name="VehicleSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+entries = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])
+editor_description = "三种可选座驾及一个预留卡位。右侧信息由 entries 动态更新；中央只保留透明模型接口。"
