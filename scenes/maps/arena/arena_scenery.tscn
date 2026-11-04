@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/buildings/candy_house.tscn" id="1_house"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/buildings/church.tscn" id="2_church"]
+
+[node name="ArenaScenery" type="Node3D"]
+editor_description = "竞技场建筑布景排版。当前仅展示占位体块，不带脚本、碰撞或交互；两栋建筑临时摆在北侧比赛边界外。请在此场景调整建筑整体位置，在各自子场景修改模型和标记。"
+
+[node name="Buildings" type="Node3D" parent="."]
+
+[node name="CandyHouse" parent="Buildings" instance=ExtResource("1_house")]
+position = Vector3(-18, 0, -35)
+
+[node name="Church" parent="Buildings" instance=ExtResource("2_church")]
+position = Vector3(18, 0, -36)

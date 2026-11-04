@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dws820n6ngwgb" path="res://scripts/match.gd" id="1"]
 [ext_resource type="Resource" path="res://config/prototype.tres" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/arena.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/arena.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/vehicles/pony_car.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/vehicles/pumpkin_car.tscn" id="5"]
 [ext_resource type="Script" uid="uid://ddfscwl25t34e" path="res://scripts/collision_resolver.gd" id="6"]

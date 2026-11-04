@@ -1,8 +1,8 @@
 extends SceneTree
 
 const CarScene: PackedScene = preload("res://scenes/car.tscn")
-const WallScene: PackedScene = preload("res://scenes/solid_wall.tscn")
-const ObstacleScene: PackedScene = preload("res://scenes/candy_obstacle.tscn")
+const WallScene: PackedScene = preload("res://scenes/maps/arena/props/solid_wall.tscn")
+const ObstacleScene: PackedScene = preload("res://scenes/maps/arena/props/candy_obstacle.tscn")
 const MatchScene: PackedScene = preload("res://scenes/match.tscn")
 
 var _passed: int = 0

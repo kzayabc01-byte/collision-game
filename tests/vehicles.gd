@@ -159,7 +159,7 @@ func _collisions() -> bool:
 	check(prey.candy == 6 and attacker.candy == 16, "rolling defender takes 14 rather than 20 damage")
 	check(prey.received_damage(1.6) == 1, "defense applies before integer rounding")
 	attacker.global_position = Vector3(40, 0, 40)
-	var wall: CrashObstacle = (load("res://scenes/solid_wall.tscn") as PackedScene).instantiate() as CrashObstacle
+	var wall: CrashObstacle = (load("res://scenes/maps/arena/props/solid_wall.tscn") as PackedScene).instantiate() as CrashObstacle
 	world.add_child(wall)
 	prey.reset_at(Vector3(-2, 0, 0))
 	prey.set_candy(40)

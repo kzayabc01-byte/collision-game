@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3]
-[ext_resource type="PackedScene" path="res://scenes/solid_wall.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/candy_obstacle.tscn" id="2"]
+[gd_scene load_steps=11 format=3]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/solid_wall.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
 [ext_resource type="Shader" path="res://assets/arena_grid.gdshader" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/arena_scenery.tscn" id="4"]
 [sub_resource type="ShaderMaterial" id="FloorMaterial"]
 shader = ExtResource("3")
 [sub_resource type="BoxMesh" id="FloorMesh"]
@@ -121,3 +122,5 @@ position = Vector3(0, 0, -5)
 position = Vector3(0, 0, 5)
 [node name="Center" type="Marker3D" parent="CandySpawnPoints"]
 position = Vector3(0, 0, 0)
+
+[node name="Scenery" parent="." instance=ExtResource("4")]

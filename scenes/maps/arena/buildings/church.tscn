@@ -1,0 +1,107 @@
+[gd_scene load_steps=10 format=3]
+
+[sub_resource type="StandardMaterial3D" id="WallMaterial"]
+albedo_color = Color(0.54, 0.59, 0.66, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="RoofMaterial"]
+albedo_color = Color(0.28, 0.32, 0.43, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="DoorMaterial"]
+albedo_color = Color(0.19, 0.15, 0.18, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BodyMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(8, 5, 10)
+
+[sub_resource type="BoxMesh" id="RoofMesh"]
+material = SubResource("RoofMaterial")
+size = Vector3(4.8, 0.35, 11)
+
+[sub_resource type="BoxMesh" id="TowerMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(2.4, 8, 2.4)
+
+[sub_resource type="BoxMesh" id="TowerCapMesh"]
+material = SubResource("RoofMaterial")
+size = Vector3(3, 0.4, 3)
+
+[sub_resource type="BoxMesh" id="DoorMesh"]
+material = SubResource("DoorMaterial")
+size = Vector3(2, 3, 0.12)
+
+[sub_resource type="BoxMesh" id="BaseMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(9, 0.2, 12)
+
+[node name="Church" type="Node3D"]
+editor_description = "教堂独立场景。原点为地面中心，正门朝本地 +Z。当前仅有可编辑体块；塔楼用于识别轮廓，不代表已有钟声、触发或内部空间。"
+
+[node name="VisualRoot" type="Node3D" parent="."]
+editor_description = "建筑外观容器；模型偏移在此容器下调整，保持根节点和位置标记稳定。"
+
+[node name="Placeholder" type="Node3D" parent="VisualRoot"]
+editor_description = "临时体块。正式模型就位后关闭此节点的 Visible。"
+
+[node name="Base" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 0.1, 0)
+mesh = SubResource("BaseMesh")
+
+[node name="Body" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 2.5, 0)
+mesh = SubResource("BodyMesh")
+
+[node name="RoofLeft" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(-2, 5.9, 0)
+rotation = Vector3(0, 0, 0.4)
+mesh = SubResource("RoofMesh")
+
+[node name="RoofRight" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(2, 5.9, 0)
+rotation = Vector3(0, 0, -0.4)
+mesh = SubResource("RoofMesh")
+
+[node name="Tower" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 4, 3)
+mesh = SubResource("TowerMesh")
+
+[node name="TowerCap" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 8.2, 3)
+mesh = SubResource("TowerCapMesh")
+
+[node name="Door" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 1.5, 5.08)
+mesh = SubResource("DoorMesh")
+
+[node name="NameLabel" type="Label3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 9.4, 0)
+billboard = 1
+text = "教堂 · 占位"
+font_size = 64
+pixel_size = 0.01
+
+[node name="ModelRoot" type="Node3D" parent="VisualRoot"]
+editor_description = "正式教堂模型接入位置，当前为空。将导入的 .glb 场景作为子节点放入。"
+
+[node name="CollisionRoot" type="Node3D" parent="."]
+editor_description = "预留碰撞容器，当前为空。尚未创建物理阻挡或触发区。"
+
+[node name="EffectsRoot" type="Node3D" parent="."]
+editor_description = "预留特效容器，当前为空。"
+
+[node name="Sockets" type="Node3D" parent="."]
+editor_description = "位置约定，与糖屋使用相同名称。当前没有脚本读取这些标记。"
+
+[node name="EntrancePoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0, 6.5)
+editor_description = "正门前地面参考点。没有检测、进门或场景切换功能。"
+
+[node name="FocusPoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 3.5, 0)
+editor_description = "建筑焦点位置约定。当前未连接镜头。"
+
+[node name="EffectsPoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 7.5, 3)
+editor_description = "塔楼特效位置参考点。当前没有粒子、声音或事件。"

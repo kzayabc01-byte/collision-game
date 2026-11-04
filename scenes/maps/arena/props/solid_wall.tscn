@@ -10,6 +10,7 @@ roughness = 0.7
 material = SubResource("Material")
 size = Vector3(1, 1.8, 1)
 [node name="SolidWall" type="StaticBody3D" groups=["solid_walls"]]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
 collision_layer = 1
 collision_mask = 2
 script = ExtResource("1")

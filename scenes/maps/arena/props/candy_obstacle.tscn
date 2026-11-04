@@ -22,6 +22,7 @@ material = SubResource("Material")
 size = Vector3(0.16, 0.05, 0.25)
 
 [node name="CandyObstacle" type="StaticBody3D" groups=["candy_obstacles"]]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
 collision_layer = 1
 collision_mask = 2
 script = ExtResource("1")

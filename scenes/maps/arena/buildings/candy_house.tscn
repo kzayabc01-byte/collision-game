@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3]
+
+[sub_resource type="StandardMaterial3D" id="WallMaterial"]
+albedo_color = Color(0.72, 0.52, 0.43, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="RoofMaterial"]
+albedo_color = Color(0.48, 0.24, 0.31, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="DoorMaterial"]
+albedo_color = Color(0.19, 0.15, 0.18, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BodyMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(8, 4, 6)
+
+[sub_resource type="BoxMesh" id="RoofMesh"]
+material = SubResource("RoofMaterial")
+size = Vector3(4.7, 0.35, 7)
+
+[sub_resource type="BoxMesh" id="DoorMesh"]
+material = SubResource("DoorMaterial")
+size = Vector3(1.6, 2.4, 0.12)
+
+[sub_resource type="BoxMesh" id="BaseMesh"]
+material = SubResource("WallMaterial")
+size = Vector3(9, 0.2, 7)
+
+[node name="CandyHouse" type="Node3D"]
+editor_description = "糖屋独立场景。原点为地面中心，正门朝本地 +Z。当前仅有可编辑体块；预留节点没有接入任何玩法。"
+
+[node name="VisualRoot" type="Node3D" parent="."]
+editor_description = "只管理外观。替换模型或制作表现时，不要移动建筑根节点和 Sockets 来补偿模型偏移。"
+
+[node name="Placeholder" type="Node3D" parent="VisualRoot"]
+editor_description = "临时体块。正式模型就位后，可在此节点的 Inspector > Visibility 中关闭 Visible。"
+
+[node name="Base" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 0.1, 0)
+mesh = SubResource("BaseMesh")
+
+[node name="Body" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 2, 0)
+mesh = SubResource("BodyMesh")
+
+[node name="RoofLeft" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(-2, 4.85, 0)
+rotation = Vector3(0, 0, 0.4)
+mesh = SubResource("RoofMesh")
+
+[node name="RoofRight" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(2, 4.85, 0)
+rotation = Vector3(0, 0, -0.4)
+mesh = SubResource("RoofMesh")
+
+[node name="Door" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 1.2, 3.08)
+mesh = SubResource("DoorMesh")
+
+[node name="NameLabel" type="Label3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 6.6, 0)
+billboard = 1
+text = "糖屋 · 占位"
+font_size = 64
+pixel_size = 0.01
+
+[node name="ModelRoot" type="Node3D" parent="VisualRoot"]
+editor_description = "正式模型接入位置：将导入的 .glb 场景拖到这里成为子节点。当前为空。"
+
+[node name="CollisionRoot" type="Node3D" parent="."]
+editor_description = "预留碰撞容器，当前为空，没有物理阻挡。以后确定规则后再添加 StaticBody3D 和 CollisionShape3D。"
+
+[node name="EffectsRoot" type="Node3D" parent="."]
+editor_description = "预留特效容器，当前为空，不自动创建或播放特效。"
+
+[node name="Sockets" type="Node3D" parent="."]
+editor_description = "位置约定。Marker3D 只保存位置与方向，不检测车辆、不切场景、不生成奖励。"
+
+[node name="EntrancePoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 0, 4)
+editor_description = "正门前地面参考点。仅用于对齐，尚未接入进入或交互。"
+
+[node name="FocusPoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 2.5, 0)
+editor_description = "镜头或选中表现可以参考的建筑中心点；当前没有消费者。"
+
+[node name="EffectsPoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 3, 3.2)
+editor_description = "特效位置参考点。当前没有特效跟随此点。"

@@ -18,6 +18,8 @@
 AI使用同一套油门/方向盘/刹车。移除四角巡航，改为拾糖、撞箱、接战、躲避、内圈重新选位和倒车脱困。每0.25秒评估，目标保持最少0.8秒（危险可打断）；无进展3秒或追击6秒后暂时屏蔽目标4秒。使用按车体半径扩张障碍的网格路线、三条前方射线和0.25—1秒的短期截击预测。
 
 ## 参数与验证
+竞技场目录、糖屋/教堂节点、接口原理及编辑器复现步骤见 [场景框架说明](docs/arena-scenes.md)。建筑目前只接入视觉占位，没有新增玩法。
+
 驾驶参数在 `scripts/game_tuning.gd`；角色参数在 `config/vehicles/`。设计说明见 [驾驶与AI](docs/driving-v2.md)。
 
 Godot --headless --path . --fixed-fps 60 --script res://tests/test_runner.gd
