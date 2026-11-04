@@ -105,3 +105,10 @@ editor_description = "建筑焦点位置约定。当前未连接镜头。"
 [node name="EffectsPoint" type="Marker3D" parent="Sockets"]
 position = Vector3(0, 7.5, 3)
 editor_description = "塔楼特效位置参考点。当前没有粒子、声音或事件。"
+
+[node name="CandyEmitPoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 8, 3)
+editor_description = "未来喷糖位置的编辑参考。只有坐标，无信号、计时器或生成逻辑，不连接现有糖果系统。"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+editor_description = "预警等动画的空制作节点，无动画、轨道、自动播放或事件连接。"

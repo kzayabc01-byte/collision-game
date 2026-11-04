@@ -1,15 +1,10 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene format=3 uid="uid://cgny6yhup1qvm"]
+
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/props/solid_wall.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
-[ext_resource type="Shader" path="res://assets/arena_grid.gdshader" id="3"]
+[ext_resource type="Shader" uid="uid://b2jt7w83mj453" path="res://assets/arena_grid.gdshader" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/arena_scenery.tscn" id="4"]
-[sub_resource type="ShaderMaterial" id="FloorMaterial"]
-shader = ExtResource("3")
-[sub_resource type="BoxMesh" id="FloorMesh"]
-material = SubResource("FloorMaterial")
-size = Vector3(82, 0.4, 58)
-[sub_resource type="BoxShape3D" id="FloorShape"]
-size = Vector3(82, 0.4, 58)
+
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
 background_color = Color(0.035, 0.047, 0.07, 1)
@@ -17,110 +12,155 @@ ambient_light_source = 3
 ambient_light_color = Color(0.73, 0.82, 1, 1)
 ambient_light_energy = 0.7
 tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(82, 0.4, 58)
+
+[sub_resource type="ShaderMaterial" id="FloorMaterial"]
+render_priority = 0
+shader = ExtResource("3")
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+material = SubResource("FloorMaterial")
+size = Vector3(82, 0.4, 58)
+
 [sub_resource type="StandardMaterial3D" id="CenterMaterial"]
 albedo_color = Color(0.25, 0.67, 0.58, 1)
 emission_enabled = true
 emission = Color(0.025, 0.08, 0.06, 1)
+
 [sub_resource type="TorusMesh" id="CenterRing"]
 material = SubResource("CenterMaterial")
 inner_radius = 4.45
 outer_radius = 4.52
-rings = 64
 ring_segments = 6
 
-[node name="Arena" type="Node3D"]
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Arena" type="Node3D" unique_id=821880595]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=399449506]
 environment = SubResource("Environment")
-[node name="Sun" type="DirectionalLight3D" parent="."]
-rotation = Vector3(-1.05, -0.45, 0)
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=662653475]
+transform = Transform3D(0.90044713, 0.37729916, -0.21642627, 0, 0.49757108, 0.8674232, 0.43496552, -0.7810687, 0.44803646, 0, 0, 0)
 light_color = Color(1, 0.87, 0.72, 1)
 light_energy = 1.3
 shadow_enabled = true
 directional_shadow_max_distance = 80.0
-[node name="Ground" type="StaticBody3D" parent="."]
-position = Vector3(0, -0.2, 0)
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=161610150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 collision_layer = 4
 collision_mask = 0
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1667774658]
 shape = SubResource("FloorShape")
-[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground" unique_id=679006861]
 mesh = SubResource("FloorMesh")
-[node name="CenterRing" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.025, 0)
+
+[node name="CenterRing" type="MeshInstance3D" parent="." unique_id=247386421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
 mesh = SubResource("CenterRing")
-[node name="SolidWalls" type="Node3D" parent="."]
-[node name="North" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(0, 0, -28.5)
-scale = Vector3(82, 1, 1)
-[node name="South" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(0, 0, 28.5)
-scale = Vector3(82, 1, 1)
-[node name="West" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(-40.5, 0, 0)
-scale = Vector3(1, 1, 57)
-[node name="East" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(40.5, 0, 0)
-scale = Vector3(1, 1, 57)
-[node name="PillarNW" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(-11, 0, -4)
-scale = Vector3(1.6, 1, 2.4)
-[node name="PillarSE" parent="SolidWalls" instance=ExtResource("1")]
-position = Vector3(11, 0, 4)
-scale = Vector3(1.6, 1, 2.4)
 
-[node name="CandyObstacles" type="Node3D" parent="."]
-[node name="Crate01" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-24, 0, -13)
-[node name="Crate02" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-16, 0, -13)
-[node name="Crate03" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-6, 0, -14)
-[node name="Crate04" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(6, 0, -14)
-[node name="Crate05" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(16, 0, -13)
-[node name="Crate06" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(24, 0, -13)
-[node name="Crate07" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-24, 0, 13)
-[node name="Crate08" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-16, 0, 13)
-[node name="Crate09" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-6, 0, 14)
-[node name="Crate10" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(6, 0, 14)
-[node name="Crate11" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(16, 0, 13)
-[node name="Crate12" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(24, 0, 13)
-[node name="Crate13" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-24, 0, 0)
-[node name="Crate14" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(24, 0, 0)
-[node name="Crate15" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(-4, 0, 0)
-[node name="Crate16" parent="CandyObstacles" instance=ExtResource("2")]
-position = Vector3(4, 0, 0)
+[node name="SolidWalls" type="Node3D" parent="." unique_id=1196646166]
 
-[node name="VehicleSpawnPoints" type="Node3D" parent="."]
-[node name="PlayerSpawn" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(-30, 0, 18)
-[node name="BotSpawnA" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(30, 0, 18)
-[node name="BotSpawnB" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(-30, 0, -18)
-[node name="BotSpawnC" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(30, 0, -18)
-[node name="ReserveWest" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(-34, 0, 0)
-[node name="ReserveEast" type="Marker3D" parent="VehicleSpawnPoints"]
-position = Vector3(34, 0, 0)
-[node name="CandySpawnPoints" type="Node3D" parent="."]
-[node name="CenterNorth" type="Marker3D" parent="CandySpawnPoints"]
-position = Vector3(0, 0, -5)
-[node name="CenterSouth" type="Marker3D" parent="CandySpawnPoints"]
-position = Vector3(0, 0, 5)
-[node name="Center" type="Marker3D" parent="CandySpawnPoints"]
-position = Vector3(0, 0, 0)
+[node name="North" parent="SolidWalls" unique_id=1267719494 instance=ExtResource("1")]
+transform = Transform3D(82, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28.5)
 
-[node name="Scenery" parent="." instance=ExtResource("4")]
+[node name="South" parent="SolidWalls" unique_id=1986222284 instance=ExtResource("1")]
+transform = Transform3D(82, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.5)
+
+[node name="West" parent="SolidWalls" unique_id=1944881861 instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 57, -40.5, 0, 0)
+
+[node name="East" parent="SolidWalls" unique_id=796379445 instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 57, 40.5, 0, 0)
+
+[node name="PillarNW" parent="SolidWalls" unique_id=1430638923 instance=ExtResource("1")]
+transform = Transform3D(1.6, 0, 0, 0, 1, 0, 0, 0, 2.4, -11, 0, -4)
+
+[node name="PillarSE" parent="SolidWalls" unique_id=574042687 instance=ExtResource("1")]
+transform = Transform3D(1.6, 0, 0, 0, 1, 0, 0, 0, 2.4, 11, 0, 4)
+
+[node name="CandyObstacles" type="Node3D" parent="." unique_id=626039746]
+
+[node name="Crate01" parent="CandyObstacles" unique_id=1762248746 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -13)
+
+[node name="Crate02" parent="CandyObstacles" unique_id=774498693 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -13)
+
+[node name="Crate03" parent="CandyObstacles" unique_id=432784757 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -14)
+
+[node name="Crate04" parent="CandyObstacles" unique_id=987954983 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14)
+
+[node name="Crate05" parent="CandyObstacles" unique_id=2051110315 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -13)
+
+[node name="Crate06" parent="CandyObstacles" unique_id=528866973 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -13)
+
+[node name="Crate07" parent="CandyObstacles" unique_id=1851717038 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 13)
+
+[node name="Crate08" parent="CandyObstacles" unique_id=1462880319 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 13)
+
+[node name="Crate09" parent="CandyObstacles" unique_id=2044431973 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 14)
+
+[node name="Crate10" parent="CandyObstacles" unique_id=1043610084 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 14)
+
+[node name="Crate11" parent="CandyObstacles" unique_id=2138106016 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 13)
+
+[node name="Crate12" parent="CandyObstacles" unique_id=1917527413 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 13)
+
+[node name="Crate13" parent="CandyObstacles" unique_id=291894159 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+
+[node name="Crate14" parent="CandyObstacles" unique_id=1289794526 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+
+[node name="Crate15" parent="CandyObstacles" unique_id=1310794191 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Crate16" parent="CandyObstacles" unique_id=282604551 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="VehicleSpawnPoints" type="Node3D" parent="." unique_id=794768776]
+
+[node name="PlayerSpawn" type="Marker3D" parent="VehicleSpawnPoints" unique_id=587973302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 18)
+
+[node name="BotSpawnA" type="Marker3D" parent="VehicleSpawnPoints" unique_id=1569860564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 18)
+
+[node name="BotSpawnB" type="Marker3D" parent="VehicleSpawnPoints" unique_id=1502170239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -18)
+
+[node name="BotSpawnC" type="Marker3D" parent="VehicleSpawnPoints" unique_id=1432672382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -18)
+
+[node name="ReserveWest" type="Marker3D" parent="VehicleSpawnPoints" unique_id=1163364068]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 0)
+
+[node name="ReserveEast" type="Marker3D" parent="VehicleSpawnPoints" unique_id=759830302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 0)
+
+[node name="CandySpawnPoints" type="Node3D" parent="." unique_id=2090007846]
+
+[node name="CenterNorth" type="Marker3D" parent="CandySpawnPoints" unique_id=122809480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="CenterSouth" type="Marker3D" parent="CandySpawnPoints" unique_id=1878805429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="Center" type="Marker3D" parent="CandySpawnPoints" unique_id=769452754]
+
+[node name="Scenery" parent="." unique_id=2002727275 instance=ExtResource("4")]
+editor_description = "外围美术排版，仅视觉，无碰撞。建筑实例已归入 Arena 的 Landmarks 与 AdditionalDestructibles。"

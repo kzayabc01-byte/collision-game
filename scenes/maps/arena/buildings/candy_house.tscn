@@ -89,3 +89,18 @@ editor_description = "镜头或选中表现可以参考的建筑中心点；当�
 [node name="EffectsPoint" type="Marker3D" parent="Sockets"]
 position = Vector3(0, 3, 3.2)
 editor_description = "特效位置参考点。当前没有特效跟随此点。"
+
+[node name="CandySpawnPoint" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 2, 0)
+editor_description = "未来出糖位置的编辑参考。只有坐标，无生成逻辑，也没有连接现有 CandySystem。"
+
+[node name="HitTarget" type="Marker3D" parent="Sockets"]
+position = Vector3(0, 1, 3.5)
+editor_description = "未来受击位置的编辑参考。不是碰撞体或检测区，当前 AI 不读取此点。"
+
+[node name="BrokenModel" type="Node3D" parent="VisualRoot"]
+visible = false
+editor_description = "预留破碎外观容器，当前为空且隐藏；没有损坏状态或破碎行为。"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+editor_description = "动画制作的空节点，无动画、轨道、自动播放或事件连接。"

@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3]
+
+[sub_resource type="StandardMaterial3D" id="TrunkMaterial"]
+albedo_color = Color(0.3, 0.23, 0.26, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="CrownMaterial"]
+albedo_color = Color(0.32, 0.3, 0.46, 1)
+roughness = 1.0
+
+[sub_resource type="CylinderMesh" id="TrunkMesh"]
+material = SubResource("TrunkMaterial")
+top_radius = 0.18
+bottom_radius = 0.25
+height = 1.8
+
+[sub_resource type="CylinderMesh" id="CrownMesh"]
+material = SubResource("CrownMaterial")
+top_radius = 0.0
+bottom_radius = 1.2
+height = 3.6
+
+[node name="TreePlaceholder" type="Node3D"]
+editor_description = "可复用的场外树形视觉占位，原点在地面。没有脚本、碰撞、分组识别或事件；不是正式树木模型。"
+
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="Placeholder" type="Node3D" parent="VisualRoot"]
+editor_description = "正式模型就位后隐藏此节点。"
+
+[node name="Trunk" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 0.9, 0)
+cast_shadow = 0
+mesh = SubResource("TrunkMesh")
+
+[node name="Crown" type="MeshInstance3D" parent="VisualRoot/Placeholder"]
+position = Vector3(0, 3.2, 0)
+cast_shadow = 0
+mesh = SubResource("CrownMesh")
+
+[node name="ModelRoot" type="Node3D" parent="VisualRoot"]
+editor_description = "留给正式树木外观，当前为空。"

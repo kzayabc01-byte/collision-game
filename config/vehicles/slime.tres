@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="VehicleProfile" load_steps=2 format=3]
-[ext_resource type="Script" path="res://scripts/vehicle_profile.gd" id="1"]
+[gd_resource type="Resource" script_class="VehicleProfile" format=3 uid="uid://i010r3v5r4jv"]
+
+[ext_resource type="Script" uid="uid://c3dudocbt3n5u" path="res://scripts/vehicle_profile.gd" id="1"]
+
 [resource]
 script = ExtResource("1")
 kind = 2
 display_name = "史莱姆车"
-description = "速度>4滚动：受伤-30% / 加速+20%\n转90°减速7.5%；低速用小脚走路"
-accent = Color(0.36, 0.92, 0.80, 1)
+description = "速度>4滚动：受伤-30% / 加速+20%
+转90°减速7.5%；低速用小脚走路"
+accent = Color(0.36, 0.92, 0.8, 1)
