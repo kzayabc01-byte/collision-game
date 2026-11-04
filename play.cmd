@@ -8,7 +8,7 @@ if not exist "%SUGER_GODOT%" (
   exit /b 1
 )
 if not exist "%~dp0.godot\global_script_class_cache.cfg" goto import_project
-findstr /c:"ArenaRoute" "%~dp0.godot\global_script_class_cache.cfg" >nul 2>&1
+findstr /c:"VehicleSelect" "%~dp0.godot\global_script_class_cache.cfg" >nul 2>&1
 if errorlevel 1 goto import_project
 goto launch_game
 :import_project

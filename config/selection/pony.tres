@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="VehicleSelectionEntry" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/ui/vehicle_selection_entry.gd" id="1"]
+[ext_resource type="Resource" path="res://config/vehicles/pony.tres" id="2"]
+[ext_resource type="Texture2D" path="res://assets/selection/icons/pony.svg" id="3"]
+[resource]
+script = ExtResource("1")
+profile = ExtResource("2")
+title = "糖纸小马车"
+card_title = "糖纸小马"
+introduction = "轻快灵活的入门座驾，容易上手。\n擅长收集糖果，在成长中寻找撞击机会。"
+growth_rating = 4
+collision_rating = 3
+thumbnail = ExtResource("3")

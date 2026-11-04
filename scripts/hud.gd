@@ -5,6 +5,8 @@ signal restart_requested
 signal pause_requested
 signal vehicle_requested(kind: int)
 signal lab_requested
+signal menu_requested
+signal selection_requested
 
 var _notice_remaining: float = 0.0
 var _lab: bool = false
@@ -32,6 +34,8 @@ func _ready() -> void:
 	(%PumpkinButton as Button).pressed.connect(func() -> void: vehicle_requested.emit(1))
 	(%SlimeButton as Button).pressed.connect(func() -> void: vehicle_requested.emit(2))
 	(%LabButton as Button).pressed.connect(func() -> void: lab_requested.emit())
+	(%MenuButton as Button).pressed.connect(func() -> void: menu_requested.emit())
+	(%SelectVehicleButton as Button).pressed.connect(func() -> void: selection_requested.emit())
 
 func configure_vehicle(kind: int, lab: bool) -> void:
 	_lab = lab
