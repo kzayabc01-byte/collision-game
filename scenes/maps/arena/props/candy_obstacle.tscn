@@ -1,50 +1,41 @@
-[gd_scene load_steps=10 format=3]
-[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1"]
+[gd_scene format=3 uid="uid://c0gbk78cfbdh8"]
+
+[ext_resource type="Script" uid="uid://bc6coycd50lv1" path="res://scripts/obstacle.gd" id="1"]
 [ext_resource type="Resource" path="res://config/prototype.tres" id="2"]
+[ext_resource type="PackedScene" uid="uid://coelwlsp222it" path="res://assets/models/gift_box/gift_box_purple.glb" id="3"]
+
 [sub_resource type="BoxShape3D" id="Shape"]
 size = Vector3(1.5, 1.4, 1.5)
+
 [sub_resource type="StandardMaterial3D" id="Material"]
 albedo_color = Color(1, 0.63, 0.21, 1)
 roughness = 0.6
-[sub_resource type="StandardMaterial3D" id="Ribbon"]
-albedo_color = Color(0.58, 0.22, 0.38, 1)
-[sub_resource type="BoxMesh" id="Mesh"]
-material = SubResource("Material")
-size = Vector3(1.5, 1.4, 1.5)
-[sub_resource type="BoxMesh" id="BandMesh"]
-material = SubResource("Ribbon")
-size = Vector3(0.25, 1.44, 1.54)
-[sub_resource type="BoxMesh" id="CrossMesh"]
-material = SubResource("Ribbon")
-size = Vector3(1.54, 1.44, 0.25)
+
 [sub_resource type="BoxMesh" id="DebrisMesh"]
 material = SubResource("Material")
 size = Vector3(0.16, 0.05, 0.25)
 
-[node name="CandyObstacle" type="StaticBody3D" groups=["candy_obstacles"]]
+[node name="CandyObstacle" type="StaticBody3D" unique_id=564753701 groups=["candy_obstacles"]]
 editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
-collision_layer = 1
 collision_mask = 2
 script = ExtResource("1")
 destructible = true
 tuning = ExtResource("2")
-[node name="BodyCollision" type="CollisionShape3D" parent="."]
-position = Vector3(0, 0.7, 0)
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=128717146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("Shape")
-[node name="VisualRoot" type="Node3D" parent="."]
-[node name="Model" type="MeshInstance3D" parent="VisualRoot"]
-position = Vector3(0, 0.7, 0)
-mesh = SubResource("Mesh")
-[node name="RibbonA" type="MeshInstance3D" parent="VisualRoot"]
-position = Vector3(0, 0.7, 0)
-mesh = SubResource("BandMesh")
-[node name="RibbonB" type="MeshInstance3D" parent="VisualRoot"]
-position = Vector3(0, 0.7, 0)
-mesh = SubResource("CrossMesh")
-[node name="CandySpawn" type="Marker3D" parent="."]
-position = Vector3(0, 0.8, 0)
-[node name="BreakParticles" type="CPUParticles3D" parent="."]
-position = Vector3(0, 0.7, 0)
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=1927976898]
+
+[node name="Model" parent="VisualRoot" unique_id=2028176860 instance=ExtResource("3")]
+transform = Transform3D(0.705774, 0, 0, 0, 0.705774, 0, 0, 0, 0.705774, 0, 0, 0)
+
+[node name="CandySpawn" type="Marker3D" parent="." unique_id=1021470136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="BreakParticles" type="CPUParticles3D" parent="." unique_id=1931940403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 emitting = false
 amount = 28
 lifetime = 0.8

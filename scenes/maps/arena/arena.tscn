@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
 [ext_resource type="Shader" uid="uid://b2jt7w83mj453" path="res://assets/arena_grid.gdshader" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/arena_scenery.tscn" id="4"]
-[ext_resource type="Material" path="res://assets/materials/dream_ground.tres" id="5_ground"]
+[ext_resource type="Material" uid="uid://bruewgy3ei7t6" path="res://assets/materials/dream_ground.tres" id="5_ground"]
 
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
