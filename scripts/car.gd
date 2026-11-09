@@ -374,17 +374,21 @@ func can_swallow(other: CrashCar, direction: Vector3) -> bool:
 	var other_scale: float = CollisionMath.scale_for(other.pre_candy, other.tuning)
 	return other_scale <= own_scale * profile.swallow_size_ratio + 0.00001 and pre_forward.dot(direction) >= cos(deg_to_rad(profile.mouth_half_angle))
 
-func animate_swallowed(mouth: Node3D) -> void:
+func animate_swallowed(mouth: Node3D, pull_seconds: float = 0.28, opening_seconds: float = 0.0) -> void:
 	if mouth == null:
 		return
+	if _swallow_tween != null and _swallow_tween.is_valid():
+		_swallow_tween.kill()
 	growth_root.show()
 	var from: Vector3 = growth_root.global_position
 	var old_scale: Vector3 = growth_root.scale
 	_swallow_tween = create_tween()
+	if opening_seconds > 0.0:
+		_swallow_tween.tween_interval(opening_seconds)
 	_swallow_tween.tween_method(func(weight: float) -> void:
 		if is_instance_valid(mouth):
 			growth_root.global_position = from.lerp(mouth.global_position, weight)
-		growth_root.scale = old_scale * (1.0 - weight), 0.0, 1.0, 0.28)
+		growth_root.scale = old_scale * maxf(0.001, 1.0 - weight), 0.0, 1.0, pull_seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	_swallow_tween.tween_callback(func() -> void:
 		growth_root.hide()
 		growth_root.position = Vector3.ZERO)

@@ -62,8 +62,8 @@ func _run() -> void:
 	var screen: VehicleSelect = current_scene as VehicleSelect
 	screen.transition_seconds = 0.0
 	check(screen.cards.size() == 4 and screen.cards[3].disabled, "Three available plus locked upcoming card")
-	check(not screen.preview.visible and screen.preview.model == null, "Central stage remains empty")
-	check(screen.preview.viewport.render_target_update_mode == SubViewport.UPDATE_DISABLED, "Empty preview consumes no 3D render updates")
+	check(screen.preview.visible and screen.preview.model != null, "Initial pony selection shows the imported model")
+	check(screen.preview.viewport.render_target_update_mode == SubViewport.UPDATE_ALWAYS, "Active model preview renders")
 	check(root.find_children("Match", "Node3D", true, false).is_empty(), "No match timer behind selection")
 	screen.cycle(-1)
 	check(screen.selected_index == 2, "Previous wraps past locked card")
@@ -100,9 +100,14 @@ func _run() -> void:
 	screen.preview.set_vehicle(fixture)
 	await frames()
 	check(screen.preview.model != null and screen.preview.visible and screen.preview.viewport.own_world_3d, "Future model hook creates isolated preview")
-	screen.preview.set_vehicle(screen.entries[0] as VehicleSelectionEntry)
+	fixture.preview_scene = null
+	screen.preview.set_vehicle(fixture)
 	await frames()
 	check(screen.preview.model == null and screen.preview.mount.get_child_count() == 0 and not screen.preview.visible, "Switch clears old model and restores empty stage")
+	check(screen.preview.viewport.render_target_update_mode == SubViewport.UPDATE_DISABLED, "Empty fallback consumes no rendering updates")
+	screen.preview.set_vehicle(screen.entries[0] as VehicleSelectionEntry)
+	await frames()
+	check(screen.preview.visible and screen.preview.mount.get_child_count() == 1, "Restoring a model creates exactly one preview")
 	await key(KEY_ESCAPE)
 	check(current_scene is StartScreen and (current_scene as StartScreen).stage == StartScreen.Stage.MENU, "Esc returns to menu without replay")
 	menu = current_scene as StartScreen

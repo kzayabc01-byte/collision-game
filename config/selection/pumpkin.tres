@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="VehicleSelectionEntry" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="VehicleSelectionEntry" load_steps=5 format=3]
 [ext_resource type="Script" path="res://scripts/ui/vehicle_selection_entry.gd" id="1"]
 [ext_resource type="Resource" path="res://config/vehicles/pumpkin.tres" id="2"]
 [ext_resource type="Texture2D" path="res://assets/selection/icons/pumpkin.svg" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/pumpkin_visual.tscn" id="4"]
 [resource]
 script = ExtResource("1")
 profile = ExtResource("2")
@@ -11,3 +12,6 @@ introduction = "以大吃小的追击座驾，擅长封路。\n积攒体型优�
 growth_rating = 4
 collision_rating = 4
 thumbnail = ExtResource("3")
+preview_scene = ExtResource("4")
+preview_scale = 1.8
+preview_offset = Vector3(0, -0.9, 0)

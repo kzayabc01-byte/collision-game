@@ -1,13 +1,17 @@
 # 不给糖就撞：开始界面与选人 UI 整合版
 
-以最新整理后的源工程为基础，接入开始界面、三种座驾选择、对局及返回流程。双击 `play.cmd` 启动。模型展示区暂留空，第四张卡片为敬请期待。
+以最新整理后的源工程为基础，接入开始界面、三种座驾选择、对局及返回流程。双击 `play.cmd` 启动。小马、南瓜、史莱姆均已接入 Blender 模型、选车预览和正式对局，第四张卡片为敬请期待。
+
+2026-11-09：补齐小马灯笼车厢、小轮、点头拾糖，以及史莱姆巫师帽、渐变胶体、小脚走路、收帽团球翻滚。双击 `vehicles.cmd` 查看三车与动画。可编辑源文件位于 `art_source/pony.blend`、`pumpkin.blend`、`slime.blend`；维护与验证见 [三车模型交接](docs/three-car-art.md)。
+
+2026-11-08：南瓜美术样板与吞噬动画已接入。双击 `pumpkin.cmd` 可近距离查看、拖动旋转、按空格吞车，或进入能力试验。可编辑 `.blend`、导出的 `.glb`、Godot 动画轨道及维护步骤见 [南瓜模型交接](docs/pumpkin-art.md)。
 
 完整接入说明见 [UI 接入](docs/ui-integration.md)，验证记录见 [UI 验证](docs/validation-ui.md)。
 
 # 不给糖就撞：驾驶与 AI V2
 
 ## 启动与操作
-双击 `play.cmd`，或用 Godot 4.4+ 导入 `project.godot`。本机启动器使用 D:/Godot_v4.7.2-stable_win64.exe 下的程序。
+双击 `play.cmd`，或用 Godot 导入 `project.godot`。本次验证使用 Godot 4.7.2。本机启动器优先使用原 D 盘路径，找不到时使用 E:/jam game/godot 下的 4.7.2。
 
 - W/上：油门前进；S/下：先减速，停下后继续倒车，上限3.5。
 - A/左、D/右：车辆自身的左/右转向。面向屏幕下方时仍遵循车辆方向；倒车遵循方向盘规则。

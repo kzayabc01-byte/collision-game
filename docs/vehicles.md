@@ -1,8 +1,10 @@
 # 三种车辆原型交接说明
 
+2026-11-09：三辆车均已升级为 Blender 分件模型，并接入选车与对局。小马有灯笼车厢、四个小轮与拾糖点头；南瓜有约 0.82 秒吞噬动画；史莱姆有小脚走路、收帽团球翻滚与恢复动作。GLB、外部动画库和节点结构见 [三车模型交接](three-car-art.md)，南瓜细节见 [南瓜模型交接](pumpkin-art.md)。
+
 版本：V0.3 · 2026-11-01。配套文档：[工程说明](../README.md)、[美术与音效制作要求](art-production.md)。
 
-这版可直接试玩，三个角色的功能与独立外观场景均已接入。以 Godot 4.4.1 验证。
+这版可直接试玩，三个角色的功能与独立外观场景均已接入。最新模型接入以 Godot 4.7.2 验证。
 
 ## 入口
 
@@ -20,11 +22,14 @@
 | scenes/vehicles/slime_visual.tscn | 胶体、表情、两个小脚、滚动主体、高光块、滚动状态圈 |
 | scenes/vehicles/*_car.tscn | 继承共用车辆，关联外观和对应参数资源 |
 | config/vehicles/*.tres | 技能阈值、吞噬尺寸比例/角度、滚动加成 |
-| scripts/vehicle_visual.gd | 按速度驱动轮子、小脚和滚动；动画过渡参数可在 Inspector 中调整 |
+| scripts/vehicle_visual.gd | 共用轮子、拾糖、吞噬与复位接口 |
+| scripts/pony_visual.gd、slime_visual.gd | 小马尾摆；史莱姆团球、翻滚、收脚与回正 |
+| art_source/*.blend | 可独立选择、修改的 Blender 模型部件与动画源文件 |
+| assets/models/*/*_animations.tres | Godot 可编辑动画库，更新 GLB 不会自动覆盖 |
 | scenes/hud.tscn | 车辆切换按钮、能力试验按钮、角色名称和实时状态 |
 | scenes/vehicle_showcase.tscn | 三车同屏展示、灯光、镜头与说明 |
 
-几何模型是可选中、移动、替换的实际节点，场景保存于磁盘；不会在运行时从脚本重新拼装。小轮通过独立枢轴转动，史莱姆的小脚保留原始比例。正式模型可替换每个外观场景中的网格，保留必要节点或同步 Inspector 中的节点路径。
+源模型的细分零件保存在 Blender 中；GLB 导出时仅合并静止部件，保留轮子、头、嘴、脚、帽子等运动节点。Godot 场景引用磁盘上的模型，不会在运行时从脚本重新拼装。小轮通过独立枢轴转动，史莱姆的小脚保留原始比例。替换模型时保留必要节点或同步 Inspector 中的节点路径。
 
 角色场景在 `GrowthRoot/HitPivot/CharacterVisual` 下。共用 `Model` 是原始测试车辆，在三个新场景中隐藏，供基础碰撞测试使用。正式外观不使用共用模型的自动染色，玩家和 AI 通过地面圈、名称区分。
 
@@ -37,20 +42,20 @@
 外观节点约定：
 
 - `Motion`：行驶的轻微起伏。
-- `Motion/WheelFL/FR/BL/BR`：轮心枢轴；不要直接改变枢轴缩放来调整轮径，改网格并同步 `wheel_radius`。
-- `Motion/Head`：小马拾取动作。
-- `Motion/Jaw`：南瓜下颚；`AnimationPlayer` 中有 `swallow` 动画。
-- `Motion/RollRoot`：史莱姆主体局部翻滚；表情与脚独立，避免跟随运动轴翻转。
-- `Motion/FootL/FootR`：史莱姆小脚，走路时交替起落，滚动时平滑收起。
+- `Motion/Model/PonyArt` 或 `PumpkinArt` 下的 `WheelFL/FR/BL/BR`：轮心枢轴；改轮径需同步 `wheel_radius`。
+- `Motion/Model/PonyArt/Head`：小马拾取动作。
+- `Motion/Model/PumpkinArt/BodyDeform/Jaw`：南瓜下颚；`AnimationPlayer` 中有 `swallow` 动画。
+- `Motion/Model/SlimeArt/RollRoot`：史莱姆局部翻滚，胶体、表情和收起的帽子一起转动。
+- `Motion/Model/SlimeArt/FootL/FootR`：史莱姆小脚，走路时交替起落，滚动时平滑收起。
 - `Sockets/MouthSocket`：吞噬目标外观的终点。
 - `Sockets/PickupSocket`、`TrailSocket`：为正式表现保留的编辑器标记；当前共用拾取飞入与尾迹仍沿用基础车辆实现。
-- 每个外观场景内的 `AnimationPlayer` 保存实际 RESET 与拾取/吞噬关键帧，可直接编辑。
+- 每个外观场景内的 `AnimationPlayer` 引用外部 RESET 与拾取/吞噬关键帧；史莱姆另有 `MorphPlayer` 控制 `roll_pose`，可直接编辑。
 
 | 角色 | 当前已做的表现 | 后续素材制作重点 |
 |---|---|---|
-| 小马 | 小轮转动、车身起伏、拾取点头、双倍标记、实际增量数字 | 正式马头/鬃尾模型、鬃尾摆动、转向侧倾、表情 |
-| 南瓜 | 分瓣壳、小轮、可吞目标接近时小幅张嘴、吞噬张合嘴、鼓胀、目标缩入 | 正式壳体与口腔、嘴部亮光、吞噬特效、目标标记 |
-| 史莱姆 | 小脚交替走、收脚滚动、表面标记翻转、状态圈、受撞回弹 | 正式胶体材质、更自然的变形、脚步与滚动循环音 |
+| 小马 | 分件马头/鬃尾、灯笼车厢、小轮、拾取点头、尾摆、双倍标记 | 手绘纹理、转向侧倾、更丰富表情 |
+| 南瓜 | 分瓣壳与口腔、小轮、藤蔓灯笼、吞噬张合嘴、鼓胀、目标缩入 | 手绘纹理、吞噬粒子、目标标记 |
+| 史莱姆 | 巫师帽、渐变胶体、小脚走、收帽团球滚动、回正展开、状态圈 | 更细腻的胶体变形、脚步与滚动循环音 |
 
 共用的爆糖、弹跳、拾取飞入、成长缩放、受撞和重生流程已接通；正式碎片、角色退场动画和细化音效按制作要求继续替换。
 
@@ -90,14 +95,14 @@
 
 原有规则和实际物理测试保留；新增 `tests/vehicles.gd` 覆盖临界值、混合来源糖果、真实拾取区域、吞噬接触与去重、减伤、墙体例外、实际直行/转弯、动画姿势复位、切换车辆与试验流程。
 
-最近一次实现交付验证：55 项基础检查与 56 项角色检查通过，实际驾驶测试通过，180 秒整局模拟正常结束。后续修改参数或动画路径后，重新运行与改动对应的检查。
+2026-11-09 模型接入验证：55 项基础、55 项角色、77 项回归、28 项南瓜动画、36 项小马/史莱姆模型、50 项 UI 检查通过。Godot 实机预览确认模型、走路/翻滚和选车显示。后续修改参数或动画路径后，重新运行对应检查。
 
 ```powershell
-$godotExe = 'E:/jam game/godot/Godot_v4.4.1-stable_win64_console.exe'
-& $godotExe --headless --path . --import
+$godotExe = 'E:/jam game/godot/Godot_v4.7.2-stable_win64_console.exe'
+& $godotExe --headless --editor --path . --import --quit
 & $godotExe --headless --path . --script res://tests/test_runner.gd
 & $godotExe --headless --path . --fixed-fps 60 --script res://tests/vehicles.gd
-& $godotExe --headless --path . --fixed-fps 60 --script res://tests/soak.gd
+& $godotExe --headless --path . --fixed-fps 60 --script res://tests/companion_art.gd
 ```
 
-三种车目前使用可编辑几何占位模型，适合验证分件、尺寸、动画和技能，后续美术可逐个场景替换。吞噬和史莱姆参数集中在资源中，便于实际试玩调整。
+三种车目前为可编辑的第一版美术模型，还没有手绘贴图；导入使用自动 LOD，尚未针对低端设备专门优化。吞噬和史莱姆参数集中在资源中，便于实际试玩调整。

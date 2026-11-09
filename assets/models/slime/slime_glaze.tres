@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+[ext_resource type="Shader" path="res://assets/shaders/slime_glaze.gdshader" id="1"]
+[resource]
+shader = ExtResource("1")
+shader_parameter/body_color = Color(0.53, 0.27, 0.72, 1)
+shader_parameter/base_color = Color(0.36, 0.76, 0.78, 1)
+shader_parameter/rim_color = Color(0.70, 0.74, 1, 1)
+shader_parameter/glaze_roughness = 0.24
+shader_parameter/rim_strength = 0.10

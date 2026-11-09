@@ -6,9 +6,9 @@
 background_mode = 0
 ambient_light_source = 3
 ambient_light_color = Color(0.82, 0.75, 1, 1)
-ambient_light_energy = 0.8
+ambient_light_energy = 0.35
 reflected_light_source = 2
-tonemap_mode = 0
+tonemap_mode = 2
 
 [node name="VehiclePreview" type="SubViewportContainer"]
 offset_right = 660.0
@@ -16,7 +16,7 @@ offset_bottom = 420.0
 stretch = true
 mouse_filter = 2
 script = ExtResource("1")
-editor_description = "保持透明；当前无模型。通过 config/selection 下的 preview_scene 接入纯外观场景。"
+editor_description = "保持透明；通过 config/selection 下的 preview_scene 加载三辆车的纯外观场景。"
 
 [node name="Viewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -27,7 +27,7 @@ own_world_3d = true
 msaa_3d = 1
 
 [node name="ModelMount" type="Node3D" parent="Viewport"]
-editor_description = "车型外观挂载点，脚底原点 (0,0,0)，正向本地 -Z。当前为空，不放原型车。"
+editor_description = "车型外观挂载点，脚底原点 (0,0,0)，正向本地 -Z；选车时仅加载当前车型。"
 
 [node name="Environment" type="WorldEnvironment" parent="Viewport"]
 environment = SubResource("Environment")
@@ -35,12 +35,12 @@ environment = SubResource("Environment")
 [node name="KeyLight" type="DirectionalLight3D" parent="Viewport"]
 rotation_degrees = Vector3(-40, -35, 0)
 light_color = Color(1, 0.84, 0.69, 1)
-light_energy = 1.5
+light_energy = 0.8
 
 [node name="RimLight" type="DirectionalLight3D" parent="Viewport"]
 rotation_degrees = Vector3(-25, 135, 0)
 light_color = Color(0.66, 0.46, 1, 1)
-light_energy = 0.8
+light_energy = 0.3
 
 [node name="Camera3D" type="Camera3D" parent="Viewport"]
 position = Vector3(0, 2.8, 6)

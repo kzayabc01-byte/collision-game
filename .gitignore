@@ -1,3 +1,5 @@
 .godot/
 *.tmp
 test-results/
+art_source/__pycache__/
+art_source/*.blend1

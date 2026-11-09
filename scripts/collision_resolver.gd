@@ -87,7 +87,7 @@ func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> voi
 		eater.collect(reward)
 		if eater.character_visual != null:
 			eater.character_visual.swallow()
-			prey.animate_swallowed(eater.character_visual.mouth_socket)
+			prey.animate_swallowed(eater.character_visual.mouth_socket, eater.character_visual.swallow_pull_seconds, eater.character_visual.swallow_pull_delay)
 		eater.feedback.play_swallow()
 		impact_resolved.emit(eater.global_position, 1, "南瓜吞噬！ +%d 糖果" % reward)
 		return

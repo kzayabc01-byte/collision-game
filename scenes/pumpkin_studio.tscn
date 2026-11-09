@@ -1,0 +1,186 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/pumpkin_studio.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/pumpkin_car.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/pony_car.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/collision_resolver.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/candy_system.gd" id="5"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="6"]
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.095, 0.066, 0.12, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.75, 0.69, 0.85, 1)
+ambient_light_energy = 0.28
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.045, 0.024, 0.065, 1)
+roughness = 0.85
+
+[sub_resource type="PlaneMesh" id="FloorMesh"]
+material = SubResource("FloorMat")
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="PlinthMat"]
+albedo_color = Color(0.10, 0.055, 0.13, 1)
+roughness = 0.66
+
+[sub_resource type="CylinderMesh" id="PlinthMesh"]
+material = SubResource("PlinthMat")
+top_radius = 3.65
+bottom_radius = 3.7
+height = 0.18
+radial_segments = 96
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.08, 0.052, 0.11, 0.94)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 28.0
+content_margin_right = 28.0
+content_margin_top = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="Button"]
+bg_color = Color(0.40, 0.26, 0.43, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+content_margin_left = 24.0
+content_margin_right = 24.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+
+[sub_resource type="Theme" id="Theme"]
+default_font_size = 20
+Label/colors/font_color = Color(0.94, 0.86, 0.94, 1)
+Button/styles/normal = SubResource("Button")
+Button/styles/hover = SubResource("Button")
+Button/styles/pressed = SubResource("Button")
+Button/styles/focus = SubResource("Button")
+
+[node name="PumpkinStudio" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+
+[node name="Key" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-45, -35, 0)
+light_color = Color(1, 0.84, 0.7, 1)
+light_energy = 0.8
+shadow_enabled = true
+directional_shadow_max_distance = 25.0
+
+[node name="Fill" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-25, 70, 0)
+light_color = Color(0.85, 0.85, 1, 1)
+light_energy = 0.25
+
+[node name="Rim" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-25, 175, 0)
+light_color = Color(1, 0.85, 0.95, 1)
+light_energy = 0.35
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.2, 0)
+mesh = SubResource("FloorMesh")
+
+[node name="Plinth" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.10, -0.4)
+mesh = SubResource("PlinthMesh")
+
+[node name="Pumpkin" parent="." instance=ExtResource("2")]
+driver_name = "南瓜"
+starting_candy = 80
+
+[node name="Prey" parent="." instance=ExtResource("3")]
+position = Vector3(0, 0, -2.35)
+driver_name = "目标"
+starting_candy = 20
+
+[node name="CandySystem" type="Node3D" parent="."]
+script = ExtResource("5")
+tuning = ExtResource("6")
+
+[node name="CollisionResolver" type="Node" parent="."]
+script = ExtResource("4")
+tuning = ExtResource("6")
+
+[node name="CameraOrbit" type="Node3D" parent="."]
+rotation_degrees = Vector3(0, -25, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraOrbit"]
+position = Vector3(0, 6.0, -10)
+rotation_degrees = Vector3(-28, 180, 0)
+projection = 1
+size = 7.4
+current = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Eyebrow" type="Label" parent="UI"]
+offset_left = 56.0
+offset_top = 34.0
+theme = SubResource("Theme")
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.99, 0.67, 0.40, 1)
+text = "SUGAR CRASH  /  CHARACTER STUDY 01"
+
+[node name="Title" type="Label" parent="UI"]
+offset_left = 54.0
+offset_top = 66.0
+theme = SubResource("Theme")
+theme_override_font_sizes/font_size = 40
+text = "南瓜车 · 贪吃小怪兽"
+
+[node name="Hint" type="Label" parent="UI"]
+offset_left = 57.0
+offset_top = 125.0
+theme = SubResource("Theme")
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.67, 0.57, 0.72, 1)
+text = "拖动空白处旋转视角  ·  空格吞噬  ·  R 重置"
+
+[node name="Panel" type="PanelContainer" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = -158.0
+offset_right = -52.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme")
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Rows" type="VBoxContainer" parent="UI/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Status" type="Label" parent="UI/Panel/Rows"]
+layout_mode = 2
+text = "南瓜 80 颗 / 目标 20 颗"
+
+[node name="Buttons" type="HBoxContainer" parent="UI/Panel/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Swallow" type="Button" parent="UI/Panel/Rows/Buttons"]
+layout_mode = 2
+text = "播放吞噬  Space"
+
+[node name="Reset" type="Button" parent="UI/Panel/Rows/Buttons"]
+layout_mode = 2
+text = "重置  R"
+
+[node name="Play" type="Button" parent="UI/Panel/Rows/Buttons"]
+layout_mode = 2
+text = "进入能力试验"

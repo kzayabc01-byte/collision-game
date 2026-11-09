@@ -7,6 +7,11 @@ extends Node3D
 @export var transition_speed: float = 9.0
 @export var wheel_paths: Array[NodePath] = []
 @export var foot_paths: Array[NodePath] = []
+@export var jaw_path: NodePath = NodePath("Motion/Jaw")
+@export var appetite_angle: float = -0.2
+@export var wheel_spin_direction: float = -1.0
+@export var swallow_pull_delay: float = 0.0
+@export var swallow_pull_seconds: float = 0.28
 
 var _phase: float = 0.0
 var _roll_blend: float = 0.0
@@ -22,7 +27,7 @@ var _foot_scales: Array[Vector3] = []
 @onready var roll_root: Node3D = get_node_or_null("Motion/RollRoot") as Node3D
 @onready var defense_ring: Node3D = get_node_or_null("DefenseRing") as Node3D
 @onready var bonus_marker: Node3D = get_node_or_null("BonusMarker") as Node3D
-@onready var jaw: Node3D = get_node_or_null("Motion/Jaw") as Node3D
+@onready var jaw: Node3D = get_node_or_null(jaw_path) as Node3D
 
 func _ready() -> void:
 	for path: NodePath in wheel_paths:
@@ -36,7 +41,7 @@ func _ready() -> void:
 func animate(delta: float, speed: float, size_scale: float, rolling: bool, bonus: bool) -> void:
 	_phase += speed * delta * 3.5 / maxf(0.5, size_scale)
 	for wheel: Node3D in _wheels:
-		wheel.rotation.x -= speed * delta / (wheel_radius * size_scale)
+		wheel.rotation.x += wheel_spin_direction * speed * delta / (wheel_radius * size_scale)
 	if bonus_marker != null:
 		bonus_marker.visible = bonus
 		bonus_marker.rotation.y += delta * 1.8
@@ -74,10 +79,11 @@ func pickup() -> void:
 func swallow() -> void:
 	if animations.has_animation("swallow"):
 		animations.play("swallow")
+		animations.seek(0.0, true)
 
 func set_appetite(enabled: bool) -> void:
 	if jaw != null and not animations.is_playing():
-		jaw.rotation.x = -0.2 if enabled else 0.0
+		jaw.rotation.x = appetite_angle if enabled else 0.0
 
 func reset_pose() -> void:
 	animations.stop()

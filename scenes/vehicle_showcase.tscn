@@ -5,19 +5,19 @@
 [ext_resource type="PackedScene" path="res://scenes/vehicles/slime_visual.tscn" id="4"]
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
-background_color = Color(0.035, 0.055, 0.085, 1)
+background_color = Color(0.045, 0.024, 0.065, 1)
 ambient_light_source = 3
-ambient_light_color = Color(0.70, 0.82, 1, 1)
-ambient_light_energy = 0.55
+ambient_light_color = Color(0.82, 0.78, 1, 1)
+ambient_light_energy = 0.28
 tonemap_mode = 2
 [sub_resource type="StandardMaterial3D" id="FloorMat"]
-albedo_color = Color(0.05, 0.08, 0.11, 1)
+albedo_color = Color(0.045, 0.024, 0.065, 1)
 roughness = 0.85
 [sub_resource type="BoxMesh" id="FloorMesh"]
 size = Vector3(50, 0.1, 50)
 material = SubResource("FloorMat")
 [sub_resource type="StandardMaterial3D" id="PlinthMat"]
-albedo_color = Color(0.12, 0.19, 0.23, 1)
+albedo_color = Color(0.10, 0.055, 0.13, 1)
 roughness = 0.55
 [sub_resource type="CylinderMesh" id="Plinth"]
 top_radius = 1.4
@@ -48,12 +48,12 @@ environment = SubResource("Environment")
 [node name="KeyLight" type="DirectionalLight3D" parent="."]
 rotation_degrees = Vector3(-45, -35, 0)
 light_color = Color(1, 0.88, 0.74, 1)
-light_energy = 1.1
+light_energy = 0.75
 shadow_enabled = true
 [node name="FillLight" type="DirectionalLight3D" parent="."]
 rotation_degrees = Vector3(-25, 140, 0)
-light_color = Color(0.5, 0.76, 1, 1)
-light_energy = 0.4
+light_color = Color(0.8, 0.85, 1, 1)
+light_energy = 0.22
 [node name="Ground" type="MeshInstance3D" parent="."]
 position = Vector3(0, -0.22, 0)
 mesh = SubResource("FloorMesh")
@@ -95,13 +95,13 @@ offset_left = 72.0
 offset_top = 77.0
 theme = SubResource("Theme")
 theme_override_font_sizes/font_size = 44
-text = "三种车辆 · 可编辑原型"
+text = "三种座驾 · 万圣节车队"
 [node name="Subtitle" type="Label" parent="Labels"]
 offset_left = 75.0
 offset_top = 145.0
 theme = SubResource("Theme")
 theme_override_font_sizes/font_size = 19
-text = "独立场景  /  分件模型  /  动画轨道  /  可调能力参数"
+text = "小马拾糖  /  南瓜吞噬  /  史莱姆翻滚"
 [node name="PonyName" type="Label" parent="Labels"]
 offset_left = 100.0
 offset_top = 648.0
@@ -114,7 +114,7 @@ text = "01  小马车"
 offset_left = 100.0
 offset_top = 703.0
 theme = SubResource("Theme")
-text = "小轮 · 小马造型\n少于40颗：吃一颗得两颗"
+text = "小轮 · 灯笼车厢 · 拾糖点头\n少于40颗：吃一颗得两颗"
 [node name="PumpkinName" type="Label" parent="Labels"]
 offset_left = 550.0
 offset_top = 648.0
@@ -138,7 +138,7 @@ text = "03  史莱姆车"
 offset_left = 1000.0
 offset_top = 703.0
 theme = SubResource("Theme")
-text = "无轮子 · 小脚 / 滚动\n滚动减伤、加速与转向增益"
+text = "无轮子 · 收脚卷帽 · 团成圆球\n滚动减伤、加速与转向增益"
 [node name="SlimeState" type="Label" parent="Labels"]
 offset_left = 1000.0
 offset_top = 774.0
@@ -150,7 +150,7 @@ offset_left = 72.0
 offset_top = 838.0
 theme = SubResource("Theme")
 theme_override_font_sizes/font_size = 16
-text = "空格暂停演示 · 史莱姆每4秒切换状态 · 在Godot中打开本场景可直接调整模型与动画"
+text = "空格暂停演示 · 史莱姆每4秒切换走路与翻滚 · 三辆座驾均已接入正式对局"
 [node name="PlayButton" type="Button" parent="Labels"]
 offset_left = 1160.0
 offset_top = 72.0

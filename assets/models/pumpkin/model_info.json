@@ -1,0 +1,15 @@
+{
+  "source_objects": 100,
+  "objects": 18,
+  "vertices": 28496,
+  "triangles": 56332,
+  "glb_clips": [
+    "swallow"
+  ],
+  "godot_clips": [
+    "RESET",
+    "swallow"
+  ],
+  "swallow_seconds": 0.816667,
+  "blender": "4.5.4 LTS"
+}
