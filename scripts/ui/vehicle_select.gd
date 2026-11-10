@@ -1,6 +1,10 @@
 class_name VehicleSelect
 extends Control
 
+var Music:
+	get: return get_node("/root/Music")
+
+
 const DESIGN_SIZE: Vector2 = Vector2(1672, 941)
 const START_PATH: String = "res://scenes/ui/start_screen.tscn"
 const MATCH_PATH: String = "res://scenes/match.tscn"
@@ -39,6 +43,7 @@ var _detail_tween: Tween
 var _leaving: bool = false
 
 func _ready() -> void:
+	Music.set_context("menu")
 	_font = SystemFont.new()
 	_font.font_names = PackedStringArray(["KaiTi", "STKaiti", "Microsoft YaHei"])
 	_font.font_weight = 700

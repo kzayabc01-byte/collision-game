@@ -54,81 +54,73 @@ func make_menu(check_intro: bool, missing: bool = false) -> StartScreen:
 	return menu
 
 func _run() -> void:
-	var watchdog: Timer = Timer.new()
-	watchdog.wait_time = 35.0
-	watchdog.one_shot = true
-	root.add_child(watchdog)
-	watchdog.timeout.connect(func() -> void: push_error("media test timed out"); quit(2))
-	watchdog.start()
-	var menu: StartScreen = make_menu(true)
-	var music: AudioStreamMP3 = menu.menu_music.stream as AudioStreamMP3
-	check(menu.stage == StartScreen.Stage.INTRO and menu.video_player.is_playing(), "first launch plays the real intro")
-	check(not menu.menu_music.playing, "menu music is silent during intro")
-	check(music != null and music.loop and is_equal_approx(music.loop_offset, 9.89), "MP3 loop skips the source's leading silence")
-	check(music != null and music.get_length() > 55.0 and music.get_length() < 57.0, "supplied 56-second MP3 is loaded")
-	await create_timer(2.0).timeout
-	check(menu.stage == StartScreen.Stage.INTRO and menu.video_player.stream_position > 1.0, "real video decoder advances")
-	await capture("intro-playing")
-	var deadline: int = Time.get_ticks_msec() + 13000
-	while menu.stage == StartScreen.Stage.INTRO and Time.get_ticks_msec() < deadline:
-		await process_frame
-	check(completion_reason == "finished" and menu.stage == StartScreen.Stage.MENU, "natural end shows menu, not stall fallback")
-	await create_timer(0.5).timeout
-	check(menu.menu_music.playing and menu.menu_music.get_playback_position() > 0.0, "natural end starts music")
-	check(is_equal_approx(menu.menu_music.volume_db, -4.0), "music reaches the scene-configured volume")
-	check(not menu.video_layer.visible and menu.video_player.stream == null, "video audio and layer are released")
-	await check_audible("music is audible immediately after natural intro completion")
-	await capture("menu-music")
-	var prior_position: float = menu.menu_music.get_playback_position()
+	var music = root.get_node("Music")
+	music.config_path = "user://music-test.cfg"
+	music.enabled = true
+	music.mode = 0
+	var menu := make_menu(true)
+	check(menu.stage == StartScreen.Stage.INTRO, "intro starts")
+	check(music.current == -1, "intro has no BGM")
+	await create_timer(1.0).timeout
 	menu.skip_intro()
-	menu._finish_intro("finished")
-	await create_timer(0.1).timeout
-	check(menu.menu_music.get_playback_position() >= prior_position, "duplicate end/skip does not restart music")
-	menu.menu_music.seek(music.get_length() - 0.2)
 	await create_timer(0.8).timeout
-	check(menu.menu_music.playing and menu.menu_music.get_playback_position() >= music.loop_offset and menu.menu_music.get_playback_position() < music.loop_offset + 2.0, "music wraps to the audible section")
-	await check_audible("music remains audible after looping")
-	var old_music: AudioStreamPlayer = menu.menu_music
+	check(music.current == 0, "skip starts Aquarium")
+	check(menu.video_player.stream == null, "intro audio released")
+	for index in 3:
+		music.play_track(index)
+		await create_timer(0.8).timeout
+		var player: AudioStreamPlayer = music.players[music.active]
+		check(player.stream.get_length() > 60, "track decodes " + str(index))
+		player.seek(30)
+		if DisplayServer.get_name() != "headless":
+			await check_audible("track " + str(index))
+	music.set_context("battle")
+	await create_timer(0.8).timeout
+	check(music.current == 2, "battle uses Ecstasy")
+	music.set_paused(true)
+	check(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")) < -10, "pause attenuates")
+	music.set_paused(false)
+	music.set_context("menu")
+	await create_timer(0.8).timeout
+	var active: int = music.active
+	var position: float = music.players[active].get_playback_position()
+	music.set_context("menu")
+	check(music.active == active and music.players[active].get_playback_position() >= position, "menu selection continuity")
+	music.set_mode(1)
+	music.play_track(2)
+	music._finished(music.active)
+	check(music.current == 0, "list wraps")
+	music.set_mode(2)
+	var prior: int = music.current
+	music._finished(music.active)
+	check(music.current != prior, "shuffle avoids immediate repeat")
+	music.set_mode(3)
+	prior = music.current
+	music._finished(music.active)
+	check(music.current == prior, "single repeats")
+	music.enabled = false
+	music.sfx_volume = 0.67
+	music.apply_volume()
+	check(AudioServer.is_bus_mute(AudioServer.get_bus_index("Music")), "BGM mute")
+	check(not AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX")), "SFX independent")
+	music.save()
+	var cfg := ConfigFile.new()
+	check(cfg.load(music.config_path) == OK and cfg.get_value("audio", "sfx_volume") == 0.67, "settings persisted")
+	music.enabled = true
+	music.set_mode(0)
+	music.apply_volume()
+	music.open_settings()
+	await create_timer(0.5).timeout
+	check(music.settings_open, "settings opens")
 	menu.start_game()
-	await create_timer(0.15).timeout
-	check(is_instance_valid(old_music) and old_music.volume_db < -4.0, "entering selection fades music")
-	await create_timer(0.5).timeout
-	check(current_scene is VehicleSelect and not is_instance_valid(old_music), "selection frees the previous music player")
-	if not current_scene is VehicleSelect:
-		quit(1)
-		return
-	(current_scene as VehicleSelect).back_to_menu()
-	await create_timer(0.7).timeout
-	check(current_scene is StartScreen, "selection can return to menu")
-	if not current_scene is StartScreen:
-		quit(1)
-		return
-	menu = current_scene as StartScreen
-	check(menu.stage == StartScreen.Stage.MENU and menu.menu_music.playing, "return resumes music without replaying intro")
-	check(menu.find_children("MenuMusic", "AudioStreamPlayer", true, false).size() == 1, "return has one music player")
-	menu.free()
-	menu = make_menu(true)
-	await create_timer(0.5).timeout
-	var escape: InputEventKey = InputEventKey.new()
-	escape.keycode = KEY_ESCAPE
-	escape.pressed = true
-	Input.parse_input_event(escape)
-	Input.flush_buffered_events()
-	await process_frame
-	escape = escape.duplicate() as InputEventKey
-	escape.pressed = false
-	Input.parse_input_event(escape)
-	Input.flush_buffered_events()
-	await create_timer(0.5).timeout
-	check(completion_reason == "skipped" and menu.stage == StartScreen.Stage.MENU, "Esc skips only the intro")
-	check(menu.menu_music.playing and menu.video_player.stream == null, "skip switches audio to menu music")
-	await check_audible("music is audible immediately after skipping intro")
-	menu.free()
-	menu = make_menu(true, true)
-	await create_timer(0.4).timeout
-	check(menu.stage == StartScreen.Stage.MENU and menu.menu_music.playing, "missing intro falls back to menu with music")
-	menu.free()
-	# Let the audio mixer release stopped playback before shutting down the server.
-	await create_timer(0.25).timeout
-	print("MENU MEDIA: %d checks, %d failures" % [checks, failures])
+	check(menu.stage == StartScreen.Stage.MENU, "modal blocks starting game")
+	await capture("music-settings")
+	music.close_settings()
+	check(not music.settings_open, "settings closes")
+	menu.start_game()
+	await create_timer(1.0).timeout
+	check(current_scene is VehicleSelect, "start enters selection")
+	check(music.current == 0, "selection keeps Aquarium")
+	for player: AudioStreamPlayer in music.players: player.stop()
+	print("MUSIC_CHECKS ", checks, " failures=", failures)
 	quit(0 if failures == 0 else 1)

@@ -243,6 +243,7 @@ func _build_overlay() -> void:
 	result_rows.add_theme_constant_override("line_spacing", 7)
 	resume_button = _button(modal, "ResumeButton", "▶ 继续游戏", Rect2(145, 292, 400, 75), func() -> void: pause_requested.emit(), true)
 	restart_button = _button(modal, "PlayAgainButton", "重新开始  R", Rect2(165, 392, 360, 64), func() -> void: restart_requested.emit())
+	_button(modal, "MusicSettingsButton", "音乐设置", Rect2(165, 504, 360, 62), func() -> void: get_node("/root/Music").open_settings())
 	_button(modal, "SelectVehicleButton", "更换座驾", Rect2(165, 474, 360, 62), func() -> void: selection_requested.emit())
 	_button(modal, "MenuButton", "返回主菜单", Rect2(165, 554, 360, 62), func() -> void: menu_requested.emit())
 	var lab: Button = _button(modal, "LabButton", "能力试验 F2", Rect2(200, 639, 290, 44), func() -> void: lab_requested.emit())
@@ -415,9 +416,11 @@ func show_overlay(title: String, body: String) -> void:
 	trophy.visible = not paused
 	resume_button.visible = paused
 	restart_button.text = "重新开始  R" if paused else "再来一局  R"
-	restart_button.position.y = 392 if paused else 424
-	(get_node("%SelectVehicleButton") as Button).position.y = 474 if paused else 506
-	(get_node("%MenuButton") as Button).position.y = 554 if paused else 586
+	resume_button.position.y = 270
+	restart_button.position.y = 355 if paused else 424
+	(get_node("%SelectVehicleButton") as Button).position.y = 430 if paused else 506
+	(get_node("%MusicSettingsButton") as Button).visible = paused
+	(get_node("%MenuButton") as Button).position.y = 578 if paused else 586
 	(get_node("%LabButton") as Button).visible = paused
 	result_rows.visible = not paused
 	result_rows.text = ranking_label.text

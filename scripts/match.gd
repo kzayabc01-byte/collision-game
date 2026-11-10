@@ -1,6 +1,10 @@
 class_name CrashMatch
 extends Node3D
 
+var Music:
+	get: return get_node("/root/Music")
+
+
 enum Phase {
 	PLAYING,
 	PAUSED,
@@ -37,6 +41,7 @@ var _hitstop_cooldown: float = 0.0
 @onready var impact_effects: Node3D = $ImpactEffects
 
 func _ready() -> void:
+	Music.set_context("battle")
 	remaining_seconds = tuning.round_seconds
 	_neutral_remaining = tuning.neutral_spawn_seconds
 	resolver.candy_system = candy_system
@@ -118,6 +123,8 @@ func _physics_process(delta: float) -> void:
 		finish_round()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if Music.settings_open:
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		var key: int = (event as InputEventKey).physical_keycode
 		if key >= KEY_1 and key <= KEY_3:
@@ -204,6 +211,7 @@ func toggle_pause() -> void:
 		return
 	player.cancel_maneuver()
 	phase = Phase.PAUSED if phase == Phase.PLAYING else Phase.PLAYING
+	Music.set_paused(phase == Phase.PAUSED)
 	_update_world_processing()
 	if phase == Phase.PAUSED:
 		hud.show_overlay("比赛暂停", "按 Esc 或右上角按钮继续\nR 重新开始")
@@ -212,6 +220,7 @@ func toggle_pause() -> void:
 
 func finish_round() -> void:
 	phase = Phase.FINISHED
+	Music.set_paused(false)
 	hitstop_remaining = 0.0
 	_update_world_processing()
 	var best: int = 0

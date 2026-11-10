@@ -1,5 +1,9 @@
 class_name StartScreen
 extends Control
+
+var Music:
+	get: return get_node("/root/Music")
+
 ## Startup -> optional movie -> menu -> selection. A new scene never replays the movie.
 
 signal intro_finished(reason: String)
@@ -46,8 +50,6 @@ var _hovered: bool = false
 var _using_keyboard: bool = false
 var _movie_ratio: float = 16.0 / 9.0
 
-@onready var menu_music: AudioStreamPlayer = $MenuMusic
-@onready var _menu_music_volume: float = menu_music.volume_db
 
 func _ready() -> void:
 	_build_ui()
@@ -56,8 +58,6 @@ func _ready() -> void:
 	_boot()
 
 func _exit_tree() -> void:
-	menu_music.stop()
-	menu_music.stream = null
 	if is_instance_valid(video_player):
 		video_player.stop()
 		video_player.stream = null
@@ -116,6 +116,20 @@ func _build_ui() -> void:
 	start_button.button_down.connect(func() -> void: _animate_button(0.97, Color(0.94, 0.90, 0.92)))
 	start_button.button_up.connect(_update_button)
 
+	var music_button := Button.new()
+	music_button.name = "MusicSettings"
+	music_button.text = "♫ 音乐设置"
+	music_button.position = Vector2(1370, 825)
+	music_button.size = Vector2(230, 60)
+	music_button.add_theme_font_size_override("font_size", 24)
+	var music_style := StyleBoxFlat.new()
+	music_style.bg_color = Color("4d285e")
+	music_style.border_color = Color("b87fb1")
+	music_style.set_border_width_all(2)
+	music_style.set_corner_radius_all(12)
+	music_button.add_theme_stylebox_override("normal", music_style)
+	music_button.pressed.connect(Music.open_settings)
+	composition.add_child(music_button)
 	status_label = Label.new()
 	status_label.name = "Status"
 	status_label.position = Vector2(456, 700)
@@ -192,6 +206,7 @@ func _boot() -> void:
 	if movie == null:
 		_show_menu()
 		return
+	Music.set_context("intro")
 	stage = Stage.INTRO
 	composition.hide()
 	start_button.disabled = true
@@ -222,6 +237,8 @@ func _process(delta: float) -> void:
 		_finish_intro("unavailable")
 
 func _input(event: InputEvent) -> void:
+	if Music.settings_open: return
+	if get_viewport().gui_get_focus_owner() == composition.get_node_or_null("MusicSettings"): return
 	if event is InputEventMouseMotion:
 		if _using_keyboard:
 			_using_keyboard = false
@@ -255,15 +272,11 @@ func _show_menu() -> void:
 	start_button.disabled = false
 	curtain.modulate.a = 1.0
 	_update_button()
-	if not menu_music.playing:
-		menu_music.volume_db = -60.0
-		# The supplied MP3 contains the intro's silent timeline before the music.
-		var music_mp3: AudioStreamMP3 = menu_music.stream as AudioStreamMP3
-		menu_music.play(music_mp3.loop_offset if music_mp3 != null else 0.0)
+	Music.set_context("menu")
 	_fade_to(0.0)
 
 func start_game() -> void:
-	if stage != Stage.MENU:
+	if stage != Stage.MENU or Music.settings_open:
 		return
 	stage = Stage.STARTING
 	start_button.disabled = true
@@ -300,5 +313,3 @@ func _fade_to(alpha: float) -> void:
 	_fade.set_parallel(true)
 	_fade.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	_fade.tween_property(curtain, "modulate:a", alpha, fade_seconds)
-	if menu_music.playing:
-		_fade.tween_property(menu_music, "volume_db", _menu_music_volume if stage == Stage.MENU else -60.0, fade_seconds)
