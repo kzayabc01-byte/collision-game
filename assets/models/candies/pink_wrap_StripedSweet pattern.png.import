@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5g8rvgipmvmi"
-path="res://.godot/imported/pink_wrap_StripedSweet pattern.png-4d38ea14ae2dec4edd6d56ac86937ff3.ctex"
+path.s3tc="res://.godot/imported/pink_wrap_StripedSweet pattern.png-4d38ea14ae2dec4edd6d56ac86937ff3.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "c9e3fd7dfc8dce4eb4ba33367c48bdd5"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/candies/pink_wrap_StripedSweet pattern.png"
-dest_files=["res://.godot/imported/pink_wrap_StripedSweet pattern.png-4d38ea14ae2dec4edd6d56ac86937ff3.ctex"]
+dest_files=["res://.godot/imported/pink_wrap_StripedSweet pattern.png-4d38ea14ae2dec4edd6d56ac86937ff3.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

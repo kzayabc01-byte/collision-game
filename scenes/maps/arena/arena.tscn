@@ -7,6 +7,8 @@
 [ext_resource type="Material" uid="uid://bruewgy3ei7t6" path="res://assets/materials/dream_ground.tres" id="5_ground"]
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/props/fence_obstacle.tscn" id="6_fence"]
 
+[ext_resource type="Script" path="res://scripts/outer_ground.gd" id="7_backdrop"]
+
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
 background_color = Color(0.035, 0.047, 0.07, 1)
@@ -69,6 +71,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029621124, 0, 0)
 material_override = ExtResource("5_ground")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_c8s40")
+
+[node name="OuterBackdrop" type="MeshInstance3D" parent="GroundVisual"]
+script = ExtResource("7_backdrop")
+cast_shadow = 0
 
 [node name="CenterRing" type="MeshInstance3D" parent="." unique_id=247386421]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
