@@ -46,11 +46,17 @@
 
 接入后自动启用独立透明 3D 预览，可缓慢旋转、鼠标拖动旋转，并在切换时清除旧模型、播放轻微缩放入场。没有模型时不创建占位车、不显示开发提示，并关闭模型预览的渲染更新。比赛中使用的车型和预览模型分开配置。
 
-## 后续接入片头
+## 片头与开始界面音乐
 
-预留路径为 `assets/cinematics/intro.ogv`。将真正的 Ogg Theora 视频放入该位置，重启后会自动播放一次；可按 Esc、Enter、空格或点击“跳过片头”。也可以在 `scenes/ui/start_screen.tscn` 根节点设置 `intro_video_path` / `intro_stream`。不能只把 MP4 文件改后缀。
+2026-11-10 已接入提供的 `11月10日.mp4` 和 `后段.mp3`。视频转为 `assets/cinematics/intro.ogv`（Ogg Theora + Vorbis，1920×1080、30 fps、约 9.87 秒），保留原有画面比例和声音。MP3 原样复制为 `assets/audio/menu_loop.mp3`。源音频前约 9.89 秒为静音，导入设置 `loop=true`、`loop_offset=9.89`；首次播放也从该偏移开始。
 
-没有片头时直接进入开始界面；返回菜单不重播。成片尚未提供，因此最终音画同步与片尾衔接仍需成片接入后检查。
+每次启动播放一次片头；可按 Esc、Enter、空格或点击“跳过片头”。自然结束或跳过后先停掉视频声音，再随开始界面淡入音乐。有效音乐每约 46.3 秒从有声段开头循环；进入选车时随画面淡出并释放播放器，返回开始界面重新播放有声段，不重播片头。缺少视频时直接显示菜单并播放音乐。
+
+`scenes/ui/start_screen.tscn` 中的 `MenuMusic` 为实际保存的 AudioStreamPlayer 节点，可直接替换 Stream、调整音量，默认 -4 dB；淡入淡出跟随根节点 `fade_seconds`，默认 0.35 秒。开始界面的音乐不带入选车或对局。
+
+替换视频时更新 `assets/cinematics/intro.ogv`，或在根节点设置 `intro_video_path` / `intro_stream`。需转码为真正的 Ogg Theora，不能只改 MP4 后缀。源素材信息见 [片头与音乐说明](../assets/cinematics/README.md)。
+
+`tests/menu_media.gd` 验证实际解码、自然结束、跳过、循环跨越结尾、离开/返回菜单和缺失素材回退。新增 Master 总线音频采样检查，确认自然结束、跳过和循环后均立即输出有声样本，而非只检查 playing 标记。应使用 `--max-fps 60` 实时运行，不能用 `--fixed-fps` 加速媒体时钟。原有 `tests/ui_flow.gd` 的无片头检查使用独立缺失路径，以免随正式素材变化失效。
 
 ## 保留的源工程改动
 

@@ -48,6 +48,8 @@ func _run() -> void:
 	StartScreen.intro_checked_this_launch = false
 	CrashMatch.selected_vehicle = 0
 	var menu: StartScreen = load("res://scenes/ui/start_screen.tscn").instantiate() as StartScreen
+	# Keep the missing-video fallback test independent of shipped media.
+	menu.intro_video_path = "res://assets/cinematics/missing-test.ogv"
 	menu.fade_seconds = 0.0
 	root.add_child(menu)
 	current_scene = menu
@@ -150,5 +152,8 @@ func _run() -> void:
 	var ground_test: Node = load("res://scenes/tests/painted_ground_test.tscn").instantiate()
 	check(ground_test.has_node("Ground") and ground_test.has_node("Camera3D"), "Independent ground shader test still loads")
 	ground_test.free()
+	current_scene.free()
+	# Audio playback is released by the mix thread after scene teardown.
+	await create_timer(0.25).timeout
 	print("UI_FLOW_CHECKS ", checks, " failures=", failures)
 	quit(0 if failures == 0 else 1)

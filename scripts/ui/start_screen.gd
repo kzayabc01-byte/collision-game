@@ -46,11 +46,21 @@ var _hovered: bool = false
 var _using_keyboard: bool = false
 var _movie_ratio: float = 16.0 / 9.0
 
+@onready var menu_music: AudioStreamPlayer = $MenuMusic
+@onready var _menu_music_volume: float = menu_music.volume_db
+
 func _ready() -> void:
 	_build_ui()
 	resized.connect(_layout)
 	_layout()
 	_boot()
+
+func _exit_tree() -> void:
+	menu_music.stop()
+	menu_music.stream = null
+	if is_instance_valid(video_player):
+		video_player.stop()
+		video_player.stream = null
 
 func _build_ui() -> void:
 	background = TextureRect.new()
@@ -245,6 +255,11 @@ func _show_menu() -> void:
 	start_button.disabled = false
 	curtain.modulate.a = 1.0
 	_update_button()
+	if not menu_music.playing:
+		menu_music.volume_db = -60.0
+		# The supplied MP3 contains the intro's silent timeline before the music.
+		var music_mp3: AudioStreamMP3 = menu_music.stream as AudioStreamMP3
+		menu_music.play(music_mp3.loop_offset if music_mp3 != null else 0.0)
 	_fade_to(0.0)
 
 func start_game() -> void:
@@ -282,5 +297,8 @@ func _fade_to(alpha: float) -> void:
 	if _fade != null:
 		_fade.kill()
 	_fade = create_tween()
+	_fade.set_parallel(true)
 	_fade.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	_fade.tween_property(curtain, "modulate:a", alpha, fade_seconds)
+	if menu_music.playing:
+		_fade.tween_property(menu_music, "volume_db", _menu_music_volume if stage == Stage.MENU else -60.0, fade_seconds)
