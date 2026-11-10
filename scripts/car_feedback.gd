@@ -1,10 +1,11 @@
 class_name CarFeedback
 extends Node3D
 
+const BODY_SOUNDS: Array[AudioStream] = [preload("res://assets/audio/impact/pony.wav"), preload("res://assets/audio/impact/pumpkin.wav"), preload("res://assets/audio/impact/slime.wav")]
+
 var pivot: Node3D
 var _tween: Tween
 var _pickup_cooldown: float = 0.0
-var _impact_sound: AudioStreamWAV
 var _pickup_sound: AudioStreamWAV
 var _swallow_sound: AudioStreamWAV
 var _step_sound: AudioStreamWAV
@@ -12,22 +13,33 @@ var _roll_sound: AudioStreamWAV
 var _gain_tween: Tween
 var _step_remaining: float = 0.0
 var _was_rolling: bool = false
+var _vehicle_kind: int = 0
+var _character_visual: VehicleVisual
 
 @onready var particles: CPUParticles3D = $PaperParticles
 @onready var trail: CPUParticles3D = $SpeedTrail
 @onready var sound: AudioStreamPlayer = $Sound
 @onready var movement_sound: AudioStreamPlayer = $MovementSound
 @onready var gain_label: Label3D = $Gain
+@onready var impact_sound: AudioStreamPlayer3D = $ImpactSound
+@onready var crack_sound: AudioStreamPlayer3D = $CrackSound
 
 func _ready() -> void:
 	if DisplayServer.get_name() != "headless":
-		_impact_sound = _tone(95.0, 0.13, true)
 		_pickup_sound = _tone(780.0, 0.075, false)
 		_swallow_sound = _tone(145.0, 0.28, false)
 		_step_sound = _tone(220.0, 0.055, true)
 		_roll_sound = _tone(320.0, 0.18, false)
 
+func configure(profile: VehicleProfile, visual: VehicleVisual) -> void:
+	_vehicle_kind = int(profile.kind) if profile != null else 0
+	_character_visual = visual
+
 func _exit_tree() -> void:
+	for player: AudioStreamPlayer3D in [impact_sound, crack_sound]:
+		if is_instance_valid(player):
+			player.stop()
+			player.stream = null
 	if is_instance_valid(sound):
 		sound.stop()
 		sound.stream = null
@@ -78,7 +90,7 @@ func locomotion(speed: float, rolling: bool, is_slime: bool, is_player: bool) ->
 		movement_sound.volume_db = -25.0
 		movement_sound.play()
 
-func hit(tier: int, color: Color) -> void:
+func hit(tier: int, color: Color, direction: Vector3 = Vector3.FORWARD) -> void:
 	particles.color = color
 	particles.initial_velocity_min = 1.0 + tier
 	particles.initial_velocity_max = 2.0 + tier * 1.8
@@ -87,15 +99,27 @@ func hit(tier: int, color: Color) -> void:
 	if is_instance_valid(pivot):
 		if _tween != null and _tween.is_valid():
 			_tween.kill()
-		pivot.scale = Vector3(1.12 + tier * 0.08, 0.78 - tier * 0.06, 1.12 + tier * 0.08)
-		_tween = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
-		_tween.tween_property(pivot, "scale", Vector3.ONE, 0.4)
-	if _impact_sound != null:
-		sound.stop()
-		sound.stream = _impact_sound
-		sound.pitch_scale = 1.15 - tier * 0.14
-		sound.volume_db = -13.0 + tier * 2.0
-		sound.play()
+		var local_direction: Vector3 = (pivot.get_parent() as Node3D).global_basis.orthonormalized().inverse() * direction.normalized()
+		var compression: float = 0.12 + tier * 0.065
+		pivot.scale = Vector3(1.06, 1.08, 1.06)
+		if absf(local_direction.x) > absf(local_direction.z):
+			pivot.scale.x = 1.0 - compression
+		else:
+			pivot.scale.z = 1.0 - compression
+		pivot.position = local_direction * (0.035 + tier * 0.025)
+		_tween = create_tween().set_parallel(true)
+		_tween.tween_property(pivot, "scale", Vector3.ONE, 0.34).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+		_tween.tween_property(pivot, "position", Vector3.ZERO, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	impact_sound.stream = BODY_SOUNDS[_vehicle_kind]
+	impact_sound.pitch_scale = randf_range(0.94, 1.06) * (1.1 - tier * 0.08)
+	impact_sound.volume_db = -10.0 + tier * 3.0
+	impact_sound.play()
+	if tier > 0:
+		crack_sound.volume_db = -15.0 + tier * 3.0
+		crack_sound.pitch_scale = randf_range(0.92, 1.08)
+		crack_sound.play()
+	if is_instance_valid(_character_visual):
+		_character_visual.impact(tier)
 
 func play_pickup() -> void:
 	if _pickup_cooldown > 0.0 or _pickup_sound == null:
@@ -118,10 +142,13 @@ func reset_feedback() -> void:
 	_was_rolling = false
 	_step_remaining = 0.0
 	movement_sound.stop()
+	impact_sound.stop()
+	crack_sound.stop()
 	if _tween != null and _tween.is_valid():
 		_tween.kill()
 	if pivot != null:
 		pivot.scale = Vector3.ONE
+		pivot.position = Vector3.ZERO
 		pivot.rotation = Vector3.ZERO
 	particles.emitting = false
 

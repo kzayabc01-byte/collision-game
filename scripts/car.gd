@@ -86,6 +86,7 @@ func _ready() -> void:
 		_direction_arrow.mesh = arrow_mesh
 		add_child(_direction_arrow)
 	feedback.pivot = hit_pivot
+	feedback.configure(profile, character_visual)
 	set_candy(tuning.initial_candy if starting_candy < 0 else starting_candy)
 	growth_root.scale = Vector3.ONE * _target_scale
 

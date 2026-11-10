@@ -8,6 +8,7 @@ script = ExtResource("1")
 kind = 0
 wheel_radius = 0.1677
 wheel_spin_direction = 1.0
+impact_paths = Array[NodePath]([NodePath("Motion/Model/PonyArt/Head"), NodePath("Motion/Model/PonyArt/Tail"), NodePath("Motion/Model/PonyArt/LanternL"), NodePath("Motion/Model/PonyArt/LanternR")])
 wheel_paths = Array[NodePath]([NodePath("Motion/Model/PonyArt/WheelFL"), NodePath("Motion/Model/PonyArt/WheelFR"), NodePath("Motion/Model/PonyArt/WheelBL"), NodePath("Motion/Model/PonyArt/WheelBR")])
 
 [node name="Motion" type="Node3D" parent="."]

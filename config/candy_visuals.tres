@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CandyVisualSet" load_steps=7 format=3]
+[ext_resource type="Script" path="res://scripts/candy_visual_set.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/candies/pink_wrap.glb" id="2"]
+[ext_resource type="PackedScene" path="res://assets/models/candies/purple_wrap.glb" id="3"]
+[ext_resource type="PackedScene" path="res://assets/models/candies/peppermint.glb" id="4"]
+[ext_resource type="PackedScene" path="res://assets/models/candies/star.glb" id="5"]
+[ext_resource type="PackedScene" path="res://assets/models/candies/jelly.glb" id="6"]
+[resource]
+script = ExtResource("1")
+models = Array[PackedScene]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])
+weights = PackedFloat32Array(30, 25, 20, 15, 10)
+size_variation = 0.1

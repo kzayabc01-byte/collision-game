@@ -47,6 +47,9 @@ tuning = ExtResource("2")
 script = ExtResource("7")
 tuning = ExtResource("2")
 
+[node name="ImpactEffects" type="Node3D" parent="."]
+editor_description = "运行时实例化可编辑的 sugar_impact 场景；糖汁在5秒时移除。"
+
 [node name="CameraRig" type="Node3D" parent="."]
 script = ExtResource("8")
 

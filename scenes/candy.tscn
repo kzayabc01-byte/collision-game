@@ -1,40 +1,16 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=4 format=3]
 [ext_resource type="Script" path="res://scripts/candy.gd" id="1"]
-[sub_resource type="StandardMaterial3D" id="CandyMaterial"]
-albedo_color = Color(1, 0.47, 0.7, 1)
-metallic = 0.25
-roughness = 0.3
-emission_enabled = true
-emission = Color(0.25, 0.06, 0.13, 1)
-[sub_resource type="SphereMesh" id="CandyMesh"]
-material = SubResource("CandyMaterial")
-radius = 0.18
-height = 0.36
-radial_segments = 8
-rings = 4
-[sub_resource type="StandardMaterial3D" id="WrapperMaterial"]
-albedo_color = Color(1, 0.82, 0.4, 1)
-[sub_resource type="PrismMesh" id="WrapperMesh"]
-material = SubResource("WrapperMaterial")
-size = Vector3(0.18, 0.22, 0.18)
+[ext_resource type="Resource" path="res://config/candy_visuals.tres" id="2"]
 [sub_resource type="CylinderShape3D" id="PickupShape"]
 height = 2.0
 radius = 0.35
-
 [node name="Candy" type="Node3D"]
 script = ExtResource("1")
+visuals = ExtResource("2")
 [node name="VisualRoot" type="Node3D" parent="."]
 position = Vector3(0, 0.25, 0)
-[node name="Sweet" type="MeshInstance3D" parent="VisualRoot"]
-mesh = SubResource("CandyMesh")
-[node name="WrapperLeft" type="MeshInstance3D" parent="VisualRoot"]
-position = Vector3(-0.22, 0, 0)
-rotation = Vector3(0, 0, 1.570796)
-mesh = SubResource("WrapperMesh")
-[node name="WrapperRight" type="MeshInstance3D" parent="VisualRoot"]
-position = Vector3(0.22, 0, 0)
-rotation = Vector3(0, 0, -1.570796)
-mesh = SubResource("WrapperMesh")
+[node name="Spin" type="Node3D" parent="VisualRoot"]
+editor_description = "实例化 config/candy_visuals.tres 中选中的完整模型；款式固定，拾取区域不缩放。"
 [node name="PickupArea" type="Area3D" parent="."]
 position = Vector3(0, 0.65, 0)
 collision_layer = 0

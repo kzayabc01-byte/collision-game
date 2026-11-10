@@ -1,6 +1,8 @@
 class_name CandyPickup
 extends Node3D
 
+@export var visuals: CandyVisualSet
+
 var lots: Array[Dictionary] = []
 var launch_velocity: Vector3 = Vector3.ZERO
 var flight_height: float = 0.25
@@ -8,10 +10,28 @@ var age: float = 0.0
 var collected: bool = false
 var _bounces: int = 0
 var _visual_tween: Tween
+var style_index: int = -1
+var visual_size: float = 1.0
+var _spin_velocity: Vector3 = Vector3.ZERO
+var _landing_age: float = 1.0
 
 @onready var visual: Node3D = $VisualRoot
 @onready var area: Area3D = $PickupArea
 @onready var amount_label: Label3D = $AmountLabel
+@onready var spin: Node3D = $VisualRoot/Spin
+
+func _ready() -> void:
+	set_style(visuals.choose(randf()), randf_range(1.0 - visuals.size_variation, 1.0 + visuals.size_variation))
+	spin.rotation.y = randf_range(-PI, PI)
+	_spin_velocity = Vector3(randf_range(-7.0, 7.0), randf_range(-5.0, 5.0), randf_range(-7.0, 7.0))
+
+func set_style(index: int, size_multiplier: float = 1.0) -> void:
+	if style_index >= 0:
+		return
+	style_index = clampi(index, 0, visuals.models.size() - 1)
+	visual_size = clampf(size_multiplier, 1.0 - visuals.size_variation, 1.0 + visuals.size_variation)
+	spin.add_child(visuals.models[style_index].instantiate())
+	visual.scale = Vector3.ONE * visual_size
 
 func add_lot(value: int, owner_id: int, now: float, protection: float, lifetime: float) -> void:
 	lots.append({"value": value, "owner": owner_id, "unlock": now + protection, "expires": now + lifetime})
@@ -74,13 +94,23 @@ func tick(delta: float, now: float) -> void:
 		if flight_height <= 0.15:
 			flight_height = 0.15
 			_bounces += 1
-			launch_velocity.y = absf(launch_velocity.y) * 0.3 if _bounces < 3 else 0.0
+			_landing_age = 0.0
+			launch_velocity.y = absf(launch_velocity.y) * 0.3 if _bounces < 2 else 0.0
 			launch_velocity.x *= 0.55
 			launch_velocity.z *= 0.55
 	else:
 		launch_velocity = launch_velocity.move_toward(Vector3.ZERO, delta * 6.0)
 	visual.position.y = flight_height + (sin(age * 4.0) * 0.045 if _bounces >= 2 else 0.0)
-	visual.rotation.y += delta * 2.0
+	_landing_age += delta
+	if _bounces < 2 and flight_height > 0.17:
+		spin.rotation += _spin_velocity * delta
+	else:
+		spin.rotation.x = lerp_angle(spin.rotation.x, 0.0, 1.0 - exp(-12.0 * delta))
+		spin.rotation.z = lerp_angle(spin.rotation.z, 0.0, 1.0 - exp(-12.0 * delta))
+		spin.rotation.y += delta * 0.7
+	if style_index == 4:
+		var squash: float = maxf(0.0, sin(_landing_age * 22.0)) * exp(-_landing_age * 12.0) * 0.32
+		visual.scale = Vector3(1.0 + squash * 0.5, 1.0 - squash, 1.0 + squash * 0.5) * visual_size
 	if age < 0.12:
 		return
 	for body: Node3D in area.get_overlapping_bodies():

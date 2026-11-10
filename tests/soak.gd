@@ -41,4 +41,8 @@ func _run() -> void:
 	game.queue_free()
 	for index: int in range(5):
 		await process_frame
+	# Fixed-fps simulations can finish before the real-time audio mixer releases voices.
+	var audio_deadline: int = Time.get_ticks_msec() + 250
+	while Time.get_ticks_msec() < audio_deadline:
+		await process_frame
 	quit(0 if passed else 1)

@@ -7,6 +7,7 @@
 [node name="CharacterVisual" type="Node3D"]
 script = ExtResource("1")
 kind = 1
+impact_paths = Array[NodePath]([NodePath("Motion/Model/PumpkinArt/BodyDeform/Jaw"), NodePath("Motion/Model/PumpkinArt/BodyDeform/Vines"), NodePath("Motion/Model/PumpkinArt/BodyDeform/Vines/LanternSwing")])
 wheel_radius = 0.2009
 wheel_spin_direction = 1.0
 wheel_paths = Array[NodePath]([NodePath("Motion/Model/PumpkinArt/WheelFL"), NodePath("Motion/Model/PumpkinArt/WheelFR"), NodePath("Motion/Model/PumpkinArt/WheelBL"), NodePath("Motion/Model/PumpkinArt/WheelBR")])

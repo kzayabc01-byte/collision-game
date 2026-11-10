@@ -12,6 +12,7 @@ extends Node3D
 @export var wheel_spin_direction: float = -1.0
 @export var swallow_pull_delay: float = 0.0
 @export var swallow_pull_seconds: float = 0.28
+@export var impact_paths: Array[NodePath] = []
 
 var _phase: float = 0.0
 var _roll_blend: float = 0.0
@@ -20,6 +21,10 @@ var _wheels: Array[Node3D] = []
 var _feet: Array[Node3D] = []
 var _foot_origins: Array[Vector3] = []
 var _foot_scales: Array[Vector3] = []
+var _secondary_nodes: Array[Node3D] = []
+var _secondary_rest: Array[Vector3] = []
+var _impact_age: float = 1.0
+var _impact_amount: float = 0.0
 
 @onready var motion: Node3D = $Motion
 @onready var animations: AnimationPlayer = $AnimationPlayer
@@ -30,6 +35,10 @@ var _foot_scales: Array[Vector3] = []
 @onready var jaw: Node3D = get_node_or_null(jaw_path) as Node3D
 
 func _ready() -> void:
+	for path: NodePath in impact_paths:
+		var part: Node3D = get_node(path) as Node3D
+		_secondary_nodes.append(part)
+		_secondary_rest.append(part.rotation)
 	for path: NodePath in wheel_paths:
 		_wheels.append(get_node(path) as Node3D)
 	for path: NodePath in foot_paths:
@@ -39,6 +48,7 @@ func _ready() -> void:
 		_foot_scales.append(foot.scale)
 
 func animate(delta: float, speed: float, size_scale: float, rolling: bool, bonus: bool) -> void:
+	_update_secondary(delta)
 	_phase += speed * delta * 3.5 / maxf(0.5, size_scale)
 	for wheel: Node3D in _wheels:
 		wheel.rotation.x += wheel_spin_direction * speed * delta / (wheel_radius * size_scale)
@@ -73,10 +83,12 @@ func animate(delta: float, speed: float, size_scale: float, rolling: bool, bonus
 		defense_ring.scale = Vector3.ONE * (0.92 + _roll_blend * 0.08)
 
 func pickup() -> void:
+	_reset_secondary()
 	if animations.has_animation("pickup"):
 		animations.play("pickup")
 
 func swallow() -> void:
+	_reset_secondary()
 	if animations.has_animation("swallow"):
 		animations.play("swallow")
 		animations.seek(0.0, true)
@@ -86,6 +98,7 @@ func set_appetite(enabled: bool) -> void:
 		jaw.rotation.x = appetite_angle if enabled else 0.0
 
 func reset_pose() -> void:
+	_reset_secondary()
 	animations.stop()
 	animations.play("RESET")
 	animations.advance(0.0)
@@ -103,3 +116,26 @@ func reset_pose() -> void:
 		_feet[index].show()
 	if defense_ring != null:
 		defense_ring.hide()
+
+func impact(tier: int) -> void:
+	_impact_age = 0.0
+	_impact_amount = 0.1 + tier * 0.08
+
+func _update_secondary(delta: float) -> void:
+	if _impact_age >= 0.65:
+		return
+	_impact_age += delta
+	# Primary pickup/swallow clips own the same parts and have priority.
+	if animations.is_playing():
+		return
+	for index: int in range(_secondary_nodes.size()):
+		var time: float = maxf(0.0, _impact_age - 0.035 - index * 0.012)
+		var wobble: float = sin(time * 23.0) * exp(-time * 7.5) * _impact_amount
+		_secondary_nodes[index].rotation = _secondary_rest[index] + Vector3(wobble, 0.0, wobble * (0.4 if index % 2 == 0 else -0.4))
+	if _impact_age >= 0.65:
+		_reset_secondary()
+
+func _reset_secondary() -> void:
+	for index: int in range(_secondary_nodes.size()):
+		_secondary_nodes[index].rotation = _secondary_rest[index]
+	_impact_age = 1.0

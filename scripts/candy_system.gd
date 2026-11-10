@@ -62,8 +62,8 @@ func spawn_drop(origin: Vector3, direction: Vector3, value: int, owner_id: int, 
 	var tier_index: int = clampi(tier, 0, 2)
 	var min_distances: Array[float] = [0.4, 0.8, 1.5]
 	var max_distances: Array[float] = [0.8, 1.5, 2.5]
-	var min_times: Array[float] = [0.25, 0.4, 0.6]
-	var max_times: Array[float] = [0.4, 0.6, 0.9]
+	var min_times: Array[float] = [0.25, 0.3, 0.35]
+	var max_times: Array[float] = [0.4, 0.45, 0.55]
 	var forward: Vector3 = Vector3(direction.x, 0.0, direction.z).normalized()
 	if forward.is_zero_approx():
 		forward = Vector3.FORWARD
@@ -76,5 +76,7 @@ func spawn_drop(origin: Vector3, direction: Vector3, value: int, owner_id: int, 
 		var angle: float = _rng.randf_range(-PI * 0.35, PI * 0.35) if _rng.randf() < 0.7 else _rng.randf_range(-PI, PI)
 		var scatter: Vector3 = forward.rotated(Vector3.UP, angle)
 		var flight_time: float = _rng.randf_range(min_times[tier_index], max_times[tier_index])
+		if tier_index == 2 and _rng.randf() < 0.25:
+			flight_time = _rng.randf_range(0.6, 0.75)
 		var distance: float = _rng.randf_range(min_distances[tier_index], max_distances[tier_index]) * tuning.initial_car_length
 		candy.launch_velocity = scatter * (distance / flight_time) + Vector3.UP * (7.0 * flight_time)

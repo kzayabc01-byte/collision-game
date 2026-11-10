@@ -16,25 +16,32 @@ const VehiclePaths: Array[String] = [
 static var selected_vehicle: int = 0
 static var ability_lab: bool = false
 
+const IMPACT_SCENE: PackedScene = preload("res://scenes/effects/sugar_impact.tscn")
+
 @export var tuning: GameTuning
+@export var impact_profile: ImpactProfile = preload("res://config/impact.tres")
 
 var phase: Phase = Phase.PLAYING
 var remaining_seconds: float = 180.0
 var cars: Array[CrashCar] = []
 var player: CrashCar
 var _neutral_remaining: float = 0.0
+var hitstop_remaining: float = 0.0
+var _hitstop_cooldown: float = 0.0
 
 @onready var candy_system: CandySystem = $CandySystem
 @onready var resolver: CollisionResolver = $CollisionResolver
 @onready var hud: PrototypeHUD = $HUD
 @onready var spawn_points: Node3D = $Arena/VehicleSpawnPoints
 @onready var neutral_points: Node3D = $Arena/CandySpawnPoints
+@onready var impact_effects: Node3D = $ImpactEffects
 
 func _ready() -> void:
 	remaining_seconds = tuning.round_seconds
 	_neutral_remaining = tuning.neutral_spawn_seconds
 	resolver.candy_system = candy_system
 	resolver.impact_resolved.connect(_on_impact)
+	resolver.impact_visualized.connect(_on_impact_visualized)
 	hud.restart_requested.connect(restart)
 	hud.pause_requested.connect(toggle_pause)
 	hud.vehicle_requested.connect(select_vehicle)
@@ -64,6 +71,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if phase != Phase.PLAYING:
+		return
+	_hitstop_cooldown = maxf(0.0, _hitstop_cooldown - delta)
+	if hitstop_remaining > 0.0:
+		hitstop_remaining = maxf(0.0, hitstop_remaining - delta)
+		_update_world_processing()
 		return
 	resolver.begin_tick(delta)
 	_separate_grown_cars()
@@ -192,8 +204,7 @@ func toggle_pause() -> void:
 		return
 	player.cancel_maneuver()
 	phase = Phase.PAUSED if phase == Phase.PLAYING else Phase.PLAYING
-	$Vehicles.process_mode = Node.PROCESS_MODE_DISABLED if phase == Phase.PAUSED else Node.PROCESS_MODE_INHERIT
-	candy_system.process_mode = Node.PROCESS_MODE_DISABLED if phase == Phase.PAUSED else Node.PROCESS_MODE_INHERIT
+	_update_world_processing()
 	if phase == Phase.PAUSED:
 		hud.show_overlay("比赛暂停", "按 Esc 或右上角按钮继续\nR 重新开始")
 	else:
@@ -201,6 +212,8 @@ func toggle_pause() -> void:
 
 func finish_round() -> void:
 	phase = Phase.FINISHED
+	hitstop_remaining = 0.0
+	_update_world_processing()
 	var best: int = 0
 	for car: CrashCar in cars:
 		best = maxi(best, car.candy)
@@ -270,6 +283,25 @@ func _separate_grown_cars() -> void:
 					if remaining > 0.02:
 						b.move_planar(normal * remaining, true)
 
-func _on_impact(_point: Vector3, tier: int, message: String) -> void:
-	$CameraRig.shake(tier)
+func _on_impact(_point: Vector3, _tier: int, message: String) -> void:
 	hud.announce(message)
+
+func _update_world_processing() -> void:
+	var stopped: bool = phase != Phase.PLAYING or hitstop_remaining > 0.0
+	$Vehicles.process_mode = Node.PROCESS_MODE_DISABLED if stopped else Node.PROCESS_MODE_INHERIT
+	candy_system.process_mode = Node.PROCESS_MODE_DISABLED if stopped else Node.PROCESS_MODE_INHERIT
+	impact_effects.process_mode = Node.PROCESS_MODE_DISABLED if phase == Phase.PAUSED else Node.PROCESS_MODE_INHERIT
+
+func _on_impact_visualized(point: Vector3, direction: Vector3, tier: int, player_involved: bool, defeated_car: bool, color: Color) -> void:
+	if impact_effects.get_child_count() < impact_profile.maximum_effects:
+		var effect: SugarImpactEffect = IMPACT_SCENE.instantiate() as SugarImpactEffect
+		impact_effects.add_child(effect)
+		effect.global_position = Vector3(point.x, 0.0, point.z)
+		effect.setup(direction, color, tier)
+	if not player_involved:
+		return
+	$CameraRig.shake(tier, direction)
+	if (tier == 2 or defeated_car) and _hitstop_cooldown <= 0.0 and phase == Phase.PLAYING:
+		hitstop_remaining = impact_profile.defeat_hitstop if defeated_car else impact_profile.heavy_hitstop
+		_hitstop_cooldown = impact_profile.hitstop_cooldown
+		_update_world_processing()

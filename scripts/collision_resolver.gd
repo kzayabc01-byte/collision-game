@@ -3,8 +3,10 @@ extends Node
 
 signal impact_resolved(position: Vector3, tier: int, message: String)
 signal vehicle_contact(a: CrashCar, b: CrashCar)
+signal impact_visualized(point: Vector3, direction: Vector3, tier: int, player_involved: bool, defeated: bool, color: Color)
 
 @export var tuning: GameTuning
+@export var feedback_profile: ImpactProfile = preload("res://config/impact.tres")
 
 var candy_system: CandySystem
 var _contacts: Dictionary = {}
@@ -49,9 +51,9 @@ func resolve_events() -> void:
 		if outward.is_zero_approx():
 			continue
 		if other is CrashCar:
-			_resolve_car(car, other as CrashCar, -outward, key)
+			_resolve_car(car, other as CrashCar, -outward, key, event["point"])
 		else:
-			_resolve_wall(car, other as CrashObstacle, outward, key)
+			_resolve_wall(car, other as CrashObstacle, outward, key, event["point"])
 
 func clear_for(car: CrashCar) -> void:
 	for key: String in _contacts.keys():
@@ -72,7 +74,7 @@ func _consume_contact(car: CrashCar, other: Node3D, key: String) -> bool:
 	entry["last"] = _time
 	return true
 
-func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> void:
+func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String, contact_point: Vector3 = Vector3.INF) -> void:
 	if not b.alive:
 		return
 	# Swallowing uses pre-impact scale and facing, before either car changes size.
@@ -105,23 +107,30 @@ func _resolve_car(a: CrashCar, b: CrashCar, normal: Vector3, key: String) -> voi
 	var loss_b: int = mini(b.candy, b.received_damage(float(result["raw_loss_b"])))
 	var tier_a: int = CollisionMath.drop_tier(loss_a, a.pre_candy)
 	var tier_b: int = CollisionMath.drop_tier(loss_b, b.pre_candy)
+	var loss_fraction: float = maxf(float(loss_a) / maxi(1, a.pre_candy), float(loss_b) / maxi(1, b.pre_candy))
+	var tier: int = feedback_profile.tier_for(float(result["energy"]), float(result["closing"]), loss_fraction)
 	# Both amounts use the same pre-impact snapshot, including simultaneous defeat.
 	a.apply_loss(loss_a)
 	b.apply_loss(loss_b)
 	if loss_a + loss_b > 0:
 		a.driver.notify_progress()
 		b.driver.notify_progress()
-	candy_system.spawn_drop(a.global_position, -normal, loss_a, a.get_instance_id(), tier_a)
-	candy_system.spawn_drop(b.global_position, normal, loss_b, b.get_instance_id(), tier_b)
-	a.feedback.hit(tier_a, a.paint)
-	b.feedback.hit(tier_b, b.paint)
-	var tier: int = maxi(tier_a, tier_b)
+	candy_system.spawn_drop(a.global_position, -normal, loss_a, a.get_instance_id(), maxi(tier_a, tier))
+	candy_system.spawn_drop(b.global_position, normal, loss_b, b.get_instance_id(), maxi(tier_b, tier))
+	if tier >= 0:
+		a.feedback.hit(tier, a.paint, -normal)
+		b.feedback.hit(tier, b.paint, normal)
+		if not contact_point.is_finite():
+			contact_point = a.global_position.lerp(b.global_position, a.radius / maxf(0.01, a.radius + b.radius))
+		var receiver: CrashCar = b if loss_b >= loss_a else a
+		var kind: int = int(receiver.profile.kind) if receiver.profile != null else 0
+		impact_visualized.emit(contact_point, normal, tier, a.is_player or b.is_player, not a.alive or not b.alive, ImpactProfile.syrup_color(kind))
 	var message: String = "强力碰撞" if tier == 2 else "碰撞 · 爆糖"
 	if not a.alive or not b.alive:
 		message = "双方击溃！" if not a.alive and not b.alive else "一撞击溃！"
 	impact_resolved.emit((a.global_position + b.global_position) * 0.5, tier, message)
 
-func _resolve_wall(car: CrashCar, obstacle: CrashObstacle, normal: Vector3, key: String) -> void:
+func _resolve_wall(car: CrashCar, obstacle: CrashObstacle, normal: Vector3, key: String, contact_point: Vector3 = Vector3.INF) -> void:
 	if obstacle.is_broken:
 		return
 	if car.pre_velocity.dot(normal) >= -0.01:
@@ -150,7 +159,13 @@ func _resolve_wall(car: CrashCar, obstacle: CrashObstacle, normal: Vector3, key:
 		message = "撞碎糖箱 · +%d 颗可拾取" % reward
 	elif obstacle.destructible:
 		message = "力度不足 · 加速后正面撞击"
-	car.feedback.hit(tier, car.paint)
+	var visual_tier: int = feedback_profile.tier_for(energy, maxf(0.0, -car.pre_velocity.dot(normal)))
+	if visual_tier >= 0:
+		car.feedback.hit(visual_tier, car.paint, normal)
+		if not contact_point.is_finite():
+			contact_point = car.global_position - normal * car.radius
+		var kind: int = int(car.profile.kind) if car.profile != null else 0
+		impact_visualized.emit(contact_point + normal * 0.12, normal, visual_tier, car.is_player, not car.alive, ImpactProfile.syrup_color(kind))
 	impact_resolved.emit(car.global_position, tier, message)
 
 func _still_touching(car: CrashCar, other: Node3D) -> bool:

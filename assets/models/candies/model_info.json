@@ -1,0 +1,22 @@
+{
+  "pink_wrap": {
+    "objects": 6,
+    "triangles": 3008
+  },
+  "purple_wrap": {
+    "objects": 6,
+    "triangles": 3008
+  },
+  "peppermint": {
+    "objects": 2,
+    "triangles": 1920
+  },
+  "star": {
+    "objects": 2,
+    "triangles": 476
+  },
+  "jelly": {
+    "objects": 3,
+    "triangles": 742
+  }
+}

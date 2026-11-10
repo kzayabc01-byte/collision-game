@@ -7,6 +7,8 @@ var _strength: float = 0.0
 var _base_view_size: float
 var _viewport_size: Vector2
 var _arena_bounds: Rect2
+var _shake_direction: Vector3 = Vector3.RIGHT
+var _shake_age: float = 1.0
 
 @onready var camera: Camera3D = $Camera3D
 @onready var _base_position: Vector3 = camera.position
@@ -22,8 +24,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if get_viewport().get_visible_rect().size != _viewport_size:
 		_fit_camera_to_window()
-	_strength = move_toward(_strength, 0.0, delta * 1.7)
-	var offset: Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), 0.0) * _strength
+	_shake_age += delta
+	var envelope: float = maxf(0.0, 1.0 - _shake_age / 0.18)
+	var offset: Vector3 = _shake_direction * sin(_shake_age * 65.0) * _strength * envelope * envelope
 	camera.position = _base_position + offset
 	_follow_player(1.0 - exp(-follow_speed * delta))
 	_keep_view_inside_arena()
@@ -72,6 +75,8 @@ func _ground_footprint() -> Rect2:
 		maximum = maximum.max(ground_point)
 	return Rect2(minimum, maximum - minimum)
 
-func shake(tier: int) -> void:
+func shake(tier: int, direction: Vector3 = Vector3.RIGHT) -> void:
 	if shake_enabled:
-		_strength = maxf(_strength, 0.035 + tier * 0.065)
+		_strength = 0.035 + tier * 0.08
+		_shake_age = 0.0
+		_shake_direction = global_basis.inverse() * Vector3(direction.x, 0.0, direction.z).normalized()
