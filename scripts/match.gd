@@ -59,6 +59,7 @@ func _ready() -> void:
 	else:
 		hud.announce("1 小马 / 2 南瓜 / 3 史莱姆 · F2 能力试验")
 		_spawn_neutral()
+	hud.bind_player(player)
 	hud.refresh(player, cars, remaining_seconds)
 
 func _physics_process(delta: float) -> void:
@@ -224,6 +225,8 @@ func _try_respawn(car: CrashCar) -> void:
 			best_point = marker.global_position
 	if best_clearance > 0.6:
 		car.reset_at(best_point)
+		if car == player:
+			hud.bind_player(player)
 		resolver.clear_for(car)
 	else:
 		car.respawn_remaining = 0.2

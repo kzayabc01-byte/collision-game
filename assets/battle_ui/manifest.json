@@ -1,0 +1,698 @@
+[
+  {
+    "name": "avatar_pony",
+    "label": "小马头像",
+    "file": "assets/avatar_pony.png",
+    "width": 1330,
+    "height": 1182,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      21,
+      1298,
+      1182
+    ],
+    "layout_bounds_alpha32": [
+      295,
+      96,
+      1068,
+      1029
+    ],
+    "bytes": 1004403
+  },
+  {
+    "name": "avatar_pumpkin",
+    "label": "南瓜头像",
+    "file": "assets/avatar_pumpkin.png",
+    "width": 1354,
+    "height": 1162,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      21,
+      1334,
+      1138
+    ],
+    "layout_bounds_alpha32": [
+      233,
+      111,
+      1111,
+      1030
+    ],
+    "bytes": 1136781
+  },
+  {
+    "name": "avatar_slime",
+    "label": "史莱姆头像",
+    "file": "assets/avatar_slime.png",
+    "width": 1312,
+    "height": 1199,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      68,
+      1282,
+      1199
+    ],
+    "layout_bounds_alpha32": [
+      192,
+      184,
+      1099,
+      989
+    ],
+    "bytes": 1115601
+  },
+  {
+    "name": "portrait_frame",
+    "label": "头像框",
+    "file": "assets/portrait_frame.png",
+    "width": 1263,
+    "height": 1246,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      27,
+      35,
+      1243,
+      1222
+    ],
+    "layout_bounds_alpha32": [
+      123,
+      107,
+      1124,
+      1144
+    ],
+    "bytes": 790683
+  },
+  {
+    "name": "tag_active",
+    "label": "生效状态标签",
+    "file": "assets/tag_active.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      0,
+      2160,
+      724
+    ],
+    "layout_bounds_alpha32": [
+      131,
+      131,
+      2044,
+      581
+    ],
+    "bytes": 1365947
+  },
+  {
+    "name": "tag_inactive",
+    "label": "普通状态标签",
+    "file": "assets/tag_inactive.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      48,
+      2098,
+      638
+    ],
+    "layout_bounds_alpha32": [
+      76,
+      106,
+      2096,
+      625
+    ],
+    "bytes": 1653541
+  },
+  {
+    "name": "gain_badge",
+    "label": "糖果增量底板",
+    "file": "assets/gain_badge.png",
+    "width": 1402,
+    "height": 1122,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      15,
+      1401,
+      1122
+    ],
+    "layout_bounds_alpha32": [
+      249,
+      98,
+      1146,
+      1021
+    ],
+    "bytes": 1049218
+  },
+  {
+    "name": "speed_track",
+    "label": "速度条底槽",
+    "file": "assets/speed_track.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      29,
+      2108,
+      656
+    ],
+    "layout_bounds_alpha32": [
+      69,
+      264,
+      2103,
+      460
+    ],
+    "bytes": 652512
+  },
+  {
+    "name": "speed_fill",
+    "label": "速度条填充",
+    "file": "assets/speed_fill.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      19,
+      2125,
+      700
+    ],
+    "layout_bounds_alpha32": [
+      50,
+      270,
+      2122,
+      453
+    ],
+    "bytes": 567314
+  },
+  {
+    "name": "icon_candy",
+    "label": "糖果图标",
+    "file": "assets/icon_candy.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha_range": [
+      0,
+      254
+    ],
+    "visible_bounds": [
+      0,
+      39,
+      1516,
+      976
+    ],
+    "layout_bounds_alpha32": [
+      256,
+      222,
+      1283,
+      803
+    ],
+    "bytes": 1435334
+  },
+  {
+    "name": "icon_hourglass",
+    "label": "沙漏图标",
+    "file": "assets/icon_hourglass.png",
+    "width": 1310,
+    "height": 1200,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      9,
+      1280,
+      1200
+    ],
+    "layout_bounds_alpha32": [
+      303,
+      146,
+      966,
+      1019
+    ],
+    "bytes": 790715
+  },
+  {
+    "name": "icon_lollipop",
+    "label": "棒棒糖图标",
+    "file": "assets/icon_lollipop.png",
+    "width": 1276,
+    "height": 1233,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      19,
+      1272,
+      1233
+    ],
+    "layout_bounds_alpha32": [
+      198,
+      105,
+      1105,
+      1131
+    ],
+    "bytes": 953203
+  },
+  {
+    "name": "rank_highlight",
+    "label": "玩家排名高亮条",
+    "file": "assets/rank_highlight.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      46,
+      0,
+      2127,
+      724
+    ],
+    "layout_bounds_alpha32": [
+      49,
+      244,
+      2123,
+      473
+    ],
+    "bytes": 783598
+  },
+  {
+    "name": "player_pointer",
+    "label": "玩家指示牌",
+    "file": "assets/player_pointer.png",
+    "width": 1312,
+    "height": 1199,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      45,
+      50,
+      1294,
+      1159
+    ],
+    "layout_bounds_alpha32": [
+      167,
+      102,
+      1141,
+      1070
+    ],
+    "bytes": 1070708
+  },
+  {
+    "name": "player_ring",
+    "label": "玩家脚下光圈",
+    "file": "assets/player_ring.png",
+    "width": 1860,
+    "height": 846,
+    "alpha_range": [
+      0,
+      253
+    ],
+    "visible_bounds": [
+      17,
+      0,
+      1840,
+      846
+    ],
+    "layout_bounds_alpha32": [
+      278,
+      176,
+      1577,
+      670
+    ],
+    "bytes": 724721
+  },
+  {
+    "name": "modal_pause",
+    "label": "暂停弹窗底板",
+    "file": "assets/modal_pause.png",
+    "width": 1223,
+    "height": 1286,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      2,
+      1193,
+      1262
+    ],
+    "layout_bounds_alpha32": [
+      77,
+      65,
+      1146,
+      1220
+    ],
+    "bytes": 2038907
+  },
+  {
+    "name": "modal_results",
+    "label": "结算弹窗底板",
+    "file": "assets/modal_results.png",
+    "width": 1510,
+    "height": 1041,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      32,
+      1444,
+      1011
+    ],
+    "layout_bounds_alpha32": [
+      66,
+      35,
+      1437,
+      1000
+    ],
+    "bytes": 2110229
+  },
+  {
+    "name": "button_secondary",
+    "label": "紫色次按钮",
+    "file": "assets/button_secondary.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      64,
+      2142,
+      690
+    ],
+    "layout_bounds_alpha32": [
+      53,
+      112,
+      2119,
+      600
+    ],
+    "bytes": 1774565
+  },
+  {
+    "name": "corner_lantern",
+    "label": "左下树枝灯笼",
+    "file": "assets/corner_lantern.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha_range": [
+      0,
+      254
+    ],
+    "visible_bounds": [
+      39,
+      67,
+      1472,
+      1002
+    ],
+    "layout_bounds_alpha32": [
+      103,
+      100,
+      1321,
+      916
+    ],
+    "bytes": 1270593
+  },
+  {
+    "name": "corner_candles",
+    "label": "右下蜡烛装饰",
+    "file": "assets/corner_candles.png",
+    "width": 1774,
+    "height": 887,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      108,
+      39,
+      1704,
+      823
+    ],
+    "layout_bounds_alpha32": [
+      347,
+      84,
+      1602,
+      820
+    ],
+    "bytes": 669732
+  },
+  {
+    "name": "icon_trophy",
+    "label": "结算奖杯",
+    "file": "assets/icon_trophy.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha_range": [
+      0,
+      254
+    ],
+    "visible_bounds": [
+      0,
+      10,
+      1504,
+      1024
+    ],
+    "layout_bounds_alpha32": [
+      372,
+      131,
+      1160,
+      799
+    ],
+    "bytes": 1442977
+  },
+  {
+    "name": "icon_crown",
+    "label": "胜者皇冠",
+    "file": "assets/icon_crown.png",
+    "width": 1536,
+    "height": 1024,
+    "alpha_range": [
+      0,
+      254
+    ],
+    "visible_bounds": [
+      0,
+      21,
+      1522,
+      1024
+    ],
+    "layout_bounds_alpha32": [
+      205,
+      161,
+      1331,
+      871
+    ],
+    "bytes": 1634714
+  },
+  {
+    "name": "icon_shield",
+    "label": "减伤图标",
+    "file": "assets/icon_shield.png",
+    "width": 1261,
+    "height": 1247,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      41,
+      21,
+      1207,
+      1247
+    ],
+    "layout_bounds_alpha32": [
+      330,
+      277,
+      928,
+      951
+    ],
+    "bytes": 616668
+  },
+  {
+    "name": "icon_acceleration",
+    "label": "加速图标",
+    "file": "assets/icon_acceleration.png",
+    "width": 1374,
+    "height": 1145,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      31,
+      1318,
+      1145
+    ],
+    "layout_bounds_alpha32": [
+      296,
+      163,
+      1078,
+      993
+    ],
+    "bytes": 949712
+  },
+  {
+    "name": "ability_paper",
+    "label": "能力说明纸条",
+    "file": "assets/ability_paper.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      0,
+      2152,
+      724
+    ],
+    "layout_bounds_alpha32": [
+      41,
+      201,
+      2129,
+      506
+    ],
+    "bytes": 1027992
+  },
+  {
+    "name": "status_panel",
+    "label": "玩家状态底板",
+    "file": "assets/status_panel.png",
+    "width": 1727,
+    "height": 910,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      8,
+      1,
+      1693,
+      889
+    ],
+    "layout_bounds_alpha32": [
+      10,
+      7,
+      1690,
+      886
+    ],
+    "bytes": 2309879
+  },
+  {
+    "name": "ranking_panel",
+    "label": "排行榜底板",
+    "file": "assets/ranking_panel.png",
+    "width": 1402,
+    "height": 1122,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      16,
+      1386,
+      1122
+    ],
+    "layout_bounds_alpha32": [
+      26,
+      18,
+      1375,
+      1087
+    ],
+    "bytes": 2365568
+  },
+  {
+    "name": "button_primary",
+    "label": "橙色主按钮",
+    "file": "assets/button_primary.png",
+    "width": 2172,
+    "height": 724,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      33,
+      25,
+      2124,
+      724
+    ],
+    "layout_bounds_alpha32": [
+      51,
+      120,
+      2121,
+      572
+    ],
+    "bytes": 1565085
+  },
+  {
+    "name": "title_strip",
+    "label": "紫色标题条",
+    "file": "assets/title_strip.png",
+    "width": 1902,
+    "height": 827,
+    "alpha_range": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      0,
+      7,
+      1888,
+      804
+    ],
+    "layout_bounds_alpha32": [
+      25,
+      167,
+      1874,
+      582
+    ],
+    "bytes": 1231573
+  }
+]
