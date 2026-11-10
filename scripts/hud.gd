@@ -36,7 +36,7 @@ var help: Control
 var left_corner: TextureRect
 var right_corner: TextureRect
 var marker: Control
-var marker_ring: TextureRect
+var marker_ring: MeshInstance3D
 var pause_button: Button
 var resume_button: Button
 var restart_button: Button
@@ -149,7 +149,6 @@ func _button(parent: Node, id: String, text: String, rect: Rect2, action: Callab
 func _build() -> void:
 	root = _control(self, "Root", Rect2(0, 0, 1672, 941))
 	root.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	marker_ring = _art(root, "player_ring", Rect2(0, 0, 90, 42))
 	marker = _control(root, "PlayerMarker", Rect2(0, 0, 58, 62))
 	_art(marker, "player_pointer", Rect2(0, 0, 58, 62))
 	var you: Label = _label(marker, "你", Rect2(0, 0, 58, 44), 29, INK, true)
@@ -275,8 +274,28 @@ func bind_player(player: CrashCar) -> void:
 		_player.candy_collected.disconnect(_on_collected)
 	_player = player
 	_player.candy_collected.connect(_on_collected)
-	_player.name_label.visible = false
-	_player.player_ring.visible = false
+	_player.name_label.hide()
+	if marker_ring != player.player_ring:
+		if is_instance_valid(marker_ring):
+			marker_ring.hide()
+		_configure_ground_ring(player)
+	_update_marker()
+
+func _configure_ground_ring(player: CrashCar) -> void:
+	var art: AtlasTexture = texture("player_ring") as AtlasTexture
+	var atlas_size: Vector2 = art.atlas.get_size()
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.albedo_texture = art.atlas
+	material.uv1_offset = Vector3(art.region.position.x / atlas_size.x, art.region.position.y / atlas_size.y, 0.0)
+	material.uv1_scale = Vector3(art.region.size.x / atlas_size.x, art.region.size.y / atlas_size.y, 1.0)
+	var plane: PlaneMesh = PlaneMesh.new()
+	plane.size = Vector2.ONE * player.tuning.base_collision_radius * 2.8
+	marker_ring = player.player_ring
+	marker_ring.mesh = plane
+	marker_ring.material_override = material
+	marker_ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func _process(delta: float) -> void:
 	if not overlay.visible:
@@ -293,23 +312,18 @@ func _update_marker() -> void:
 	if show_marker:
 		show_marker = not camera.is_position_behind(_player.global_position)
 	marker.visible = show_marker
-	marker_ring.visible = show_marker
+	if is_instance_valid(marker_ring):
+		marker_ring.visible = show_marker
 	if not show_marker:
 		return
 	var top: Vector2 = camera.unproject_position(_player.name_label.global_position + Vector3.UP * 0.5) / _scale
 	marker.position = top - Vector2(29, 64)
-	var foot: Vector2 = camera.unproject_position(_player.global_position) / _scale
-	var edge: Vector2 = camera.unproject_position(_player.global_position + camera.global_basis.x * _player.radius) / _scale
-	var width: float = clampf(foot.distance_to(edge) * 2.8, 40, 180)
-	marker_ring.size = Vector2(width, width * 0.46)
-	marker_ring.position = foot - marker_ring.size * 0.5
-	for item: Control in [marker, marker_ring]:
-		var rect: Rect2 = Rect2(item.position, item.size)
-		if not Rect2(Vector2.ZERO, root.size).encloses(rect):
-			item.hide()
-		for panel: Control in [stats, leaderboard, timer, pause_button]:
-			if rect.intersects(Rect2(panel.position, panel.size)):
-				item.hide()
+	var rect: Rect2 = Rect2(marker.position, marker.size)
+	if not Rect2(Vector2.ZERO, root.size).encloses(rect):
+		marker.hide()
+	for panel: Control in [stats, leaderboard, timer, pause_button]:
+		if rect.intersects(Rect2(panel.position, panel.size)):
+			marker.hide()
 
 func refresh(player: CrashCar, cars: Array[CrashCar], remaining: float) -> void:
 	candy_label.text = str(player.candy)
@@ -411,8 +425,7 @@ func show_overlay(title: String, body: String) -> void:
 	overlay.show()
 	pause_button.text = "Ⅱ 继续 Esc" if paused else "比赛结束"
 	pause_button.disabled = not paused
-	marker.hide()
-	marker_ring.hide()
+	_update_marker()
 
 func hide_overlay() -> void:
 	overlay.hide()
