@@ -1,0 +1,319 @@
+{
+  "file_count": 13,
+  "all_passed": true,
+  "total_triangles": 69558,
+  "files": [
+    {
+      "file": "candy_crate_NEW.glb",
+      "result": "PASS",
+      "sha256": "030aa86d496e83910963cd1aa1286f13cba7a446017708876374fb7a9c182f1f",
+      "bytes": 289020,
+      "triangles": 5732,
+      "bounds_glTF_y_up": {
+        "min": [
+          -0.7049999833106995,
+          0.0,
+          -0.7268980145454407
+        ],
+        "max": [
+          0.7050000429153442,
+          1.290000081062317,
+          0.7268980741500854
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": 0.7217984795570374
+    },
+    {
+      "file": "candy_barrel_NEW.glb",
+      "result": "PASS",
+      "sha256": "ab3708dacb6a9e244b99e9d07d36684b82c3cb830a4b8e84942b08a34252a409",
+      "bytes": 423036,
+      "triangles": 12252,
+      "bounds_glTF_y_up": {
+        "min": [
+          -0.6700000166893005,
+          0.0,
+          -0.6714999675750732
+        ],
+        "max": [
+          0.6700000166893005,
+          1.6733009815216064,
+          0.6714999675750732
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": 0.43287464950545035
+    },
+    {
+      "file": "pumpkin_candy_bucket_NEW.glb",
+      "result": "PASS",
+      "sha256": "1c0291608ff8d9211fb21529653764dde337d3a81dacc734330a3c0c3b92735a",
+      "bytes": 400492,
+      "triangles": 15316,
+      "bounds_glTF_y_up": {
+        "min": [
+          -0.8942000269889832,
+          0.0,
+          -0.8579308390617371
+        ],
+        "max": [
+          0.8942000269889832,
+          2.0850000381469727,
+          0.8579308390617371
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": 0.3400000030392999
+    },
+    {
+      "file": "crooked_dead_tree_NEW.glb",
+      "result": "PASS",
+      "sha256": "692ff9be398eb1b936c22147568ff88d0339edf48f1c7cbaea07548814c6331b",
+      "bytes": 502236,
+      "triangles": 8640,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.2417879104614258,
+          0.0,
+          -0.5502949953079224
+        ],
+        "max": [
+          1.2417879104614258,
+          2.905932903289795,
+          0.5502949953079224
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "low_stone_wall_NEW.glb",
+      "result": "PASS",
+      "sha256": "8a229fa899140ab9d52889035c2bc13222011bb9fb6e2f4798de87ab1740dc06",
+      "bytes": 74868,
+      "triangles": 1848,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.7837145328521729,
+          0.0,
+          -0.5209371447563171
+        ],
+        "max": [
+          1.7837144136428833,
+          1.7450000047683716,
+          0.5209370851516724
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "stone_archway_NEW.glb",
+      "result": "PASS",
+      "sha256": "c883b35cfd8dfdca5cda5cb4f58b05b48e2c90caa019bbe1c2ef4d1e888ba857",
+      "bytes": 162304,
+      "triangles": 4580,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.6911985874176025,
+          0.0,
+          -0.4150000214576721
+        ],
+        "max": [
+          1.6911985874176025,
+          2.8932621479034424,
+          0.4150000214576721
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "cross_tombstone_REMADE.glb",
+      "result": "PASS",
+      "sha256": "34c5d7c95a59ac68f1262428e526764e83ee18a5313751787eabf3d1ec558256",
+      "bytes": 135192,
+      "triangles": 3392,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.1142866611480713,
+          0.0,
+          -0.44481706619262695
+        ],
+        "max": [
+          1.1142866611480713,
+          2.1600000858306885,
+          0.44481706619262695
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "wood_fence_REMADE.glb",
+      "result": "PASS",
+      "sha256": "7ce1755b1a5179f239b77e3a515062540f7c52a543506d48b67c7763a2c63bb6",
+      "bytes": 100508,
+      "triangles": 2384,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.4001548290252686,
+          0.0,
+          -0.24249720573425293
+        ],
+        "max": [
+          1.4001548290252686,
+          1.3799999952316284,
+          0.24249720573425293
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "lantern_post_REMADE.glb",
+      "result": "PASS",
+      "sha256": "fe4a3f406f25cdd38afd4747ad7d87c9f67738a06b51e092fb4fad502b2126ec",
+      "bytes": 114732,
+      "triangles": 2726,
+      "bounds_glTF_y_up": {
+        "min": [
+          -0.9626487493515015,
+          0.0,
+          -0.38499999046325684
+        ],
+        "max": [
+          0.9626487493515015,
+          2.9317402839660645,
+          0.38499999046325684
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "crystal_cluster_NEW.glb",
+      "result": "PASS",
+      "sha256": "78275f1b100684fc9c079bfc1de33e933d4cfe58c35afcd8e421f811d57b2452",
+      "bytes": 46464,
+      "triangles": 1248,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.1045671701431274,
+          -7.450580596923828e-09,
+          -0.5042485594749451
+        ],
+        "max": [
+          1.1045671701431274,
+          1.899999976158142,
+          0.5042484998703003
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "mushroom_cluster_REMADE.glb",
+      "result": "PASS",
+      "sha256": "5ceb33a228c0940aecea6302b00e7c723fe5ccbd5e264e6cce61d66020c24763",
+      "bytes": 129396,
+      "triangles": 5888,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.2024906873703003,
+          0.0,
+          -0.8135983347892761
+        ],
+        "max": [
+          1.2024908065795898,
+          1.467390537261963,
+          0.8135983347892761
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "berry_shrub_REMADE.glb",
+      "result": "PASS",
+      "sha256": "2658c5b952cc81da0c42a4711d8a640ee1450d73ab5bd809c0a4b20868d44600",
+      "bytes": 96932,
+      "triangles": 5168,
+      "bounds_glTF_y_up": {
+        "min": [
+          -1.220000147819519,
+          0.0,
+          -0.6867037415504456
+        ],
+        "max": [
+          1.2200000286102295,
+          1.309999942779541,
+          0.6867036819458008
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    },
+    {
+      "file": "teal_grass_REMADE.glb",
+      "result": "PASS",
+      "sha256": "d56bfe5bebfa5c522e343fd0ef7cd96a0d0442670a9be9d164d67ebf9b02f32a",
+      "bytes": 8472,
+      "triangles": 384,
+      "bounds_glTF_y_up": {
+        "min": [
+          -0.376498281955719,
+          0.0,
+          -0.12503455579280853
+        ],
+        "max": [
+          0.376498281955719,
+          0.5009999871253967,
+          0.12503455579280853
+        ]
+      },
+      "root_transform": "identity",
+      "origin_ground_center": "PASS",
+      "embedded_materials": "PASS",
+      "collision_nodes": "none",
+      "front_feature_mean_positive_z": null
+    }
+  ]
+}

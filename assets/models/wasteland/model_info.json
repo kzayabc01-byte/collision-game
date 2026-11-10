@@ -1,0 +1,149 @@
+{
+  "seed": 111029,
+  "assets": [
+    {
+      "name": "small_grass_01",
+      "group": "Grass",
+      "dimensions_xyz": [
+        0.52641,
+        0.26646,
+        0.62103
+      ],
+      "triangles": 320,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "small_grass_02",
+      "group": "Grass",
+      "dimensions_xyz": [
+        0.62556,
+        0.33482,
+        0.52371
+      ],
+      "triangles": 400,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "small_grass_03",
+      "group": "Grass",
+      "dimensions_xyz": [
+        0.62241,
+        0.38163,
+        0.57655
+      ],
+      "triangles": 480,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "low_clump_01",
+      "group": "Bushes",
+      "dimensions_xyz": [
+        0.89595,
+        0.31135,
+        0.89701
+      ],
+      "triangles": 720,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "low_clump_02",
+      "group": "Bushes",
+      "dimensions_xyz": [
+        0.80377,
+        0.3302,
+        0.75295
+      ],
+      "triangles": 800,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "low_clump_03",
+      "group": "Bushes",
+      "dimensions_xyz": [
+        0.91867,
+        0.33245,
+        0.96417
+      ],
+      "triangles": 880,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "flat_shard_01",
+      "group": "Stones",
+      "dimensions_xyz": [
+        0.76217,
+        0.07962,
+        0.40532
+      ],
+      "triangles": 252,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "flat_shard_02",
+      "group": "Stones",
+      "dimensions_xyz": [
+        0.54697,
+        0.09007,
+        0.57884
+      ],
+      "triangles": 320,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "flat_shard_03",
+      "group": "Stones",
+      "dimensions_xyz": [
+        0.77528,
+        0.06655,
+        0.3958
+      ],
+      "triangles": 236,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "flat_shard_04",
+      "group": "Stones",
+      "dimensions_xyz": [
+        0.45573,
+        0.05757,
+        0.32676
+      ],
+      "triangles": 264,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "shard_group_01",
+      "group": "Stones",
+      "dimensions_xyz": [
+        1.20388,
+        0.08291,
+        0.70859
+      ],
+      "triangles": 754,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    },
+    {
+      "name": "shard_group_02",
+      "group": "Stones",
+      "dimensions_xyz": [
+        1.08435,
+        0.08535,
+        0.84285
+      ],
+      "triangles": 1276,
+      "collision": false,
+      "origin": "bottom center, Y up"
+    }
+  ]
+}

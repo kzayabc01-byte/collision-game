@@ -1,0 +1,275 @@
+[
+  {
+    "file": "candy_crate_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -0.7049999833106995,
+        -0.7268980741500854,
+        0.0
+      ],
+      [
+        0.7050000429153442,
+        0.7268980145454407,
+        1.290000081062317
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "candy_barrel_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -0.6700000166893005,
+        -0.6714999675750732,
+        0.0
+      ],
+      [
+        0.6700000166893005,
+        0.6714999675750732,
+        1.6733009815216064
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "pumpkin_candy_bucket_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -0.8942000269889832,
+        -0.8579308390617371,
+        0.0
+      ],
+      [
+        0.8942000269889832,
+        0.8579308390617371,
+        2.0850000381469727
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "crooked_dead_tree_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.2417879104614258,
+        -0.5502949953079224,
+        0.0
+      ],
+      [
+        1.2417879104614258,
+        0.5502949953079224,
+        2.905932903289795
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "low_stone_wall_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.7837145328521729,
+        -0.5209370851516724,
+        0.0
+      ],
+      [
+        1.7837144136428833,
+        0.5209371447563171,
+        1.7450000047683716
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "stone_archway_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.6911985874176025,
+        -0.4150000214576721,
+        0.0
+      ],
+      [
+        1.6911985874176025,
+        0.4150000214576721,
+        2.8932621479034424
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "cross_tombstone_REMADE.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.1142866611480713,
+        -0.44481706619262695,
+        0.0
+      ],
+      [
+        1.1142866611480713,
+        0.44481706619262695,
+        2.1600000858306885
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "wood_fence_REMADE.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.4001548290252686,
+        -0.24249720573425293,
+        0.0
+      ],
+      [
+        1.4001548290252686,
+        0.24249720573425293,
+        1.3799999952316284
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "lantern_post_REMADE.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -0.9626487493515015,
+        -0.38499999046325684,
+        0.0
+      ],
+      [
+        0.9626487493515015,
+        0.38499999046325684,
+        2.9317402839660645
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "crystal_cluster_NEW.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.1045671701431274,
+        -0.5042484998703003,
+        -7.450580596923828e-09
+      ],
+      [
+        1.1045671701431274,
+        0.5042485594749451,
+        1.899999976158142
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "mushroom_cluster_REMADE.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.2024906873703003,
+        -0.8135983347892761,
+        0.0
+      ],
+      [
+        1.2024908065795898,
+        0.8135983347892761,
+        1.467390537261963
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "berry_shrub_REMADE.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -1.220000147819519,
+        -0.6867036819458008,
+        0.0
+      ],
+      [
+        1.2200000286102295,
+        0.6867037415504456,
+        1.309999942779541
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  },
+  {
+    "file": "teal_grass_REMADE.glb",
+    "roundtrip_import": "passed",
+    "ground_center": "passed",
+    "bounds_blender": [
+      [
+        -0.376498281955719,
+        -0.12503455579280853,
+        0.0
+      ],
+      [
+        0.376498281955719,
+        0.12503455579280853,
+        0.5009999871253967
+      ]
+    ],
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ]
+  }
+]

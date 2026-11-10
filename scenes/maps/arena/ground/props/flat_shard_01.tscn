@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/wasteland/flat_shard_01.glb" id="1"]
+[ext_resource type="Shader" path="res://assets/shaders/ground_contact.gdshader" id="2"]
+
+[sub_resource type="ShaderMaterial" id="ContactMaterial"]
+shader = ExtResource("2")
+shader_parameter/opacity = 0.14
+
+[sub_resource type="PlaneMesh" id="ContactPlane"]
+size = Vector2(0.85363, 0.45396)
+
+[node name="FlatShard01" type="Node3D"]
+editor_description = "独立地表装饰；GLB 原点在底面中心；无碰撞。Model 为模型，Contact 为可调整的柔和贴地阴影。"
+
+[node name="Model" parent="." instance=ExtResource("1")]
+
+[node name="Contact" type="MeshInstance3D" parent="."]
+position = Vector3(0.025, 0.008, 0.025)
+cast_shadow = 0
+mesh = SubResource("ContactPlane")
+material_override = SubResource("ContactMaterial")

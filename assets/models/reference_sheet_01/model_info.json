@@ -1,0 +1,204 @@
+{
+  "title": "参考图第1页：12款主体 + 1款独立杂草",
+  "excluded": [
+    "右上角糖果礼盒"
+  ],
+  "date": "2026-11-10",
+  "blender": "4.5.3 LTS",
+  "units": "meters; authored approximate game prop scale, reference has no measured scale",
+  "axes": {
+    "up": "+Y",
+    "front": "+Z",
+    "origin": "horizontal bounding-box center at minimum Y; root translation 0, rotation identity, scale 1"
+  },
+  "collision": "none",
+  "game_integration": "not connected; no scene/script/config changes",
+  "materials": "embedded glTF PBR solid-color materials, no external textures",
+  "remade_note": "REMADE files are newly modeled alternatives; existing assets have not been overwritten. Grass in all composite props is also remade.",
+  "source": "art_source/reference_sheet_01/reference_sheet_01.blend",
+  "assets": [
+    {
+      "file": "candy_crate_NEW.glb",
+      "name_zh": "糖果木箱",
+      "status": "新增款",
+      "existing_related": [],
+      "dimensions_xyz_m": [
+        1.41,
+        1.29,
+        1.4538
+      ],
+      "triangles": 5732,
+      "editable_source_parts": 48
+    },
+    {
+      "file": "candy_barrel_NEW.glb",
+      "name_zh": "糖果木桶",
+      "status": "新增款",
+      "existing_related": [],
+      "dimensions_xyz_m": [
+        1.34,
+        1.6733,
+        1.343
+      ],
+      "triangles": 12252,
+      "editable_source_parts": 35
+    },
+    {
+      "file": "pumpkin_candy_bucket_NEW.glb",
+      "name_zh": "南瓜糖桶",
+      "status": "新增糖桶款；项目已有其他南瓜模型",
+      "existing_related": [
+        "jack_o_lantern_pair.glb"
+      ],
+      "dimensions_xyz_m": [
+        1.7884,
+        2.085,
+        1.7159
+      ],
+      "triangles": 15316,
+      "editable_source_parts": 30
+    },
+    {
+      "file": "crooked_dead_tree_NEW.glb",
+      "name_zh": "枯树",
+      "status": "新增款；附草叶为本次重制",
+      "existing_related": [],
+      "dimensions_xyz_m": [
+        2.4836,
+        2.9059,
+        1.1006
+      ],
+      "triangles": 8640,
+      "editable_source_parts": 15
+    },
+    {
+      "file": "low_stone_wall_NEW.glb",
+      "name_zh": "矮石墙",
+      "status": "新增款；附草叶为本次重制",
+      "existing_related": [],
+      "dimensions_xyz_m": [
+        3.5674,
+        1.745,
+        1.0419
+      ],
+      "triangles": 1848,
+      "editable_source_parts": 22
+    },
+    {
+      "file": "stone_archway_NEW.glb",
+      "name_zh": "石拱门",
+      "status": "新增款；附草叶为本次重制",
+      "existing_related": [],
+      "dimensions_xyz_m": [
+        3.3824,
+        2.8933,
+        0.83
+      ],
+      "triangles": 4580,
+      "editable_source_parts": 35
+    },
+    {
+      "file": "cross_tombstone_REMADE.glb",
+      "name_zh": "十字墓碑",
+      "status": "重制：项目已有同类墓碑",
+      "existing_related": [
+        "arched_cross_tombstone.glb"
+      ],
+      "dimensions_xyz_m": [
+        2.2286,
+        2.16,
+        0.8896
+      ],
+      "triangles": 3392,
+      "editable_source_parts": 27
+    },
+    {
+      "file": "wood_fence_REMADE.glb",
+      "name_zh": "木围栏",
+      "status": "重制：项目已有木围栏",
+      "existing_related": [
+        "fence_purple_wood.glb"
+      ],
+      "dimensions_xyz_m": [
+        2.8003,
+        1.38,
+        0.485
+      ],
+      "triangles": 2384,
+      "editable_source_parts": 24
+    },
+    {
+      "file": "lantern_post_REMADE.glb",
+      "name_zh": "路灯",
+      "status": "重制：项目已有路灯",
+      "existing_related": [
+        "crooked_lantern_post.glb"
+      ],
+      "dimensions_xyz_m": [
+        1.9253,
+        2.9317,
+        0.77
+      ],
+      "triangles": 2726,
+      "editable_source_parts": 29
+    },
+    {
+      "file": "crystal_cluster_NEW.glb",
+      "name_zh": "水晶簇",
+      "status": "新增款；附草叶为本次重制",
+      "existing_related": [],
+      "dimensions_xyz_m": [
+        2.2091,
+        1.9,
+        1.0085
+      ],
+      "triangles": 1248,
+      "editable_source_parts": 19
+    },
+    {
+      "file": "mushroom_cluster_REMADE.glb",
+      "name_zh": "蘑菇丛",
+      "status": "重制：项目已有蘑菇丛",
+      "existing_related": [
+        "amethyst_mushroom_cluster.glb"
+      ],
+      "dimensions_xyz_m": [
+        2.405,
+        1.4674,
+        1.6272
+      ],
+      "triangles": 5888,
+      "editable_source_parts": 32
+    },
+    {
+      "file": "berry_shrub_REMADE.glb",
+      "name_zh": "灌木丛",
+      "status": "重制：项目已有紫色灌木",
+      "existing_related": [
+        "purple_shrub.glb"
+      ],
+      "dimensions_xyz_m": [
+        2.44,
+        1.31,
+        1.3734
+      ],
+      "triangles": 5168,
+      "editable_source_parts": 22
+    },
+    {
+      "file": "teal_grass_REMADE.glb",
+      "name_zh": "青绿杂草（独立件）",
+      "status": "重制：项目已有杂草；本批主体附草同源",
+      "existing_related": [
+        "teal_grass_tuft.glb"
+      ],
+      "dimensions_xyz_m": [
+        0.753,
+        0.501,
+        0.2501
+      ],
+      "triangles": 384,
+      "editable_source_parts": 6
+    }
+  ]
+}
