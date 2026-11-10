@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/solid_wall.tscn" id="1_wall"]
+[ext_resource type="PackedScene" path="res://assets/models/halloween_props/fence_set_no_pumpkin.glb" id="2_fence"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fence"]
+size = Vector3(0.75, 2.85, 6.3)
+
+[node name="FenceObstacle" instance=ExtResource("1_wall")]
+
+[node name="BodyCollision" parent="." index="0"]
+position = Vector3(-0.459064, 1.425, 0)
+shape = SubResource("BoxShape3D_fence")
+
+[node name="Model" parent="VisualRoot" index="0"]
+visible = false
+
+[node name="Fence" parent="VisualRoot" instance=ExtResource("2_fence")]
+transform = Transform3D(0, 0, 1.24378112, 0, 1.40593042, 0, -1.21618726, 0, 0, 0, 0, 0)

@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://cgny6yhup1qvm"]
 
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/props/solid_wall.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://c0gbk78cfbdh8" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
 [ext_resource type="Shader" uid="uid://b2jt7w83mj453" path="res://assets/arena_grid.gdshader" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/arena_scenery.tscn" id="4"]
 [ext_resource type="Material" uid="uid://bruewgy3ei7t6" path="res://assets/materials/dream_ground.tres" id="5_ground"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/fence_obstacle.tscn" id="6_fence"]
 
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
@@ -64,6 +65,7 @@ visible = false
 mesh = SubResource("FloorMesh")
 
 [node name="GroundVisual" type="MeshInstance3D" parent="." unique_id=1603973499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029621124, 0, 0)
 material_override = ExtResource("5_ground")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_c8s40")
@@ -86,11 +88,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 57, -40.5, 0, 0)
 [node name="East" parent="SolidWalls" unique_id=796379445 instance=ExtResource("1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 57, 40.5, 0, 0)
 
-[node name="PillarNW" parent="SolidWalls" unique_id=1430638923 instance=ExtResource("1")]
-transform = Transform3D(1.6, 0, 0, 0, 1, 0, 0, 0, 2.4, -11, 0, -4)
+[node name="PillarNW" parent="SolidWalls" unique_id=1430638923 instance=ExtResource("6_fence")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11, 0, -4)
 
-[node name="PillarSE" parent="SolidWalls" unique_id=574042687 instance=ExtResource("1")]
-transform = Transform3D(1.6, 0, 0, 0, 1, 0, 0, 0, 2.4, 11, 0, 4)
+[node name="PillarSE" parent="SolidWalls" unique_id=574042687 instance=ExtResource("6_fence")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 11, 0, 4)
 
 [node name="CandyObstacles" type="Node3D" parent="." unique_id=626039746]
 
