@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_sbj5n"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2_fxrl5"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/crystal_cluster_NEW.glb" id="3_nf168"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yvrpc"]
+size = Vector3(3.8, 2.9, 1.6)
+
+[node name="Crystal" type="StaticBody3D" unique_id=933611901 groups=["solid_walls"]]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+collision_mask = 2
+script = ExtResource("1_sbj5n")
+tuning = ExtResource("2_fxrl5")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=24434181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+shape = SubResource("BoxShape3D_yvrpc")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=2068928008]
+
+[node name="Model" type="Node3D" parent="VisualRoot" unique_id=1477565092 instance=ExtResource("3_nf168")]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, 0, 0, 0)

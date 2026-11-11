@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_b5uma"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2_nccde"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/low_stone_wall_NEW.glb" id="3_5aaet"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vcsks"]
+size = Vector3(3.65, 1.4, 0.72)
+
+[node name="LowWall" type="StaticBody3D" unique_id=2044205870 groups=["solid_walls"]]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+collision_mask = 2
+script = ExtResource("1_b5uma")
+tuning = ExtResource("2_nccde")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=68449119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("BoxShape3D_vcsks")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=910992331]
+
+[node name="Model" type="Node3D" parent="VisualRoot" unique_id=670556773 instance=ExtResource("3_5aaet")]
+transform = Transform3D(1.1, 0, 0, 0, 0.85, 0, 0, 0, 1, 0, 0, 0)

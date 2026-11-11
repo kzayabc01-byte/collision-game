@@ -127,7 +127,7 @@ func _run() -> void:
 			return
 		var game: CrashMatch = current_scene as CrashMatch
 		check(int(game.player.profile.kind) == kind, "Chosen vehicle actually spawned " + str(kind))
-		check(game.has_node("Arena/Scenery/Buildings/Church") and game.has_node("Arena/Scenery/Buildings/CandyHouse"), "Updated arena buildings retained " + str(kind))
+		check(game.has_node("Arena/CenterPlaza") and game.has_node("Arena/Landmarks/ArchNorth") and game.has_node("Arena/CandyObstacles/CenterPumpkin"), "Reference arena loaded " + str(kind))
 		game.toggle_pause()
 		var music = root.get_node("Music")
 		var settings_button := game.hud.get_node("%MusicSettingsButton") as Button
@@ -162,6 +162,7 @@ func _run() -> void:
 	var ground_test: Node = load("res://scenes/tests/painted_ground_test.tscn").instantiate()
 	check(ground_test.has_node("Ground") and ground_test.has_node("Camera3D"), "Independent ground shader test still loads")
 	ground_test.free()
+	root.get_node("Music").set_context("intro")
 	current_scene.free()
 	# Audio playback is released by the mix thread after scene teardown.
 	await create_timer(0.25).timeout

@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_lu8xt"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2_83743"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/wood_fence_REMADE.glb" id="3_cac2p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4nwlp"]
+size = Vector3(5.35, 2.4, 0.7)
+
+[node name="WoodFence" type="StaticBody3D" unique_id=306771021 groups=["solid_walls"]]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+collision_mask = 2
+script = ExtResource("1_lu8xt")
+tuning = ExtResource("2_83743")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1837466180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("BoxShape3D_4nwlp")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=449467031]
+
+[node name="Model" type="Node3D" parent="VisualRoot" unique_id=1187012502 instance=ExtResource("3_cac2p")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

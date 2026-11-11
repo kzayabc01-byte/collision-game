@@ -62,7 +62,12 @@ func _run() -> void:
 		if not car.is_player:
 			print("AI ", car.driver_name, " hunts=", car.driver.get("hunt_seconds"), " changes=", car.driver.get("target_changes"), " abandoned=", car.driver.get("abandoned_targets"), " recoveries=", car.driver.get("recoveries"))
 	var passed: bool = car_contacts >= 8 and player_contacts > 0 and first_contact < 20.0 and target_bound and _confined and game.phase == CrashMatch.Phase.FINISHED and _impacts > 0 and _breaks > 0 and game.candy_system.get_child_count() <= game.tuning.maximum_candy_nodes
+	root.get_node("Music").set_context("intro")
 	game.queue_free()
 	for index: int in range(5):
+		await process_frame
+	# Fixed-FPS simulation can outrun the audio mixing thread during teardown.
+	var release_deadline: int = Time.get_ticks_msec() + 300
+	while Time.get_ticks_msec() < release_deadline:
 		await process_frame
 	quit(0 if passed else 1)

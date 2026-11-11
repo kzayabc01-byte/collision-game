@@ -1,0 +1,50 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_iv8jq"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2_aitos"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/pumpkin_candy_bucket_NEW.glb" id="3_ireas"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3mt2u"]
+size = Vector3(4.3, 3.4, 3.85)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvfee"]
+albedo_color = Color(1, 0.57254905, 0.23529412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lay3m"]
+material = SubResource("StandardMaterial3D_vvfee")
+size = Vector3(0.16, 0.05, 0.25)
+
+[node name="PumpkinBucket" type="StaticBody3D" unique_id=1788851536 groups=["candy_obstacles"]]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+collision_mask = 2
+script = ExtResource("1_iv8jq")
+destructible = true
+tuning = ExtResource("2_aitos")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1791287879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = SubResource("BoxShape3D_3mt2u")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=2037018260]
+
+[node name="Model" type="Node3D" parent="VisualRoot" unique_id=209296128 instance=ExtResource("3_ireas")]
+transform = Transform3D(2.6, 0, 0, 0, 2.6, 0, 0, 0, 2.6, 0, 0, 0)
+
+[node name="CandySpawn" type="Marker3D" parent="." unique_id=626557918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04, 0)
+
+[node name="BreakParticles" type="CPUParticles3D" parent="." unique_id=1230239273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+emitting = false
+amount = 28
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_lay3m")
+direction = Vector3(0, 1, 0)
+spread = 90.0
+gravity = Vector3(0, -12, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+angular_velocity_min = -240.0
+angular_velocity_max = 240.0

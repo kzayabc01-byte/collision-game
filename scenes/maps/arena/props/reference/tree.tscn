@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_p8eps"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2_1u61k"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/crooked_dead_tree_NEW.glb" id="3_dhsq5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qjbve"]
+size = Vector3(2.2, 3.5, 1.7)
+
+[node name="Tree" type="StaticBody3D" unique_id=1651426723 groups=["solid_walls"]]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+collision_mask = 2
+script = ExtResource("1_p8eps")
+tuning = ExtResource("2_1u61k")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1243979151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+shape = SubResource("BoxShape3D_qjbve")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=2084951323]
+
+[node name="Model" type="Node3D" parent="VisualRoot" unique_id=85559768 instance=ExtResource("3_dhsq5")]
+transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0, 0, 0)

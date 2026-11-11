@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://assets/shaders/reference_ground.gdshader" id="1"]
+[ext_resource type="Texture2D" path="res://assets/ground/wasteland_grass_mask.png" id="2"]
+
+[resource]
+resource_name = "荒地 · 蓝紫灰土壤与独立植被轮廓"
+shader = ExtResource("1")
+shader_parameter/grass_mask = ExtResource("2")
+shader_parameter/soil_blue = Color(0.265, 0.289, 0.430, 1)
+shader_parameter/soil_lavender = Color(0.318, 0.305, 0.452, 1)
+shader_parameter/soil_slate = Color(0.281, 0.312, 0.414, 1)
+shader_parameter/broad_scale = 12.5
+shader_parameter/soil_variation = 0.15
+shader_parameter/mottle_strength = 0.035
+shader_parameter/fine_grain = 0.008
+shader_parameter/brightness = 0.70
+shader_parameter/soil_offset = Vector2(13.71, -29.18)
+shader_parameter/imprint_color = Color(0.215, 0.251, 0.324, 1)
+shader_parameter/imprint_strength = 0.27
+shader_parameter/mask_edge_fade = 0.025

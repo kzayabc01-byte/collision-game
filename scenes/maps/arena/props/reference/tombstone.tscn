@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1_kp7sm"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="2_1bn0m"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/cross_tombstone_REMADE.glb" id="3_wjsxb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqb5i"]
+size = Vector3(2.15, 3.5, 1.4)
+
+[node name="Tombstone" type="StaticBody3D" unique_id=1228274933 groups=["solid_walls"]]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+collision_mask = 2
+script = ExtResource("1_kp7sm")
+tuning = ExtResource("2_1bn0m")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=280185219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+shape = SubResource("BoxShape3D_tqb5i")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=191391311]
+
+[node name="Model" type="Node3D" parent="VisualRoot" unique_id=840303089 instance=ExtResource("3_wjsxb")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

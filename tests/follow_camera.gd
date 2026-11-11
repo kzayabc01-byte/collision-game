@@ -138,4 +138,7 @@ func _run() -> void:
 		if not output.is_empty():
 			check(root.get_texture().get_image().save_png(output) == OK, "Saved live edge view")
 	print("FOLLOW CAMERA: %d checks, %d failures" % [checks, failures])
+	root.get_node("Music").set_context("intro")
+	game.free()
+	await create_timer(0.3).timeout
 	quit(1 if failures else 0)

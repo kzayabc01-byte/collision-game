@@ -24,6 +24,8 @@ func _run() -> void:
 	_check(await _test_physics(), "physics tests completed")
 	_check(await _test_match(), "match tests completed")
 	print("TEST RESULTS: %d passed, %d failed" % [_passed, _failed])
+	root.get_node("Music").set_context("intro")
+	await create_timer(0.3).timeout
 	quit(1 if _failed > 0 else 0)
 
 func _check(condition: bool, label: String) -> void:
@@ -202,14 +204,14 @@ func _test_match() -> bool:
 	await _frames(3)
 	_check(match_scene.cars.size() == 4 and match_scene.player.is_player, "editable scene contains player and three AI")
 	match_scene.player.set_candy(80)
-	var minimum_wall_x: float = -19.5 + match_scene.player.radius
-	match_scene.player.global_position = Vector3(minimum_wall_x, 0, 0)
+	var minimum_wall_x: float = match_scene._get_play_bounds().position.x + match_scene.player.radius
+	match_scene.player.global_position = Vector3(minimum_wall_x, 0, 5)
 	match_scene.player.set_candy(100)
 	await _frames(3)
 	match_scene.player.velocity = Vector3.RIGHT * 2.0
 	match_scene.player.move_vehicle(0.1)
 	_check(match_scene.player.global_position.x > minimum_wall_x, "grown vehicle can move away from adjacent wall")
-	match_scene.player.reset_at(Vector3(-15, 0, 9))
+	match_scene.player.reset_at(match_scene.spawn_points.get_node("PlayerSpawn").global_position)
 	var before: float = match_scene.remaining_seconds
 	match_scene.toggle_pause()
 	match_scene._physics_process(1.0)

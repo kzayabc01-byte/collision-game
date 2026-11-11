@@ -1,22 +1,31 @@
-[gd_scene format=3 uid="uid://cgny6yhup1qvm"]
+[gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/maps/arena/props/solid_wall.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://c0gbk78cfbdh8" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
-[ext_resource type="Shader" uid="uid://b2jt7w83mj453" path="res://assets/arena_grid.gdshader" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/maps/arena/arena_scenery.tscn" id="4"]
-[ext_resource type="Material" path="res://assets/materials/wasteland_ground.tres" id="5_ground"]
-[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/fence_obstacle.tscn" id="6_fence"]
-
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/candy_obstacle.tscn" id="2"]
+[ext_resource type="Material" path="res://assets/materials/reference_ground.tres" id="2_ppsg8"]
+[ext_resource type="Shader" path="res://assets/arena_grid.gdshader" id="3"]
+[ext_resource type="Script" path="res://scripts/obstacle.gd" id="5_2s1m6"]
+[ext_resource type="Resource" path="res://config/prototype.tres" id="6_40cb3"]
 [ext_resource type="Script" path="res://scripts/outer_ground.gd" id="7_backdrop"]
-[ext_resource type="PackedScene" path="res://scenes/maps/arena/ground/ground_scatter.tscn" id="8_scatter"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/low_wall.tscn" id="7_h1q4m"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/wood_fence.tscn" id="8_o1j2k"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/candy_crate.tscn" id="10_g3u2m"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/candy_barrel.tscn" id="11_xb2nx"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/pumpkin_bucket.tscn" id="12_8y7fw"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/center_plaza.tscn" id="13_wj67y"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/reference_scenery.tscn" id="14_8hc5s"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/tree.tscn" id="15_eulya"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/tombstone.tscn" id="16_sryrf"]
+[ext_resource type="PackedScene" path="res://scenes/maps/arena/props/reference/crystal.tscn" id="17_tq6pi"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/stone_archway_NEW.glb" id="18_k0qio"]
+[ext_resource type="PackedScene" path="res://assets/models/reference_sheet_01/lantern_post_REMADE.glb" id="19_ulq43"]
 
-[sub_resource type="Environment" id="Environment"]
+[sub_resource type="Environment" id="Environment_hs1kf"]
 background_mode = 1
 background_color = Color(0.035, 0.047, 0.07, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.5882353, 0.60784316, 0.7372549, 1)
-ambient_light_energy = 0.22
-tonemap_mode = 2
+ambient_light_color = Color(0.72156864, 0.69411767, 0.8901961, 1)
+ambient_light_energy = 0.32
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(82, 0.4, 58)
@@ -32,27 +41,41 @@ size = Vector3(82, 0.4, 58)
 [sub_resource type="PlaneMesh" id="PlaneMesh_c8s40"]
 size = Vector2(124, 98)
 
-[sub_resource type="StandardMaterial3D" id="CenterMaterial"]
-albedo_color = Color(0.25, 0.67, 0.58, 1)
-emission_enabled = true
-emission = Color(0.025, 0.08, 0.06, 1)
+[sub_resource type="BoxShape3D" id="Shape"]
+size = Vector3(1, 1.8, 1)
 
-[sub_resource type="TorusMesh" id="CenterRing"]
-material = SubResource("CenterMaterial")
-inner_radius = 4.45
-outer_radius = 4.52
-ring_segments = 6
+[sub_resource type="StandardMaterial3D" id="Material"]
+albedo_color = Color(0.23, 0.28, 0.38, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="Mesh"]
+material = SubResource("Material")
+size = Vector3(1, 1.8, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bnh7v"]
+size = Vector3(1.3, 4.5, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t4enk"]
+size = Vector3(1.3, 4.5, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ketfd"]
+size = Vector3(1.3, 4.5, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_354eq"]
+size = Vector3(1.3, 4.5, 1.5)
 
 [node name="Arena" type="Node3D" unique_id=821880595]
+editor_description = "2026-11-11 参考图布局。80×56 可玩范围；场景静态保存，可逐节点编辑。"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=399449506]
-environment = SubResource("Environment")
+environment = SubResource("Environment_hs1kf")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=662653475]
-transform = Transform3D(0.90044713, 0.37729916, -0.21642627, 0, 0.49757108, 0.8674232, 0.43496552, -0.7810687, 0.44803646, 0, 0, 0)
-light_color = Color(0.8627451, 0.8980392, 1, 1)
-light_energy = 0.5
+transform = Transform3D(0.90630776, 0.35443747, -0.2301744, 0, 0.544639, 0.83867055, 0.42261827, -0.76009357, 0.4936106, 0, 0, 0)
+light_color = Color(1, 0.9411765, 0.9019608, 1)
+light_energy = 0.62
 shadow_enabled = true
+shadow_opacity = 0.65
 directional_shadow_max_distance = 80.0
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=161610150]
@@ -69,89 +92,461 @@ mesh = SubResource("FloorMesh")
 
 [node name="GroundVisual" type="MeshInstance3D" parent="." unique_id=1603973499]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029621124, 0, 0)
-material_override = ExtResource("5_ground")
+material_override = ExtResource("2_ppsg8")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_c8s40")
 
-[node name="OuterBackdrop" type="MeshInstance3D" parent="GroundVisual"]
-script = ExtResource("7_backdrop")
+[node name="OuterBackdrop" type="MeshInstance3D" parent="GroundVisual" unique_id=849855146]
 cast_shadow = 0
-
-[node name="GroundScatter" parent="GroundVisual" instance=ExtResource("8_scatter")]
-
-[node name="CenterRing" type="MeshInstance3D" parent="." unique_id=247386421]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
-mesh = SubResource("CenterRing")
+script = ExtResource("7_backdrop")
 
 [node name="SolidWalls" type="Node3D" parent="." unique_id=1196646166]
 
-[node name="North" parent="SolidWalls" unique_id=1267719494 instance=ExtResource("1")]
+[node name="North" parent="SolidWalls" unique_id=1267719494 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
 transform = Transform3D(82, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28.5)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
 
-[node name="South" parent="SolidWalls" unique_id=1986222284 instance=ExtResource("1")]
+[node name="BodyCollision" parent="SolidWalls/North" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Shape")
+
+[node name="VisualRoot" parent="SolidWalls/North" index="1"]
+visible = false
+
+[node name="Model" parent="SolidWalls/North/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="South" parent="SolidWalls" unique_id=1986222284 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
 transform = Transform3D(82, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.5)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
 
-[node name="West" parent="SolidWalls" unique_id=1944881861 instance=ExtResource("1")]
+[node name="BodyCollision" parent="SolidWalls/South" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Shape")
+
+[node name="VisualRoot" parent="SolidWalls/South" index="1"]
+visible = false
+
+[node name="Model" parent="SolidWalls/South/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="West" parent="SolidWalls" unique_id=1944881861 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 57, -40.5, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
 
-[node name="East" parent="SolidWalls" unique_id=796379445 instance=ExtResource("1")]
+[node name="BodyCollision" parent="SolidWalls/West" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Shape")
+
+[node name="VisualRoot" parent="SolidWalls/West" index="1"]
+visible = false
+
+[node name="Model" parent="SolidWalls/West/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="East" parent="SolidWalls" unique_id=796379445 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 57, 40.5, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
 
-[node name="PillarNW" parent="SolidWalls" unique_id=1430638923 instance=ExtResource("6_fence")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11, 0, -4)
+[node name="BodyCollision" parent="SolidWalls/East" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Shape")
 
-[node name="PillarSE" parent="SolidWalls" unique_id=574042687 instance=ExtResource("6_fence")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 11, 0, 4)
+[node name="VisualRoot" parent="SolidWalls/East" index="1"]
+visible = false
+
+[node name="Model" parent="SolidWalls/East/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="OuterCurves" type="Node3D" parent="SolidWalls" unique_id=1479944742]
+
+[node name="NorthWest" type="Node3D" parent="SolidWalls/OuterCurves" unique_id=87138456]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/OuterCurves/NorthWest" unique_id=2044205870 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6, 0, -10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/OuterCurves/NorthWest" unique_id=1070672676 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -25, 0, -9.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment3" type="StaticBody3D" parent="SolidWalls/OuterCurves/NorthWest" unique_id=1441890624 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881907, -23, 0, -7.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="SouthWest" type="Node3D" parent="SolidWalls/OuterCurves" unique_id=1211793107]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/OuterCurves/SouthWest" unique_id=1293978898 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6, 0, 10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/OuterCurves/SouthWest" unique_id=549004291 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -25, 0, 9.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment3" type="StaticBody3D" parent="SolidWalls/OuterCurves/SouthWest" unique_id=1276918407 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.25881907, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.25881907, -23, 0, 7.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="NorthEast" type="Node3D" parent="SolidWalls/OuterCurves" unique_id=1601017587]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/OuterCurves/NorthEast" unique_id=1596273276 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6, 0, -10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/OuterCurves/NorthEast" unique_id=1695688636 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 25, 0, -9.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment3" type="StaticBody3D" parent="SolidWalls/OuterCurves/NorthEast" unique_id=789145853 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.25881907, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.25881907, 23, 0, -7.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="SouthEast" type="Node3D" parent="SolidWalls/OuterCurves" unique_id=577213672]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/OuterCurves/SouthEast" unique_id=1899893397 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6, 0, 10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/OuterCurves/SouthEast" unique_id=1493753549 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 25, 0, 9.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment3" type="StaticBody3D" parent="SolidWalls/OuterCurves/SouthEast" unique_id=556489226 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881907, 23, 0, 7.8)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="InnerDiagonals" type="Node3D" parent="SolidWalls" unique_id=1214958238]
+
+[node name="NorthWest" type="Node3D" parent="SolidWalls/InnerDiagonals" unique_id=1712374046]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/NorthWest" unique_id=861162106 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, -6.7, 0, -8.5)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/NorthWest" unique_id=562857860 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, -9.5, 0, -6.6)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="SouthWest" type="Node3D" parent="SolidWalls/InnerDiagonals" unique_id=1591372924]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/SouthWest" unique_id=768364705 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, -0.5591929, 0, 1, 0, 0.5591929, 0, 0.8290376, -6.7, 0, 8.5)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/SouthWest" unique_id=1896739082 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, -0.5591929, 0, 1, 0, 0.5591929, 0, 0.8290376, -9.5, 0, 6.6)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="NorthEast" type="Node3D" parent="SolidWalls/InnerDiagonals" unique_id=1541167609]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/NorthEast" unique_id=908694663 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, -0.5591929, 0, 1, 0, 0.5591929, 0, 0.8290376, 6.7, 0, -8.5)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/NorthEast" unique_id=936027335 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, -0.5591929, 0, 1, 0, 0.5591929, 0, 0.8290376, 9.5, 0, -6.6)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="SouthEast" type="Node3D" parent="SolidWalls/InnerDiagonals" unique_id=1481676781]
+
+[node name="Segment1" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/SouthEast" unique_id=1521199264 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, 6.7, 0, 8.5)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="Segment2" type="StaticBody3D" parent="SolidWalls/InnerDiagonals/SouthEast" unique_id=1566992368 groups=["solid_walls"] instance=ExtResource("7_h1q4m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.8290376, 0, 0.5591929, 0, 1, 0, -0.5591929, 0, 0.8290376, 9.5, 0, 6.6)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="FenceNorthWest" type="StaticBody3D" parent="SolidWalls" unique_id=306771021 groups=["solid_walls"] instance=ExtResource("8_o1j2k")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -18)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="FenceSouthWest" type="StaticBody3D" parent="SolidWalls" unique_id=1707338844 groups=["solid_walls"] instance=ExtResource("8_o1j2k")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, 18)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="FenceNorthEast" type="StaticBody3D" parent="SolidWalls" unique_id=323971495 groups=["solid_walls"] instance=ExtResource("8_o1j2k")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -18)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="FenceSouthEast" type="StaticBody3D" parent="SolidWalls" unique_id=124740805 groups=["solid_walls"] instance=ExtResource("8_o1j2k")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 18)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
 
 [node name="CandyObstacles" type="Node3D" parent="." unique_id=626039746]
 
-[node name="Crate01" parent="CandyObstacles" unique_id=1762248746 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -13)
+[node name="Gift01" type="StaticBody3D" parent="CandyObstacles" unique_id=564753701 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, -14)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate02" parent="CandyObstacles" unique_id=774498693 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -13)
+[node name="Gift02" type="StaticBody3D" parent="CandyObstacles" unique_id=525348438 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -23)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate03" parent="CandyObstacles" unique_id=432784757 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -14)
+[node name="Gift03" type="StaticBody3D" parent="CandyObstacles" unique_id=2124403328 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -23)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate04" parent="CandyObstacles" unique_id=987954983 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -14)
+[node name="Gift04" type="StaticBody3D" parent="CandyObstacles" unique_id=294630779 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, -14)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate05" parent="CandyObstacles" unique_id=2051110315 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -13)
-
-[node name="Crate06" parent="CandyObstacles" unique_id=528866973 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -13)
-
-[node name="Crate07" parent="CandyObstacles" unique_id=1851717038 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 13)
-
-[node name="Crate08" parent="CandyObstacles" unique_id=1462880319 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 13)
-
-[node name="Crate09" parent="CandyObstacles" unique_id=2044431973 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 14)
-
-[node name="Crate10" parent="CandyObstacles" unique_id=1043610084 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 14)
-
-[node name="Crate11" parent="CandyObstacles" unique_id=2138106016 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 13)
-
-[node name="Crate12" parent="CandyObstacles" unique_id=1917527413 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 13)
-
-[node name="Crate13" parent="CandyObstacles" unique_id=291894159 instance=ExtResource("2")]
+[node name="Gift05" type="StaticBody3D" parent="CandyObstacles" unique_id=1143844475 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate14" parent="CandyObstacles" unique_id=1289794526 instance=ExtResource("2")]
+[node name="Gift06" type="StaticBody3D" parent="CandyObstacles" unique_id=930636781 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 1)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Gift07" type="StaticBody3D" parent="CandyObstacles" unique_id=1403984692 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 1)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Gift08" type="StaticBody3D" parent="CandyObstacles" unique_id=1748899313 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate15" parent="CandyObstacles" unique_id=1310794191 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+[node name="Gift09" type="StaticBody3D" parent="CandyObstacles" unique_id=1365577877 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, 14)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
 
-[node name="Crate16" parent="CandyObstacles" unique_id=282604551 instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+[node name="Gift10" type="StaticBody3D" parent="CandyObstacles" unique_id=237092623 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 14)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Gift11" type="StaticBody3D" parent="CandyObstacles" unique_id=23139443 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Gift12" type="StaticBody3D" parent="CandyObstacles" unique_id=1961015619 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Gift13" type="StaticBody3D" parent="CandyObstacles" unique_id=853781140 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 24)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Gift14" type="StaticBody3D" parent="CandyObstacles" unique_id=2054838977 groups=["candy_obstacles"] instance=ExtResource("2")]
+editor_description = "竞技场现有可破坏礼盒障碍。与糖屋建筑占位场景是两个独立对象。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 24)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Crate01" type="StaticBody3D" parent="CandyObstacles" unique_id=1888069056 groups=["candy_obstacles"] instance=ExtResource("10_g3u2m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, -17, 0, -10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Crate02" type="StaticBody3D" parent="CandyObstacles" unique_id=1689602171 groups=["candy_obstacles"] instance=ExtResource("10_g3u2m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, 10, 0, -16)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Crate03" type="StaticBody3D" parent="CandyObstacles" unique_id=1016868780 groups=["candy_obstacles"] instance=ExtResource("10_g3u2m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, 17, 0, -10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Crate04" type="StaticBody3D" parent="CandyObstacles" unique_id=463957946 groups=["candy_obstacles"] instance=ExtResource("10_g3u2m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, -17, 0, 10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Crate05" type="StaticBody3D" parent="CandyObstacles" unique_id=1046178606 groups=["candy_obstacles"] instance=ExtResource("10_g3u2m")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, 17, 0, 10)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Barrel01" type="StaticBody3D" parent="CandyObstacles" unique_id=1182052573 groups=["candy_obstacles"] instance=ExtResource("11_xb2nx")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -17)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Barrel02" type="StaticBody3D" parent="CandyObstacles" unique_id=134108147 groups=["candy_obstacles"] instance=ExtResource("11_xb2nx")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 17)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="Barrel03" type="StaticBody3D" parent="CandyObstacles" unique_id=1950169763 groups=["candy_obstacles"] instance=ExtResource("11_xb2nx")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 17)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+
+[node name="CenterPumpkin" type="StaticBody3D" parent="CandyObstacles" unique_id=1788851536 groups=["candy_obstacles"] instance=ExtResource("12_8y7fw")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。与礼盒共用撞碎/爆糖规则。"
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+destructible = true
+tuning = ExtResource("6_40cb3")
+reward_override = 100
 
 [node name="VehicleSpawnPoints" type="Node3D" parent="." unique_id=794768776]
 
@@ -168,20 +563,192 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -18)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -18)
 
 [node name="ReserveWest" type="Marker3D" parent="VehicleSpawnPoints" unique_id=1163364068]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 5)
 
 [node name="ReserveEast" type="Marker3D" parent="VehicleSpawnPoints" unique_id=759830302]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, -5)
 
 [node name="CandySpawnPoints" type="Node3D" parent="." unique_id=2090007846]
 
 [node name="CenterNorth" type="Marker3D" parent="CandySpawnPoints" unique_id=122809480]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.3)
 
 [node name="CenterSouth" type="Marker3D" parent="CandySpawnPoints" unique_id=1878805429]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.3)
 
 [node name="Center" type="Marker3D" parent="CandySpawnPoints" unique_id=769452754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3, 0, 0)
 
-[node name="Scenery" parent="." unique_id=2002727275 instance=ExtResource("4")]
-editor_description = "外围美术排版，仅视觉，无碰撞。建筑实例已归入 Arena 的 Landmarks 与 AdditionalDestructibles。"
+[node name="CoolFill" type="DirectionalLight3D" parent="." unique_id=1881969358]
+transform = Transform3D(-0.76604444, -0.36868784, 0.5265408, 0, 0.81915206, 0.57357645, -0.64278764, 0.43938506, -0.62750685, 0, 0, 0)
+light_color = Color(0.6627451, 0.77254903, 1, 1)
+light_energy = 0.12
+
+[node name="CenterPlaza" type="Node3D" parent="." unique_id=1179653536 instance=ExtResource("13_wj67y")]
+editor_description = "三圈独立石砖；仅铺地，不阻挡车辆。所有石砖均可在编辑器单独移动。"
+
+[node name="Scenery" type="Node3D" parent="." unique_id=843102891 instance=ExtResource("14_8hc5s")]
+editor_description = "参考图外围布景；草丛、碎石不参与碰撞。主体地标另设可见的底座碰撞。"
+
+[node name="Landmarks" type="Node3D" parent="." unique_id=1148900089]
+
+[node name="TreeNorthWest" type="StaticBody3D" parent="Landmarks" unique_id=1651426723 groups=["solid_walls"] instance=ExtResource("15_eulya")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.99026805, 0, 0.1391731, 0, 1, 0, -0.1391731, 0, 0.99026805, -32, 0, -23)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="TreeSouthEast" type="StaticBody3D" parent="Landmarks" unique_id=1932608509 groups=["solid_walls"] instance=ExtResource("15_eulya")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9781476, 0, -0.2079117, 0, 1, 0, 0.2079117, 0, 0.9781476, 32, 0, 22)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="TombNorthEast" type="StaticBody3D" parent="Landmarks" unique_id=1228274933 groups=["solid_walls"] instance=ExtResource("16_sryrf")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9781476, 0, -0.2079117, 0, 1, 0, 0.2079117, 0, 0.9781476, 32, 0, -23)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="TombSouthWest" type="StaticBody3D" parent="Landmarks" unique_id=1166358735 groups=["solid_walls"] instance=ExtResource("16_sryrf")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -32, 0, 22)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="CrystalWest" type="StaticBody3D" parent="Landmarks" unique_id=933611901 groups=["solid_walls"] instance=ExtResource("17_tq6pi")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.9848077, -34, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="CrystalGlowWest" type="OmniLight3D" parent="Landmarks" unique_id=2070709828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 1.2, 0)
+light_color = Color(0.9137255, 0.4392157, 1, 1)
+light_energy = 1.1
+
+[node name="CrystalEast" type="StaticBody3D" parent="Landmarks" unique_id=1581964060 groups=["solid_walls"] instance=ExtResource("17_tq6pi")]
+editor_description = "GitHub 更新素材；VisualRoot 可独立替换。不可破坏；沿用撞墙反馈。"
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, 34, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="CrystalGlowEast" type="OmniLight3D" parent="Landmarks" unique_id=1440562051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1.2, 0)
+light_color = Color(0.9137255, 0.4392157, 1, 1)
+light_energy = 1.1
+
+[node name="ArchNorth" type="Node3D" parent="Landmarks" unique_id=711063920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.5)
+
+[node name="Model" type="Node3D" parent="Landmarks/ArchNorth" unique_id=168779075 instance=ExtResource("18_k0qio")]
+transform = Transform3D(1.9, 0, 0, 0, 1.9, 0, 0, 0, 1.9, 0, 0, 0)
+
+[node name="PillarLeft" parent="Landmarks/ArchNorth" unique_id=1159392646 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="BodyCollision" parent="Landmarks/ArchNorth/PillarLeft" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+shape = SubResource("BoxShape3D_bnh7v")
+
+[node name="VisualRoot" parent="Landmarks/ArchNorth/PillarLeft" index="1"]
+visible = false
+
+[node name="Model" parent="Landmarks/ArchNorth/PillarLeft/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="PillarRight" parent="Landmarks/ArchNorth" unique_id=1028433493 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.35, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="BodyCollision" parent="Landmarks/ArchNorth/PillarRight" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+shape = SubResource("BoxShape3D_t4enk")
+
+[node name="VisualRoot" parent="Landmarks/ArchNorth/PillarRight" index="1"]
+visible = false
+
+[node name="Model" parent="Landmarks/ArchNorth/PillarRight/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="ArchSouth" type="Node3D" parent="Landmarks" unique_id=1679381238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24.5)
+
+[node name="Model" type="Node3D" parent="Landmarks/ArchSouth" unique_id=407648113 instance=ExtResource("18_k0qio")]
+transform = Transform3D(1.9, 0, 0, 0, 1.9, 0, 0, 0, 1.9, 0, 0, 0)
+
+[node name="PillarLeft" parent="Landmarks/ArchSouth" unique_id=259980321 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="BodyCollision" parent="Landmarks/ArchSouth/PillarLeft" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+shape = SubResource("BoxShape3D_ketfd")
+
+[node name="VisualRoot" parent="Landmarks/ArchSouth/PillarLeft" index="1"]
+visible = false
+
+[node name="Model" parent="Landmarks/ArchSouth/PillarLeft/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="PillarRight" parent="Landmarks/ArchSouth" unique_id=995377625 groups=["solid_walls"] instance=ExtResource("1")]
+editor_description = "竞技场现有不可破坏墙。仅整理文件位置，保留碰撞与结算。"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.35, 0, 0)
+collision_mask = 2
+script = ExtResource("5_2s1m6")
+tuning = ExtResource("6_40cb3")
+
+[node name="BodyCollision" parent="Landmarks/ArchSouth/PillarRight" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+shape = SubResource("BoxShape3D_354eq")
+
+[node name="VisualRoot" parent="Landmarks/ArchSouth/PillarRight" index="1"]
+visible = false
+
+[node name="Model" parent="Landmarks/ArchSouth/PillarRight/VisualRoot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("Mesh")
+
+[node name="LanternNorthWest" type="Node3D" parent="Landmarks" unique_id=1419573779 instance=ExtResource("19_ulq43")]
+transform = Transform3D(1.45, 0, 0, 0, 1.45, 0, 0, 0, 1.45, -29.4, 0, -22.8)
+
+[node name="LanternNorthWestGlow" type="OmniLight3D" parent="Landmarks" unique_id=1705938826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.85, 3.3, -22.3)
+light_color = Color(1, 0.7647059, 0.4117647, 1)
+light_energy = 1.25
+
+[node name="LanternSouthEast" type="Node3D" parent="Landmarks" unique_id=853077874 instance=ExtResource("19_ulq43")]
+transform = Transform3D(1.45, 0, 0, 0, 1.45, 0, 0, 0, 1.45, 34.5, 0, 22.2)
+
+[node name="LanternSouthEastGlow" type="OmniLight3D" parent="Landmarks" unique_id=1634131079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.05, 3.3, 22.7)
+light_color = Color(1, 0.7647059, 0.4117647, 1)
+light_energy = 1.25
+
+[editable path="SolidWalls/North"]
+[editable path="SolidWalls/South"]
+[editable path="SolidWalls/West"]
+[editable path="SolidWalls/East"]
+[editable path="Landmarks/ArchNorth/PillarLeft"]
+[editable path="Landmarks/ArchNorth/PillarRight"]
+[editable path="Landmarks/ArchSouth/PillarLeft"]
+[editable path="Landmarks/ArchSouth/PillarRight"]

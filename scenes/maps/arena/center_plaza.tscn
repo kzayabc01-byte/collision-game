@@ -1,0 +1,376 @@
+[gd_scene format=4]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4d2b6"]
+albedo_color = Color(0.4745098, 0.39215687, 0.56078434, 1)
+roughness = 0.88
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_rodcm"]
+_surfaces = [{
+"aabb": AABB(2.9560666, 0, -0.8014077, 1.6751041, 0.18, 1.6028154),
+"format": 34359738375,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 54,
+"vertex_data": PackedByteArray("8WFBQOxROD5+ave+652SQOxROD5XlTu/652SQOxROD5XlTs/8WFBQOxROD5+ave+652SQOxROD5XlTs/8WFBQOxROD5+avc+MjA9QAAAAAAU9AK/jTKUQAAAAAAOKU2/jTKUQI/C9T0OKU2/MjA9QAAAAAAU9AK/jTKUQI/C9T0OKU2/MjA9QI/C9T0U9AK/jTKUQAAAAAAOKU2/jTKUQAAAAAAOKU0/jTKUQI/C9T0OKU0/jTKUQAAAAAAOKU2/jTKUQI/C9T0OKU0/jTKUQI/C9T0OKU2/jTKUQAAAAAAOKU0/MjA9QAAAAAAU9AI/MjA9QI/C9T0U9AI/jTKUQAAAAAAOKU0/MjA9QI/C9T0U9AI/jTKUQI/C9T0OKU0/MjA9QAAAAAAU9AI/MjA9QAAAAAAU9AK/MjA9QI/C9T0U9AK/MjA9QAAAAAAU9AI/MjA9QI/C9T0U9AK/MjA9QI/C9T0U9AI/MjA9QI/C9T0U9AK/jTKUQI/C9T0OKU2/652SQOxROD5XlTu/MjA9QI/C9T0U9AK/652SQOxROD5XlTu/8WFBQOxROD5+ave+jTKUQI/C9T0OKU2/jTKUQI/C9T0OKU0/652SQOxROD5XlTs/jTKUQI/C9T0OKU2/652SQOxROD5XlTs/652SQOxROD5XlTu/jTKUQI/C9T0OKU0/MjA9QI/C9T0U9AI/8WFBQOxROD5+avc+jTKUQI/C9T0OKU0/8WFBQOxROD5+avc+652SQOxROD5XlTs/MjA9QI/C9T0U9AI/MjA9QI/C9T0U9AK/8WFBQOxROD5+ave+MjA9QI/C9T0U9AI/8WFBQOxROD5+ave+8WFBQOxROD5+avc+KVH94dwhKqxItYzy2QhVpgKeWtPVL2jMKVH94dwhKqwCnlrT1S9ozCJqTcajSuetAAAqzF1XI6L//82ssqXYtXHaY9gvu+uSAAAqzF1XI6Jx2mPYL7vrklMhw8vzS0uk///NrLKl2LUSoP9/Z2K+k4ms1aPiR3a6///NrLKl2LWJrNWj4kd2unHaY9gvu+uSEqD/f2divpP2J/9/AKMNuJVQzaHTjxikEqD/f2divpOVUM2h048YpIms1aPiR3a69if/fwCjDbgAACrMXVcjolMhw8vzS0uk9if/fwCjDbhTIcPL80tLpJVQzaHTjxikUyHDy/NLS6Rx2mPYL7vrkki1jPLZCFWmUyHDy/NLS6RItYzy2QhVpilR/eHcISqscdpj2C+765KJrNWj4kd2ugKeWtPVL2jMcdpj2C+765ICnlrT1S9ozEi1jPLZCFWmiazVo+JHdrqVUM2h048YpCJqTcajSuetiazVo+JHdroiak3Go0rnrQKeWtPVL2jMlVDNodOPGKRTIcPL80tLpClR/eHcISqslVDNodOPGKQpUf3h3CEqrCJqTcajSuet")
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0whmq"]
+albedo_color = Color(0.5294118, 0.45490196, 0.61960787, 1)
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbpoa"]
+albedo_color = Color(0.42745098, 0.35686275, 0.5254902, 1)
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_81wss"]
+albedo_color = Color(0.5686275, 0.4862745, 0.654902, 1)
+roughness = 0.88
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_7siq4"]
+_surfaces = [{
+"aabb": AABB(4.9156947, 0, -0.82269186, 2.0357928, 0.18, 1.6453837),
+"format": 34359738375,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 54,
+"vertex_data": PackedByteArray("VF2fQOxROD440Au/q8HcQOxROD5yrEG/q8HcQOxROD5yrEE/VF2fQOxROD440Au/q8HcQOxROD5yrEE/VF2fQOxROD440As/X02dQAAAAABE7hS/lnLeQAAAAADvm1K/lnLeQI/C9T3vm1K/X02dQAAAAABE7hS/lnLeQI/C9T3vm1K/X02dQI/C9T1E7hS/lnLeQAAAAADvm1K/lnLeQAAAAADvm1I/lnLeQI/C9T3vm1I/lnLeQAAAAADvm1K/lnLeQI/C9T3vm1I/lnLeQI/C9T3vm1K/lnLeQAAAAADvm1I/X02dQAAAAABE7hQ/X02dQI/C9T1E7hQ/lnLeQAAAAADvm1I/X02dQI/C9T1E7hQ/lnLeQI/C9T3vm1I/X02dQAAAAABE7hQ/X02dQAAAAABE7hS/X02dQI/C9T1E7hS/X02dQAAAAABE7hQ/X02dQI/C9T1E7hS/X02dQI/C9T1E7hQ/X02dQI/C9T1E7hS/lnLeQI/C9T3vm1K/q8HcQOxROD5yrEG/X02dQI/C9T1E7hS/q8HcQOxROD5yrEG/VF2fQOxROD440Au/lnLeQI/C9T3vm1K/lnLeQI/C9T3vm1I/q8HcQOxROD5yrEE/lnLeQI/C9T3vm1K/q8HcQOxROD5yrEE/q8HcQOxROD5yrEG/lnLeQI/C9T3vm1I/X02dQI/C9T1E7hQ/VF2fQOxROD440As/lnLeQI/C9T3vm1I/VF2fQOxROD440As/q8HcQOxROD5yrEE/X02dQI/C9T1E7hQ/X02dQI/C9T1E7hS/VF2fQOxROD440Au/X02dQI/C9T1E7hQ/VF2fQOxROD440Au/VF2fQOxROD440As/C1KF4iIhc6w6tU/xJAbNp5qdxtNML0XMC1KF4iIhc6yancbTTC9FzLNrzMc+SLOuAADrzl5YIqD//zOsY6UitmnagteYu2+VAADrzl5YIqBp2oLXmLtvlWIiP82NSnyj//8zrGOlIraWo/9/2V9DloutGaT9Rsq7//8zrGOlIraLrRmk/UbKu2nagteYu2+VlqP/f9lfQ5bdKP9/iqOptztSwqJtjjujlqP/f9lfQ5Y7UsKibY47o4utGaT9Rsq73Sj/f4qjqbcAAOvOXlgioGIiP82NSnyj3Sj/f4qjqbdiIj/NjUp8oztSwqJtjjujYiI/zY1KfKNp2oLXmLtvlTq1T/EkBs2nYiI/zY1KfKM6tU/xJAbNpwtSheIiIXOsadqC15i7b5WLrRmk/UbKu5qdxtNML0XMadqC15i7b5WancbTTC9FzDq1T/EkBs2ni60ZpP1Gyrs7UsKibY47o7NrzMc+SLOui60ZpP1Gyruza8zHPkizrpqdxtNML0XMO1LCom2OO6NiIj/NjUp8owtSheIiIXOsO1LCom2OO6MLUoXiIiFzrLNrzMc+SLOu")
+}]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0cueu"]
+_surfaces = [{
+"aabb": AABB(7.266506, 0, -0.89464426, 2.040594, 0.18, 1.7892885),
+"format": 34359738375,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 54,
+"vertex_data": PackedByteArray("RJTqQOxROD6mPii/1QsUQexROD79XFS/1QsUQexROD79XFQ/RJTqQOxROD6mPii/1QsUQexROD79XFQ/RJTqQOxROD6mPig/OIfoQAAAAABk0DK/4ukUQQAAAABoB2W/4ukUQY/C9T1oB2W/OIfoQAAAAABk0DK/4ukUQY/C9T1oB2W/OIfoQI/C9T1k0DK/4ukUQQAAAABoB2W/4ukUQQAAAABoB2U/4ukUQY/C9T1oB2U/4ukUQQAAAABoB2W/4ukUQY/C9T1oB2U/4ukUQY/C9T1oB2W/4ukUQQAAAABoB2U/OIfoQAAAAABk0DI/OIfoQI/C9T1k0DI/4ukUQQAAAABoB2U/OIfoQI/C9T1k0DI/4ukUQY/C9T1oB2U/OIfoQAAAAABk0DI/OIfoQAAAAABk0DK/OIfoQI/C9T1k0DK/OIfoQAAAAABk0DI/OIfoQI/C9T1k0DK/OIfoQI/C9T1k0DI/OIfoQI/C9T1k0DK/4ukUQY/C9T1oB2W/1QsUQexROD79XFS/OIfoQI/C9T1k0DK/1QsUQexROD79XFS/RJTqQOxROD6mPii/4ukUQY/C9T1oB2W/4ukUQY/C9T1oB2U/1QsUQexROD79XFQ/4ukUQY/C9T1oB2W/1QsUQexROD79XFQ/1QsUQexROD79XFS/4ukUQY/C9T1oB2U/OIfoQI/C9T1k0DI/RJTqQOxROD6mPig/4ukUQY/C9T1oB2U/RJTqQOxROD6mPig/1QsUQexROD79XFQ/OIfoQI/C9T1k0DI/OIfoQI/C9T1k0DK/RJTqQOxROD6mPii/OIfoQI/C9T1k0DI/RJTqQOxROD6mPii/RJTqQOxROD6mPig/1FLJ4rEgyay5tM3wQwT+qHWd7tMbLzjM1FLJ4rEgyax1ne7TGy84zGNs6sh1RkOvAAAT0NlYSZ///++rQKVCtmraINe9u8GWAAAT0NlYSZ9q2iDXvbvBljQj5s3ASTOj///vq0ClQrb4pP9/6F5Dl/OtkaQyRru8///vq0ClQrbzrZGkMka7vGraINe9u8GW+KT/f+heQ5c3Kf9/v6OBt/dSi6M6jcqi+KT/f+heQ5f3UoujOo3KovOtkaQyRru8Nyn/f7+jgbcAABPQ2VhJnzQj5s3ASTOjNyn/f7+jgbc0I+bNwEkzo/dSi6M6jcqiNCPmzcBJM6Nq2iDXvbvBlrm0zfBDBP6oNCPmzcBJM6O5tM3wQwT+qNRSyeKxIMmsatog1727wZbzrZGkMka7vHWd7tMbLzjMatog1727wZZ1ne7TGy84zLm0zfBDBP6o862RpDJGu7z3UoujOo3KomNs6sh1RkOv862RpDJGu7xjbOrIdUZDr3Wd7tMbLzjM91KLozqNyqI0I+bNwEkzo9RSyeKxIMms91KLozqNyqLUUsnisSDJrGNs6sh1RkOv")
+}]
+
+[node name="CenterPlaza" type="Node3D" unique_id=1179653536]
+editor_description = "三圈独立石砖；仅铺地，不阻挡车辆。所有石砖均可在编辑器单独移动。"
+
+[node name="Ring1" type="Node3D" parent="." unique_id=7485383]
+
+[node name="Stone01" type="MeshInstance3D" parent="Ring1" unique_id=890532047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone02" type="MeshInstance3D" parent="Ring1" unique_id=792334989]
+transform = Transform3D(0.9238795, 0, 0.38268346, 0, 1, 0, -0.38268346, 0, 0.9238795, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone03" type="MeshInstance3D" parent="Ring1" unique_id=883652951]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone04" type="MeshInstance3D" parent="Ring1" unique_id=257930383]
+transform = Transform3D(0.38268343, 0, 0.9238795, 0, 1, 0, -0.9238795, 0, 0.38268343, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone05" type="MeshInstance3D" parent="Ring1" unique_id=1488683448]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone06" type="MeshInstance3D" parent="Ring1" unique_id=1384314637]
+transform = Transform3D(-0.3826834, 0, 0.92387956, 0, 1, 0, -0.92387956, 0, -0.3826834, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone07" type="MeshInstance3D" parent="Ring1" unique_id=795652680]
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone08" type="MeshInstance3D" parent="Ring1" unique_id=2112330036]
+transform = Transform3D(-0.9238795, 0, 0.3826835, 0, 1, 0, -0.3826835, 0, -0.9238795, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone09" type="MeshInstance3D" parent="Ring1" unique_id=139089943]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone10" type="MeshInstance3D" parent="Ring1" unique_id=20123927]
+transform = Transform3D(-0.9238795, 0, -0.38268343, 0, 1, 0, 0.38268343, 0, -0.9238795, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone11" type="MeshInstance3D" parent="Ring1" unique_id=1330748323]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone12" type="MeshInstance3D" parent="Ring1" unique_id=950187078]
+transform = Transform3D(-0.38268358, 0, -0.9238795, 0, 1, 0, 0.9238795, 0, -0.38268358, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone13" type="MeshInstance3D" parent="Ring1" unique_id=1317086335]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone14" type="MeshInstance3D" parent="Ring1" unique_id=1493301752]
+transform = Transform3D(0.3826836, 0, -0.92387944, 0, 1, 0, 0.92387944, 0, 0.3826836, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone15" type="MeshInstance3D" parent="Ring1" unique_id=144841450]
+transform = Transform3D(0.70710665, 0, -0.7071069, 0, 1, 0, 0.7071069, 0, 0.70710665, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Stone16" type="MeshInstance3D" parent="Ring1" unique_id=1318353143]
+transform = Transform3D(0.92387956, 0, -0.38268343, 0, 1, 0, 0.38268343, 0, 0.92387956, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_rodcm")
+
+[node name="Ring2" type="Node3D" parent="." unique_id=1787348838]
+
+[node name="Stone01" type="MeshInstance3D" parent="Ring2" unique_id=213721252]
+transform = Transform3D(0.99680173, 0, 0.07991469, 0, 1, 0, -0.07991469, 0, 0.99680173, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone02" type="MeshInstance3D" parent="Ring2" unique_id=799379457]
+transform = Transform3D(0.93390965, 0, 0.35750908, 0, 1, 0, -0.35750908, 0, 0.93390965, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone03" type="MeshInstance3D" parent="Ring2" unique_id=1758757747]
+transform = Transform3D(0.7953578, 0, 0.6061402, 0, 1, 0, -0.6061402, 0, 0.7953578, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone04" type="MeshInstance3D" parent="Ring2" unique_id=1389169493]
+transform = Transform3D(0.5923708, 0, 0.80566543, 0, 1, 0, -0.80566543, 0, 0.5923708, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone05" type="MeshInstance3D" parent="Ring2" unique_id=1106979789]
+transform = Transform3D(0.34139344, 0, 0.9399205, 0, 1, 0, -0.9399205, 0, 0.34139344, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone06" type="MeshInstance3D" parent="Ring2" unique_id=317556871]
+transform = Transform3D(0.06275838, 0, 0.99802876, 0, 1, 0, -0.99802876, 0, 0.06275838, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone07" type="MeshInstance3D" parent="Ring2" unique_id=1760125870]
+transform = Transform3D(-0.22096099, 0, 0.97528267, 0, 1, 0, -0.97528267, 0, -0.22096099, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone08" type="MeshInstance3D" parent="Ring2" unique_id=659271485]
+transform = Transform3D(-0.4867793, 0, 0.87352496, 0, 1, 0, -0.87352496, 0, -0.4867793, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone09" type="MeshInstance3D" parent="Ring2" unique_id=744557587]
+transform = Transform3D(-0.7131618, 0, 0.70099944, 0, 1, 0, -0.70099944, 0, -0.7131618, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone10" type="MeshInstance3D" parent="Ring2" unique_id=1342961376]
+transform = Transform3D(-0.8817681, 0, 0.4716832, 0, 1, 0, -0.4716832, 0, -0.8817681, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone11" type="MeshInstance3D" parent="Ring2" unique_id=267761188]
+transform = Transform3D(-0.9789388, 0, 0.20415379, 0, 1, 0, -0.20415379, 0, -0.9789388, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone12" type="MeshInstance3D" parent="Ring2" unique_id=985364481]
+transform = Transform3D(-0.99680173, 0, -0.079914704, 0, 1, 0, 0.079914704, 0, -0.99680173, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone13" type="MeshInstance3D" parent="Ring2" unique_id=90753596]
+transform = Transform3D(-0.9339097, 0, -0.357509, 0, 1, 0, 0.357509, 0, -0.9339097, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone14" type="MeshInstance3D" parent="Ring2" unique_id=235888382]
+transform = Transform3D(-0.79535776, 0, -0.60614026, 0, 1, 0, 0.60614026, 0, -0.79535776, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone15" type="MeshInstance3D" parent="Ring2" unique_id=892168691]
+transform = Transform3D(-0.59237087, 0, -0.80566543, 0, 1, 0, 0.80566543, 0, -0.59237087, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone16" type="MeshInstance3D" parent="Ring2" unique_id=1498871511]
+transform = Transform3D(-0.34139356, 0, -0.9399204, 0, 1, 0, 0.9399204, 0, -0.34139356, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone17" type="MeshInstance3D" parent="Ring2" unique_id=1612174536]
+transform = Transform3D(-0.06275817, 0, -0.99802876, 0, 1, 0, 0.99802876, 0, -0.06275817, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone18" type="MeshInstance3D" parent="Ring2" unique_id=826142567]
+transform = Transform3D(0.22096108, 0, -0.9752826, 0, 1, 0, 0.9752826, 0, 0.22096108, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone19" type="MeshInstance3D" parent="Ring2" unique_id=643388130]
+transform = Transform3D(0.48677936, 0, -0.87352496, 0, 1, 0, 0.87352496, 0, 0.48677936, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone20" type="MeshInstance3D" parent="Ring2" unique_id=676812092]
+transform = Transform3D(0.71316177, 0, -0.7009995, 0, 1, 0, 0.7009995, 0, 0.71316177, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone21" type="MeshInstance3D" parent="Ring2" unique_id=509240897]
+transform = Transform3D(0.88176805, 0, -0.47168332, 0, 1, 0, 0.47168332, 0, 0.88176805, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Stone22" type="MeshInstance3D" parent="Ring2" unique_id=833622744]
+transform = Transform3D(0.9789388, 0, -0.20415372, 0, 1, 0, 0.20415372, 0, 0.9789388, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_7siq4")
+
+[node name="Ring3" type="Node3D" parent="." unique_id=877217612]
+
+[node name="Stone01" type="MeshInstance3D" parent="Ring3" unique_id=1713801241]
+transform = Transform3D(0.98722726, 0, 0.15931821, 0, 1, 0, -0.15931821, 0, 0.98722726, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone02" type="MeshInstance3D" parent="Ring3" unique_id=1732330073]
+transform = Transform3D(0.9204129, 0, 0.39094767, 0, 1, 0, -0.39094767, 0, 0.9204129, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone03" type="MeshInstance3D" parent="Ring3" unique_id=63212304]
+transform = Transform3D(0.8001075, 0, 0.5998567, 0, 1, 0, -0.5998567, 0, 0.8001075, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone04" type="MeshInstance3D" parent="Ring3" unique_id=2048435591]
+transform = Transform3D(0.6333027, 0, 0.7739042, 0, 1, 0, -0.7739042, 0, 0.6333027, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone05" type="MeshInstance3D" parent="Ring3" unique_id=1020539008]
+transform = Transform3D(0.42969272, 0, 0.9029752, 0, 1, 0, -0.9029752, 0, 0.42969272, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone06" type="MeshInstance3D" parent="Ring3" unique_id=1662091751]
+transform = Transform3D(0.20111053, 0, 0.97956854, 0, 1, 0, -0.97956854, 0, 0.20111053, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone07" type="MeshInstance3D" parent="Ring3" unique_id=973994727]
+transform = Transform3D(-0.039159458, 0, 0.99923295, 0, 1, 0, -0.99923295, 0, -0.039159458, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone08" type="MeshInstance3D" parent="Ring3" unique_id=1377400752]
+transform = Transform3D(-0.27715376, 0, 0.96082556, 0, 1, 0, -0.96082556, 0, -0.27715376, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone09" type="MeshInstance3D" parent="Ring3" unique_id=1325681058]
+transform = Transform3D(-0.49904066, 0, 0.8665786, 0, 1, 0, -0.8665786, 0, -0.49904066, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone10" type="MeshInstance3D" parent="Ring3" unique_id=1646978898]
+transform = Transform3D(-0.69192535, 0, 0.72196907, 0, 1, 0, -0.72196907, 0, -0.69192535, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone11" type="MeshInstance3D" parent="Ring3" unique_id=383979330]
+transform = Transform3D(-0.8445978, 0, 0.5354013, 0, 1, 0, -0.5354013, 0, -0.8445978, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone12" type="MeshInstance3D" parent="Ring3" unique_id=320976609]
+transform = Transform3D(-0.9481852, 0, 0.31771815, 0, 1, 0, -0.31771815, 0, -0.9481852, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone13" type="MeshInstance3D" parent="Ring3" unique_id=1574623783]
+transform = Transform3D(-0.9966676, 0, 0.08157017, 0, 1, 0, -0.08157017, 0, -0.9966676, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone14" type="MeshInstance3D" parent="Ring3" unique_id=1611408874]
+transform = Transform3D(-0.9872273, 0, -0.15931815, 0, 1, 0, 0.15931815, 0, -0.9872273, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone15" type="MeshInstance3D" parent="Ring3" unique_id=1447601461]
+transform = Transform3D(-0.9204129, 0, -0.3909477, 0, 1, 0, 0.3909477, 0, -0.9204129, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone16" type="MeshInstance3D" parent="Ring3" unique_id=1159389820]
+transform = Transform3D(-0.80010754, 0, -0.59985656, 0, 1, 0, 0.59985656, 0, -0.80010754, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone17" type="MeshInstance3D" parent="Ring3" unique_id=1457651498]
+transform = Transform3D(-0.63330275, 0, -0.77390414, 0, 1, 0, 0.77390414, 0, -0.63330275, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone18" type="MeshInstance3D" parent="Ring3" unique_id=168253180]
+transform = Transform3D(-0.42969263, 0, -0.9029752, 0, 1, 0, 0.9029752, 0, -0.42969263, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone19" type="MeshInstance3D" parent="Ring3" unique_id=1896257244]
+transform = Transform3D(-0.20111032, 0, -0.9795686, 0, 1, 0, 0.9795686, 0, -0.20111032, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone20" type="MeshInstance3D" parent="Ring3" unique_id=110702795]
+transform = Transform3D(0.03915931, 0, -0.999233, 0, 1, 0, 0.999233, 0, 0.03915931, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone21" type="MeshInstance3D" parent="Ring3" unique_id=2049990981]
+transform = Transform3D(0.2771536, 0, -0.9608256, 0, 1, 0, 0.9608256, 0, 0.2771536, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone22" type="MeshInstance3D" parent="Ring3" unique_id=1247097248]
+transform = Transform3D(0.49904072, 0, -0.8665785, 0, 1, 0, 0.8665785, 0, 0.49904072, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone23" type="MeshInstance3D" parent="Ring3" unique_id=993193675]
+transform = Transform3D(0.6919254, 0, -0.721969, 0, 1, 0, 0.721969, 0, 0.6919254, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_4d2b6")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone24" type="MeshInstance3D" parent="Ring3" unique_id=1614671592]
+transform = Transform3D(0.8445979, 0, -0.5354012, 0, 1, 0, 0.5354012, 0, 0.8445979, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_0whmq")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone25" type="MeshInstance3D" parent="Ring3" unique_id=1297086070]
+transform = Transform3D(0.94818515, 0, -0.3177183, 0, 1, 0, 0.3177183, 0, 0.94818515, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_rbpoa")
+mesh = SubResource("ArrayMesh_0cueu")
+
+[node name="Stone26" type="MeshInstance3D" parent="Ring3" unique_id=1928927638]
+transform = Transform3D(0.99666756, 0, -0.08157032, 0, 1, 0, 0.08157032, 0, 0.99666756, 0, 0.025, 0)
+material_override = SubResource("StandardMaterial3D_81wss")
+mesh = SubResource("ArrayMesh_0cueu")
